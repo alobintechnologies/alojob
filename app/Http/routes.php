@@ -52,6 +52,7 @@ Route::group(['middleware' => 'web'], function () {
         //Route::post('/invite', 'InvitationController@store');
         //Route::get('/invite/accept', 'InvitationController@accept');
         Route::resource('users', 'UserController');
+        Route::resource("clients","ClientController");
       //});
     });
 });

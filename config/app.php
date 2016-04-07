@@ -149,6 +149,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
 
+        'Laralib\L5scaffold\GeneratorsServiceProvider',
+
         /*
          * Application Service Providers...
          */
