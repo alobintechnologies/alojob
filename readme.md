@@ -10,16 +10,16 @@ LaraSaaS is a web application Startup kit for implementing Multitenant supported
 
 LaraSaaS developed using laravel to adopt all the in build features available in that framework.
 
-## Official Documentation for Laravel
-
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
 ## License
 
 The LaraSaaS is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
-# Introduction
+# Features
+
+1. Account Creation with subdomain
+2. User can have multiple accounts
+3. Account can have many users
+4. LaraSaaS allows user to switch to another account in same login
+5. Invitation
+6. Subscription
+7. Payment Stripe Integration

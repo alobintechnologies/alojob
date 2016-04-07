@@ -53,17 +53,32 @@ class UserController extends Controller
           return back()
                     ->withErrors($validator)
                     ->withInput();
-        } else {          
-          $user = new User;
-          $user->name = $data['name'];
-          $user->email = $data['email'];
-          $user->password = bcrypt($data['password']);
-          $user->save();
+        } else {
+          $user = User::where('email', $data['email'])->first();
+          $new_user = false;
+          if(!$user) {
+            $user = new User;
+            $user->name = $data['name'];
+            $user->email = $data['email'];
+            $user->password = bcrypt($data['password']);
+            $user->save();
+            $new_user = true;
+          }
 
-          $membership = new Membership;
-          $membership->user_id = $user->id;
-          $membership->role = 'member';
-          AccountUtil::current()->memberships()->save($membership);
+          $membership = Membership::where('account_id', AccountUtil::current()->id)->where('user_id', $user->id)->first();
+          if(!$membership) {
+            $membership = new Membership;
+            $membership->user_id = $user->id;
+            $membership->role = 'member';
+            AccountUtil::current()->memberships()->save($membership);
+            if($new_user) {
+              $request->session()->flash('success', 'User added successfully');
+            } else {
+              $request->session()->flash('success', "User joined successfully, $user->email must use their password to login into account.");
+            }
+          } else {
+            $request->session()->flash('danger', "User $user->email already exists");
+          }
 
           return redirect('users');
         }
