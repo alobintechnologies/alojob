@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Validator;
 use App\Client;
 use Illuminate\Http\Request;
 
@@ -38,20 +38,34 @@ class ClientController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$client = new Client();
+		$data = $request->all();
 
-		$client->title = $request->input("title");
-        $client->first_name = $request->input("first_name");
-        $client->last_name = $request->input("last_name");
-        $client->company_name = $request->input("company_name");
-        $client->primary_mobile = $request->input("primary_mobile");
-        $client->secondary_mobile = $request->input("secondary_mobile");
-        $client->primary_email = $request->input("primary_email");
-        $client->secondary_email = $request->input("secondary_email");
+		$validator = Validator::make($data, [
+			'first_name' => 'required',
+			'company_name' => 'required',
+			'primary_email' => 'required|email'
+		]);
 
-		$client->save();
+		if($validator->fails()) {
+			return back()
+						->withErrors($validator)
+						->withInput();
+		} else {
+			$client = new Client();
 
-		return redirect()->route('clients.index')->with('message', 'Item created successfully.');
+			$client->title = $request->input("title");
+			$client->first_name = $request->input("first_name");
+			$client->last_name = $request->input("last_name");
+			$client->company_name = $request->input("company_name");
+			$client->primary_mobile = $request->input("primary_mobile");
+			$client->secondary_mobile = $request->input("secondary_mobile");
+			$client->primary_email = $request->input("primary_email");
+			$client->secondary_email = $request->input("secondary_email");
+
+			$client->save();
+
+			return redirect()->route('clients.index')->with('message', 'Item created successfully.');
+		}
 	}
 
 	/**

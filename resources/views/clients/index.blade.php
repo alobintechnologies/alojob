@@ -17,15 +17,9 @@
                 <table class="table table-condensed table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>TITLE</th>
-                        <th>FIRST_NAME</th>
-                        <th>LAST_NAME</th>
-                        <th>COMPANY_NAME</th>
-                        <th>PRIMARY_MOBILE</th>
-                        <th>SECONDARY_MOBILE</th>
-                        <th>PRIMARY_EMAIL</th>
-                        <th>SECONDARY_EMAIL</th>
+                            <th>Name</th>
+                            <th>Company Name</th>
+                            <th>Email</th>
                             <th class="text-right">OPTIONS</th>
                         </tr>
                     </thead>
@@ -33,15 +27,9 @@
                     <tbody>
                         @foreach($clients as $client)
                             <tr>
-                                <td>{{$client->id}}</td>
-                                <td>{{$client->title}}</td>
-                    <td>{{$client->first_name}}</td>
-                    <td>{{$client->last_name}}</td>
-                    <td>{{$client->company_name}}</td>
-                    <td>{{$client->primary_mobile}}</td>
-                    <td>{{$client->secondary_mobile}}</td>
-                    <td>{{$client->primary_email}}</td>
-                    <td>{{$client->secondary_email}}</td>
+                                <td><a href="{{ url('clients/'.$client->id) }}">{{ $client->name() }}</a></td>
+                                <td>{{ $client->company_name }}</td>
+                                <td>{{$client->primary_email}}</td>
                                 <td class="text-right">
                                     <a class="btn btn-xs btn-primary" href="{{ route('clients.show', $client->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
                                     <a class="btn btn-xs btn-warning" href="{{ route('clients.edit', $client->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
