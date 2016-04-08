@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>AloSaaS</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -48,7 +48,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}"><i class="fa fa-home"></i></a></li>
+                    <li><a href="{{ url('/dashboard') }}"><i class="fa fa-home"></i></a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -63,6 +63,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/account/change') }}"><i class="fa fa-btn fa-chevron-circle-up"></i> Change Account</a></li>
                                 <li><a href="{{ url('/account/register') }}"><i class="fa fa-btn fa-building-o"></i> Add Account</a></li>
+                                <li><a href="{{ url('users') }}"><i class="fa fa-btn fa-users"></i> Collaborators</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                             </ul>
                         </li>
@@ -75,7 +76,10 @@
         </div>
     </nav>
     @include('layouts.flash_message')
-    @yield('content')
+    <div class="container">
+        @yield('header')
+        @yield('content')
+    </div><!-- /.container -->
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

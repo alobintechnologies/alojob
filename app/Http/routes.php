@@ -23,9 +23,14 @@
 |
 */
 
-Route::bind('accounts', function($subdomain) {
-  return App\Account::where('subdomain', $subdomain)->first();
-});
+/*Route::bind('accounts', function($subdomain) {
+  //dd(Auth::check());
+  $currentAccount = App\Account::where('subdomain', $subdomain)->first();
+  //$currentAccount = App\Account::where('subdomain', $subdomain)->first();
+  /// TODO: check the account whether logged in user is having membership in it.
+
+  return $currentAccount;
+});*/
 
 Route::group(['middleware' => 'web'], function () {
 
@@ -36,18 +41,24 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['middleware' => 'auth'], function() {
       //Route::get('/home', 'HomeController@index');
       Route::get('/account/change', 'AccountController@change');
+      Route::get('/account/switch/{subdomain}', 'AccountController@switchAccount');
       Route::get('/account/register', 'AccountController@create');
       Route::post('/account/register', 'AccountController@store');
 
-      Route::group(['prefix' => 'accounts/{accounts}'], function () {
+      //Route::group(['middleware' => 'account.verify'], function () { //, 'prefix' => 'accounts/{accounts}'
       //Route::group(['domain' => '{accounts}.alotracker.dev'], function() {
-        Route::get('/', 'AccountController@dashboard');
-        Route::resource('user', 'UserController');
-      });
+        Route::get('/dashboard', 'AccountController@dashboard');
+        //Route::get('/invite/create', 'InvitationController@create');
+        //Route::post('/invite', 'InvitationController@store');
+        //Route::get('/invite/accept', 'InvitationController@accept');
+        Route::resource('users', 'UserController');
+        Route::resource("clients","ClientController");
+      //});
     });
 });
 
 Event::listen("illuminate.query", function($query, $bindings, $time, $name) {
+  dd(App::environment());
       if (App::environment() == "development" || App::environment() == "local")
       {
           \Log::info("query executing ".$query . "\n");
