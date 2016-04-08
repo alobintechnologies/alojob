@@ -5866,4 +5866,12 @@ button.close {
 .form .title {
   margin-bottom: 30px; }
 
+.link-row {
+  padding: 7px 0;
+  display: block;
+  border-bottom: 1px solid #efefef; }
+
+.link-row:last-child {
+  border-bottom: none; }
+
 /*# sourceMappingURL=app.css.map */
