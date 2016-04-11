@@ -4,6 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Validator;
 use App\Client;
+use AccountUtil;
+use Auth;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller {
@@ -15,7 +17,7 @@ class ClientController extends Controller {
 	 */
 	public function index()
 	{
-		$clients = Client::orderBy('id', 'desc')->paginate(10);
+		$clients = AccountUtil::current()->clients()->orderBy('id', 'desc')->paginate(10);
 
 		return view('clients.index', compact('clients'));
 	}
@@ -61,8 +63,9 @@ class ClientController extends Controller {
 			$client->secondary_mobile = $request->input("secondary_mobile");
 			$client->primary_email = $request->input("primary_email");
 			$client->secondary_email = $request->input("secondary_email");
+			$client->user_id = Auth::user()->id;
 
-			$client->save();
+			AccountUtil::current()->clients()->save($client);
 
 			return redirect()->route('clients.index')->with('message', 'Item created successfully.');
 		}
@@ -76,7 +79,7 @@ class ClientController extends Controller {
 	 */
 	public function show($id)
 	{
-		$client = Client::findOrFail($id);
+		$client = AccountUtil::current()->clients()->findOrFail($id);
 
 		return view('clients.show', compact('client'));
 	}
@@ -89,7 +92,7 @@ class ClientController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$client = Client::findOrFail($id);
+		$client = AccountUtil::current()->clients()->findOrFail($id);
 
 		return view('clients.edit', compact('client'));
 	}
@@ -103,7 +106,7 @@ class ClientController extends Controller {
 	 */
 	public function update(Request $request, $id)
 	{
-		$client = Client::findOrFail($id);
+		$client = AccountUtil::current()->clients()->findOrFail($id);
 
 		$client->title = $request->input("title");
         $client->first_name = $request->input("first_name");
@@ -127,7 +130,7 @@ class ClientController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$client = Client::findOrFail($id);
+		$client = AccountUtil::current()->clients()->findOrFail($id);
 		$client->delete();
 
 		return redirect()->route('clients.index')->with('message', 'Item deleted successfully.');

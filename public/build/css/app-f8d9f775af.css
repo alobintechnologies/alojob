@@ -5859,12 +5859,18 @@ button.close {
 /**
  * table of contents
  * 1. flash messages
+ * 2. Form styles
+ * 3.
  */
 .flash-messages {
   margin-top: -20px; }
 
 .form .title {
   margin-bottom: 30px; }
+
+.panel .panel-heading .panel-details {
+  padding: 30px 30px 25px 30px;
+  background-color: #fcfcfc; }
 
 .link-row {
   padding: 7px 0;

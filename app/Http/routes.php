@@ -53,15 +53,7 @@ Route::group(['middleware' => 'web'], function () {
         //Route::get('/invite/accept', 'InvitationController@accept');
         Route::resource('users', 'UserController');
         Route::resource("clients","ClientController");
+        Route::resource('projects', 'ProjectController');
       //});
     });
 });
-
-Event::listen("illuminate.query", function($query, $bindings, $time, $name) {
-  dd(App::environment());
-      if (App::environment() == "development" || App::environment() == "local")
-      {
-          \Log::info("query executing ".$query . "\n");
-          \Log::info("data binding with above query ".json_encode($bindings) . "\n");
-      }
-  });

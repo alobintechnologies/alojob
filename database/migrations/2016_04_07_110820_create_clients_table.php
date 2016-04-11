@@ -13,17 +13,17 @@ class CreateClientsTable extends Migration {
 	public function up()
 	{
 		Schema::create('clients', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('title', 25);
-            $table->string('first_name', 100);
-            $table->string('last_name', 100);
-            $table->string('company_name', 255);
-            $table->string('primary_mobile', 15);
-            $table->string('secondary_mobile', 15);
-            $table->string('primary_email', 255);
-            $table->string('secondary_email', 255);
-            $table->timestamps();
-        });
+        $table->increments('id');
+        $table->string('title', 25);
+        $table->string('first_name', 100);
+        $table->string('last_name', 100);
+        $table->string('company_name', 255);
+        $table->string('primary_mobile', 15);
+        $table->string('secondary_mobile', 15);
+        $table->string('primary_email', 255);
+        $table->string('secondary_email', 255);
+        $table->timestamps();
+    });
 	}
 
 	/**

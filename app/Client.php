@@ -10,4 +10,14 @@ class Client extends Model
     {
       return $this->title . ' ' . $this->first_name . ' ' . $this->last_name;
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function account()
+    {
+        return $this->belongsTo('App\Account');
+    }
 }
