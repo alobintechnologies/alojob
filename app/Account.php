@@ -46,4 +46,14 @@ class Account extends Model
     {
         return $this->hasMany('App\Project');
     }
+
+    public function tickets()
+    {
+        return $this->hasMany('App\Ticket');
+    }
+
+    public function ticket_categories()
+    {
+        return $this->hasMany('App\TicketCategory');
+    }
 }

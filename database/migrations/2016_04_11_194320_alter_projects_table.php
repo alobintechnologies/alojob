@@ -24,7 +24,9 @@ class AlterProjectsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('projects');
+		Schema::table('projects', function(Blueprint $table) {
+			$table->dropColumn('project_type');
+		});
 	}
 
 }

@@ -52,6 +52,7 @@
                       <li><a href="{{ url('/dashboard') }}"><i class="fa fa-home"></i></a></li>
                       <li><a href="{{ url('/clients') }}"><i class="fa fa-user"></i> Clients</a></li>
                       <li><a href="{{ url('/projects') }}"><i class="fa fa-briefcase"></i> Projects</a></li>
+                      <li><a href="{{ url('/tickets') }}"><i class="fa fa-ticket"></i> Tickets</a></li>
                   </ul>
                 @endif
 

@@ -29,7 +29,13 @@ class AlterClientsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('clients');
+		Schema::table('clients', function(Blueprint $table) {
+			$table->dropSoftDeletes();
+			$table->dropForeign('clients_user_id_foreign');
+			$table->dropColumn('user_id');
+			$table->dropForeign('clients_account_id_foreign');
+			$table->dropColumn('account_id');
+		});
 	}
 
 }

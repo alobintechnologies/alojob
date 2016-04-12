@@ -18,6 +18,12 @@
     .panel-details {
       padding: 30px 30px 10px 30px;
       background-color: #fcfcfc;
+      .form-group {
+        margin-bottom: 0px;
+        .input-sm {
+          font-size: initial;
+        }
+      }
     }
   }
   .details-panel-body {

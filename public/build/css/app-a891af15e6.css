@@ -5873,6 +5873,12 @@ button.close {
   .details-panel-layout .details-panel-heading .panel-details {
     padding: 30px 30px 10px 30px;
     background-color: #fcfcfc; }
+    .details-panel-layout .details-panel-heading .panel-details .form-group {
+      margin-bottom: 0px; }
+      .details-panel-layout .details-panel-heading .panel-details .form-group .input-sm, .details-panel-layout .details-panel-heading .panel-details .form-group .input-group-sm > .form-control, .details-panel-layout .details-panel-heading .panel-details .form-group
+      .input-group-sm > .input-group-addon, .details-panel-layout .details-panel-heading .panel-details .form-group
+      .input-group-sm > .input-group-btn > .btn {
+        font-size: initial; }
 
 .details-panel-layout .details-panel-body {
   padding: 30px; }

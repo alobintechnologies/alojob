@@ -54,6 +54,17 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('users', 'UserController');
         Route::resource("clients","ClientController");
         Route::resource('projects', 'ProjectController');
+        Route::resource('tickets', 'TicketController');
+        
+        Route::group([
+          'prefix' => 'master_datas/{masterType}',
+          'where' => ['masterType' => 'ticket_categories']
+        ], function() {
+          Route::get('/', 'MasterDataController@index');
+          Route::post('/', 'MasterDataController@store');
+          Route::put('/{id}', 'MasterDataController@update');
+          Route::delete('/{id}', 'MasterDataController@destroy');
+        });
       //});
     });
 });
