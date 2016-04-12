@@ -19,14 +19,14 @@
         <li><a href="{{ route('clients.edit', $client->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
         <li role="separator" class="divider"></li>
         <li><a href="#"><i class="fa fa-book"></i> New Quote</a></li>
-        <li><a href="#"><i class="fa fa-tasks"></i> New Job</a></li>
+        <li><a href="#"><i class="fa fa-gavel"></i> New Project</a></li>
         <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
       </ul>
     </div>
   </h1>
   <hr/>
   <div class="row">
-      <div class="col-md-8">
+      <div class="col-sm-8">
           <div class="panel panel-default">
               <div class="panel-heading">
                 <h4>
@@ -38,7 +38,7 @@
                       </button>
                       <ul class="dropdown-menu">
                         <li><a href="#"><i class="fa fa-book"></i> New Quote</a></li>
-                        <li><a href="#"><i class="fa fa-gavel"></i> New Job</a></li>
+                        <li><a href="#"><i class="fa fa-gavel"></i> New Project</a></li>
                         <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
                       </ul>
                     </div>
@@ -49,7 +49,7 @@
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#RecentActivityTab" role="tab" data-toggle="tab">Recent Activity</a></li>
                   <li><a href="#QuotesTab" role="tab" data-toggle="tab">Quotes</a></li>
-                  <li><a href="#JobsTab" role="tab" data-toggle="tab">Jobs</a></li>
+                  <li><a href="#ProjectsTab" role="tab" data-toggle="tab">Projects</a></li>
                   <li><a href="#InvoicesTab" role="tab" data-toggle="tab">Invoices</a></li>
                 </ul>
                 <!-- Tab panes -->
@@ -57,15 +57,15 @@
                   <div role="tabpanel" class="tab-pane active" id="RecentActivityTab">
                     <a href="#" class="link-row">
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                           <h4>Invoice #3</h4>
                           <label class="label label-warning">Not Paid</label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                           <h5>Dated On</h5>
                           07/04/2016
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                           <div class="pull-right">
                             <h5>Amount</h5>
                             <strong>$200.00</strong>
@@ -75,15 +75,15 @@
                     </a>
                     <a href="#" class="link-row">
                       <div class="row">
-                        <div class="col-md-4">
-                          <h4>Job #1</h4>
+                        <div class="col-sm-4">
+                          <h4>Project #1</h4>
                           <label class="label label-default">Open</label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                           <h5>Dated On</h5>
                           07/04/2016
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                           <div class="pull-right">
                             <h5>Amount</h5>
                             <strong>$200.00</strong>
@@ -93,15 +93,15 @@
                     </a>
                     <a href="#" class="link-row">
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                           <h4>Quote #1</h4>
                           <label class="label label-default">Draft</label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                           <h5>Dated On</h5>
                           07/04/2016
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                           <div class="pull-right">
                             <h5>Amount</h5>
                             <strong>$200.00</strong>
@@ -111,7 +111,7 @@
                     </a>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="QuotesTab"></div>
-                  <div role="tabpanel" class="tab-pane" id="JobsTab"></div>
+                  <div role="tabpanel" class="tab-pane" id="ProjectsTab"></div>
                   <div role="tabpanel" class="tab-pane" id="InvoicesTab"></div>
                 </div>
               </div>
@@ -126,7 +126,7 @@
                       + New <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a href="#"><i class="fa fa-tasks"></i> New TaskList</a></li>
+                      <li><a href="#"><i class="fa fa-tasks"></i> New Task</a></li>
                       <li><a href="#"><i class="fa fa-ticket"></i> New Ticket</a></li>
                     </ul>
                   </div>
@@ -145,18 +145,18 @@
 
                   <a href="#" class="link-row">
                     <div class="row">
-                      <div class="col-md-1">
+                      <div class="col-sm-1">
                         <h4><input type="checkbox" name="name" value="1" /></h4>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-sm-4">
                         <h4>visit the dental clinic</h4>
                         <label class="label label-default">Open</label>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-sm-2">
                         <h5>Dated On</h5>
                         07/04/2016
                       </div>
-                      <div class="col-md-5">
+                      <div class="col-sm-5">
                         <div class="pull-right">
                           <h5>Assigned To</h5>
                           Satheesh Kumar
@@ -166,18 +166,18 @@
                   </a>
                   <a href="#" class="link-row">
                     <div class="row">
-                      <div class="col-md-1">
+                      <div class="col-sm-1">
                         <h4><input type="checkbox" name="name" value="1" /></h4>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-sm-4">
                         <h4>visit the dental clinic</h4>
                         <label class="label label-default">Open</label>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-sm-2">
                         <h5>Dated On</h5>
                         07/04/2016
                       </div>
-                      <div class="col-md-5">
+                      <div class="col-sm-5">
                         <div class="pull-right">
                           <h5>Assigned To</h5>
                           Satheesh Kumar
@@ -190,19 +190,19 @@
               <div role="tabpanel" class="tab-pane" id="TicketsTab">
                 <a href="#" class="link-row">
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                       <h4>Problem in the hms module</h4>
                       <label class="label label-default">Open</label>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-sm-2">
                       <h5>Dated On</h5>
                       07/04/2016
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                       <h5>Project</h5>
                       HMS
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                       <div class="pull-right">
                         <h5>Assigned To</h5>
                         Satheesh Kumar
@@ -226,15 +226,15 @@
           <div class="panel-body">
             <a href="#" class="link-row">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <h4>Problem in the hms module</h4>
                   <label class="label label-info">Open</label>
                 </div>
-                <div class="col-md-2">
+                <div class="col-sm-2">
                   <h5>Dated On</h5>
                   07/04/2016
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-4">
                   <div class="pull-right">
                     <h5>Created By</h5>
                     Satheesh Kumar
@@ -244,15 +244,15 @@
             </a>
             <a href="#" class="link-row">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <h4>Problem in the hms module</h4>
                   <label class="label label-info">Open</label>
                 </div>
-                <div class="col-md-2">
+                <div class="col-sm-2">
                   <h5>Dated On</h5>
                   07/04/2016
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-4">
                   <div class="pull-right">
                     <h5>Created By</h5>
                     Satheesh Kumar
@@ -262,15 +262,15 @@
             </a>
             <a href="#" class="link-row">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <h4>Problem in the hms module</h4>
                   <label class="label label-default">Closed</label>
                 </div>
-                <div class="col-md-2">
+                <div class="col-sm-2">
                   <h5>Dated On</h5>
                   07/04/2016
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-4">
                   <div class="pull-right">
                     <h5>Created By</h5>
                     Satheesh Kumar
@@ -279,9 +279,9 @@
               </div>
             </a>
           </div>
-        </div>
+        </div> <!-- ./discussion-panel -->
       </div>
-      <div class="col-md-4">
+      <div class="col-sm-4">
         <div class="client-details-panel">
           <table class="table table-striped">
             <tr>
@@ -356,20 +356,20 @@
           <div class="panel-body">
             <a href="#" class="link-row">
               <div class="row">
-                <div class="col-md-2">
+                <div class="col-sm-2">
                   <i class="fa fa-file fa-lg"></i>
                 </div>
-                <div class="col-md-10">
+                <div class="col-sm-10">
                   Proposal attachment.pdf
                 </div>
               </div>
             </a>
             <a href="#" class="link-row">
               <div class="row">
-                <div class="col-md-2">
+                <div class="col-sm-2">
                   <i class="fa fa-file fa-lg"></i>
                 </div>
-                <div class="col-md-10">
+                <div class="col-sm-10">
                   Proposal attachment.pdf
                 </div>
               </div>

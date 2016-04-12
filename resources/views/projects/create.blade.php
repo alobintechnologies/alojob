@@ -2,14 +2,14 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading"><i class="fa fa-briefcase"></i> Projects / Create</div>
                 <div class="panel-body">
                   <form action="{{ route('projects.store') }}" method="POST" class="form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-sm-8 col-sm-offset-2">
                             <div class="alert alert-info">
                               <p>
                                 <i class="fa fa-info-circle"></i> Fields marked with * are mandatory.
@@ -52,6 +52,6 @@
                 </form>
             </div> <!-- ./panel-body -->
         </div>  <!-- ./panel -->
-      </div> <!-- ./col-md-12 -->
+      </div> <!-- ./col-sm-12 -->
     </div> <!-- ./row -->
 @endsection

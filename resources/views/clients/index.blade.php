@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
               <h2>
@@ -11,16 +11,16 @@
             </div>
             <div class="panel-body">
               <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-sm-12">
                       @if($clients->count())
                           <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                               <div class="input-group">
                                 <input type="text" name="query" value="" placeholder="Search..." class="form-control" />
                                 <span class="input-group-btn"><button type="submit" class="btn btn-default" name="button">Go</button></span>
                               </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                               <div class="input-group">
                                 <span class="input-group-addon">Sort</span>
                                 <select class="form-control" name="">
@@ -33,13 +33,13 @@
                           </div>
                           <hr />
                           <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-sm-4">
                               Name
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-sm-4">
                               Company Name
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-sm-4">
                               Email
                             </div>
                           </div>
@@ -59,7 +59,7 @@
                                 <div class="col-sm-4">
                                   {{ $client->primary_email }}
                                 </div>
-                                {{--<div class="col-md-3">
+                                {{--<div class="col-sm-3">
                                   <a class="btn btn-xs btn-primary" href="{{ route('clients.show', $client->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
                                   <a class="btn btn-xs btn-warning" href="{{ route('clients.edit', $client->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                                   <form action="{{ route('clients.destroy', $client->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">

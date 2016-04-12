@@ -3,15 +3,15 @@
 @section('content')
 
   <div class="row">
-      <div class="col-md-12">
+      <div class="col-sm-12">
           <div class="panel panel-default">
-              <div class="panel-heading"><i class="fa fa-briefcase"></i> Projects / Create</div>
+              <div class="panel-heading"><a href="{{ url('projects') }}"><i class="fa fa-briefcase"></i> Projects</a> / Create</div>
               <div class="panel-body">
                 <form action="{{ route('projects.update', $project->id) }}" method="POST">
                   <input type="hidden" name="_method" value="PUT">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="row">
-                      <div class="col-md-8 col-md-offset-2">
+                      <div class="col-sm-8 col-sm-offset-2">
                           <div class="alert alert-info">
                             <p>
                               <i class="fa fa-info-circle"></i> Fields marked with * are mandatory.
@@ -46,7 +46,7 @@
                               </div>
                           </div>
                           <div class="well well-sm">
-                              <button type="submit" class="btn btn-primary">Create</button>
+                              <button type="submit" class="btn btn-primary">Save</button>
                               <a class="btn btn-link pull-right" href="{{ route('projects.index') }}"><i class="fa fa-backward"></i> Back</a>
                           </div>
                       </div>
@@ -54,7 +54,7 @@
               </form>
           </div> <!-- ./panel-body -->
       </div>  <!-- ./panel -->
-    </div> <!-- ./col-md-12 -->
+    </div> <!-- ./col-sm-12 -->
   </div> <!-- ./row -->
 
 @endsection
