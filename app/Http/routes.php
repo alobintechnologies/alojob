@@ -52,10 +52,12 @@ Route::group(['middleware' => 'web'], function () {
         //Route::post('/invite', 'InvitationController@store');
         //Route::get('/invite/accept', 'InvitationController@accept');
         Route::resource('users', 'UserController');
+        Route::get('clients/filter', 'ClientController@filter');
         Route::resource("clients","ClientController");
+        Route::get('projects/filter', 'ProjectController@filter');
         Route::resource('projects', 'ProjectController');
         Route::resource('tickets', 'TicketController');
-        
+
         Route::group([
           'prefix' => 'master_datas/{masterType}',
           'where' => ['masterType' => 'ticket_categories']

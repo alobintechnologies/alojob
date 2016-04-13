@@ -4,7 +4,6 @@
     <ol class="breadcrumb">
       <li>Back to: <a href="{{ url('clients') }}">Clients</a></li>
     </ol>
-
 </div>
 @endsection
 

@@ -1,54 +1,76 @@
 @extends('layout')
-
-@section('header')
-    <div class="page-header clearfix">
-        <h1>
-            <i class="glyphicon glyphicon-align-justify"></i> Tickets
-            <a class="btn btn-success pull-right" href="{{ route('tickets.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
-        </h1>
-
-    </div>
-@endsection
-
 @section('content')
+
     <div class="row">
-        <div class="col-md-12">
-            @if($tickets->count())
-                <table class="table table-condensed table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>TITLE</th>
-                        <th>BODY</th>
-                            <th class="text-right">OPTIONS</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach($tickets as $ticket)
-                            <tr>
-                                <td>{{$ticket->id}}</td>
-                                <td>{{$ticket->title}}</td>
-                    <td>{{$ticket->description}}</td>
-                                <td class="text-right">
-                                    <a class="btn btn-xs btn-primary" href="{{ route('tickets.show', $ticket->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
-                                    <a class="btn btn-xs btn-warning" href="{{ route('tickets.edit', $ticket->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                                    <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                {!! $tickets->render() !!}
-            @else
-                <h3 class="text-center alert alert-info">Empty!</h3>
-            @endif
-
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h2>
+                      <i class="fa fa-ticket"></i> Tickets
+                      <a class="btn btn-success pull-right" href="{{ route('tickets.create') }}"><i class="fa fa-plus"></i> Create</a>
+                  </h2>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                      <div class="col-sm-12">
+                          @if($tickets->count())
+                              <div class="row">
+                                <div class="col-sm-6">
+                                  <div class="input-group">
+                                    <input type="text" name="query" value="" placeholder="Search..." class="form-control" />
+                                    <span class="input-group-btn"><button type="submit" class="btn btn-default" name="button">Go</button></span>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="input-group">
+                                    <span class="input-group-addon">Sort By</span>
+                                    <select class="form-control" name="">
+                                      <option value="title">Title</option>
+                                      <option value="created_on">Created On</option>
+                                      <option value="category">Category</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <hr />
+                              <div class="row">
+                                <div class="col-sm-5">
+                                  Title
+                                </div>
+                                <div class="col-sm-4">
+                                  Type
+                                </div>
+                                <div class="col-sm-3">
+                                  Created On
+                                </div>
+                              </div>
+                              <hr />
+                              @foreach($tickets as $ticket)
+                                <a href="{{ url('tickets/'.$ticket->id) }}" class="ticket link-row">
+                                  <div class="row">
+                                    <div class="col-sm-1">
+                                      <i class="fa fa-2x fa-ticket"></i>
+                                    </div>
+                                    <div class="col-sm-4">
+                                      {{ $ticket->title }}
+                                    </div>
+                                    <div class="col-sm-4">
+                                      {{ $ticket->ticket_category->title }}
+                                    </div>
+                                    <div class="col-sm-3">
+                                      {{ $ticket->created_at->diffForHumans() }}
+                                    </div>
+                                  </div>
+                                </a>
+                              @endforeach
+                              {!! $tickets->render() !!}
+                          @else
+                              <h3 class="text-center alert alert-info">Empty!</h3>
+                          @endif
+                      </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 @endsection

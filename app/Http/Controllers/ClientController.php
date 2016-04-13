@@ -136,4 +136,18 @@ class ClientController extends Controller {
 		return redirect()->route('clients.index')->with('message', 'Item deleted successfully.');
 	}
 
+
+
+	/**
+	 * Filter the project with title for autocomplete display
+	 */
+	public function filter(Request $request)
+	{
+			$term = $request->input("term");
+			return AccountUtil::current()->clients()->orWhere(function($query) use($term) {
+				$query->where('first_name', 'like', "%$term%")
+							->where('last_name', 'like', "%$term%");
+			})->get();
+	}
+
 }

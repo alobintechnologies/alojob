@@ -111,6 +111,15 @@ class ProjectController extends Controller {
 		return redirect()->route('projects.index')->with('message', 'Item deleted successfully.');
 	}
 
+	/**
+	 * Filter the project with title for autocomplete display
+	 */
+	public function filter(Request $request)
+	{
+			$term = $request->input("term");
+			return $this->currentProjects()->where('title', 'like', "%$term%")->get();
+	}
+
 	public function currentProjects()
 	{
 			return AccountUtil::current()->projects();

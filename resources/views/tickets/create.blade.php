@@ -1,4 +1,13 @@
 @extends('layout')
+
+@section('header')
+<div class="header">
+    <ol class="breadcrumb">
+      <li>Back to: <a href="{{ url('tickets') }}">Tickets</a></li>
+    </ol>
+</div>
+@endsection
+
 @section('content')
 
     <div class="row">
@@ -20,6 +29,26 @@
                         <div class="form-group @if($errors->has('title')) has-error @endif">
                           <label for="title-field">Title*</label>
                           <input type="text" id="title-field" name="title" class="form-control" value="{{ old("title") }}"/>
+                        </div>
+                        <div class="form-group @if($errors->has('client_id')) has-error @endif">
+                          <label for="client_id-field">Client</label>
+                          <div class="input-group">
+                            <input type="hidden" name="client_id" value="" />
+                            <input type="text" id="client_id-field" name="client_name" class="form-control" value=""/>
+                            <span class="input-group-btn">
+                              <a href="{{ route('clients.create') }}" class="btn btn-warning">+ Add</a>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="form-group @if($errors->has('project_id')) has-error @endif">
+                          <label for="project_id-field">Project</label>
+                          <div class="input-group">
+                          <input type="hidden" name="project_id" value="" />                          
+                          <input type="text" id="project_id-field" name="project_name" class="form-control" value=""/>
+                            <span class="input-group-btn">
+                              <a href="{{ route('projects.create') }}" class="btn btn-warning">+ Add</a>
+                            </span>
+                          </div>
                         </div>
                       </div>
                       <div class="col-sm-6">
@@ -92,4 +121,12 @@
           </form>
       </div> <!-- ./col-sm-12 -->
     </div> <!-- ./row -->
+@endsection
+
+@section('layout-footer')
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      var ticketController = new TicketController();
+    });
+  </script>
 @endsection
