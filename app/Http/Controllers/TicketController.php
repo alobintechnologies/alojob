@@ -17,7 +17,7 @@ class TicketController extends Controller {
 	 */
 	public function index()
 	{
-		$tickets = $this->currentTickets()->orderBy('title', 'asc')->paginate(10);
+		$tickets = $this->currentTickets()->with('ticket_category', 'assigned_user')->orderBy('title', 'asc')->paginate(10);
 
 		return view('tickets.index', compact('tickets'));
 	}
@@ -60,7 +60,7 @@ class TicketController extends Controller {
 		}
 		$project_id = $request->input('project_id');
 		if(is_numeric($project_id)) {
-			$ticket->client_id = $project_id;
+			$ticket->project_id = $project_id;
 		}
 		$ticket->assigned_user_id = $request->input("assigned_user_id");
 		$ticket->ticket_category_id = $request->input("ticket_category_id");
@@ -120,14 +120,18 @@ class TicketController extends Controller {
 		$ticket->user_id = Auth::user()->id;
 
 		$client_id = $request->input('client_id');
-		if($client_id != '' && is_int($client_id)) {
-			dd($client_id);
+		if(is_numeric($client_id)) {
 			$ticket->client_id = $client_id;
 		}
 		$project_id = $request->input('project_id');
-		if($project_id != '' && is_int($project_id)) {
-			$ticket->client_id = $project_id;
+		if(is_numeric($project_id)) {
+			$ticket->project_id = $project_id;
 		}
+		$ticket_status = $request->input('ticket_status');
+		if(is_numeric($ticket_status)) {
+			$ticket->ticket_status = $ticket_status;
+		}
+		$ticket->ticket_status = $request->input('ticket_status');
 		$ticket->assigned_user_id = $request->input("assigned_user_id");
 		$ticket->ticket_category_id = $request->input("ticket_category_id");
 

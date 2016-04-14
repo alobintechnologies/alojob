@@ -9833,6 +9833,15 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
         return "";
     }
 
+    AloFramework.prototype.commonModal = function (modalTitle, modalBody, modalStatus) {
+        var commonModalObj = $("#commonModal");
+        if(commonModalObj !== undefined) {
+            commonModalObj.find("#commonModalTitle").text(modalTitle);
+            commonModalObj.find("#commonModalbody").html(modalBody);
+            commonModalObj.modal(modalStatus);
+        }
+    };
+
     /**
      * Add the AloFramework to global namespace
      */
@@ -9899,7 +9908,7 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
     window.ProjectService = ProjectService;
 })(jQuery, window, AloFramework);
 
-;(function ($, window) {
+;(function ($, window, aloF) {
     var clientService = new ClientService();
     var projectService = new ProjectService();
 
@@ -9917,9 +9926,14 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
     };
 
     TicketController.prototype._events = function () {
+        $("#created_at-field").datepicker();
+
+        /*$("#project-add-btn").click(function() {
+
+            aloF.commonModal('Project Add', '', 'show');
+        });*/
 
         $("#description-field").summernote({
-          height: 200,
           minHeight: null,             // set minimum height of editor
           maxHeight: null,             // set maximum height of editor
           placeholder: 'Post your discussion here...',
@@ -9957,6 +9971,7 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
           select: function(event, ui) {
             $("input[name='project_id']").val(ui.item.id);
             $("#project_id-field").val(ui.item.title);
+            return false;
           }
         }).autocomplete('instance')._renderItem = function(ul, item) {
           return $("<li>")
@@ -9966,6 +9981,6 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
     };
 
     window.TicketController = TicketController;
-})(jQuery, window);
+})(jQuery, window, AloFramework);
 
 //# sourceMappingURL=app.js.map

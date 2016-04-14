@@ -37,6 +37,12 @@ class Ticket extends Model
           case 0:
             return "Open";
           case 1:
+            return "On Hold";
+          case 2:
+            return "Invalid";
+          case 3:
+            return "Fixed";
+          case 4:
             return "Closed";
         }
     }

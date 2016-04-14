@@ -33,32 +33,39 @@
                                 </div>
                               </div>
                               <hr />
-                              <div class="row">
-                                <div class="col-sm-5">
-                                  Title
+                              <div class="hidden-xs">
+                                <div class="row">
+                                  <div class="col-sm-6 col-lg-7">
+                                    Title
+                                  </div>
+                                  <div class="col-sm-3 col-lg-2">
+                                    Type
+                                  </div>
+                                  <div class="col-sm-1 col-lg-1">
+                                    Assigned
+                                  </div>
+                                  <div class="col-sm-2 col-lg-2">
+                                    Created
+                                  </div>
                                 </div>
-                                <div class="col-sm-4">
-                                  Type
-                                </div>
-                                <div class="col-sm-3">
-                                  Created On
-                                </div>
+                                <hr />
                               </div>
-                              <hr />
                               @foreach($tickets as $ticket)
                                 <a href="{{ url('tickets/'.$ticket->id) }}" class="ticket link-row">
                                   <div class="row">
-                                    <div class="col-sm-1">
-                                      <i class="fa fa-2x fa-ticket"></i>
+                                    <div class="col-sm-6 col-lg-7">
+                                      <small class="pull-right"><label class="label label-info">{{ $ticket->status() }}</label></small>
+                                      <span>{{ str_limit($ticket->title, 100) }}</span>
                                     </div>
-                                    <div class="col-sm-4">
-                                      {{ $ticket->title }}
+                                    <div class="col-sm-3 col-lg-2">
+                                      {{ str_limit($ticket->ticket_category->title, 15) }}
                                     </div>
-                                    <div class="col-sm-4">
-                                      {{ $ticket->ticket_category->title }}
+                                    <div class="col-sm-1 col-lg-1">
+                                      <span title="{{ $ticket->assigned_user->email }}" class="hidden-xs"><i class="fa fa-user fa-2x"></i></span>
+                                      <span class="visible-xs"><i class="fa fa-user"></i> {{ $ticket->assigned_user->email }}</span>
                                     </div>
-                                    <div class="col-sm-3">
-                                      {{ $ticket->created_at->diffForHumans() }}
+                                    <div class="col-sm-2 col-lg-2">
+                                      <span class="visible-xs">Created: </span>{{ $ticket->created_at->diffForHumans() }}
                                     </div>
                                   </div>
                                 </a>

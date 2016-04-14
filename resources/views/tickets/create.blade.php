@@ -36,17 +36,17 @@
                             <input type="hidden" name="client_id" value="" />
                             <input type="text" id="client_id-field" name="client_name" class="form-control" value=""/>
                             <span class="input-group-btn">
-                              <a href="{{ route('clients.create') }}" class="btn btn-warning">+ Add</a>
+                              <a href="{{ route('clients.create') }}" class="btn btn-warning">+ New</a>
                             </span>
                           </div>
                         </div>
                         <div class="form-group @if($errors->has('project_id')) has-error @endif">
                           <label for="project_id-field">Project</label>
                           <div class="input-group">
-                          <input type="hidden" name="project_id" value="" />                          
+                          <input type="hidden" name="project_id" value="" />
                           <input type="text" id="project_id-field" name="project_name" class="form-control" value=""/>
                             <span class="input-group-btn">
-                              <a href="{{ route('projects.create') }}" class="btn btn-warning">+ Add</a>
+                              <a href="{{ route('projects.create') }}" class="btn btn-warning">+ New</a>
                             </span>
                           </div>
                         </div>
@@ -76,14 +76,6 @@
                               </td>
                             </tr>
                             <tr>
-                              <td><label for="created_at-field">Created On</label></td>
-                              <td>
-                                <div class="form-group @if($errors->has('created_at')) has-error @endif">
-                                   <input type="text" id="created_at-field" name="created_at" class="form-control input-sm" value="{{ old("created_at") }}"/>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
                               <td>
                                 <label for="assigned_user_id">Assigned To</label>
                               </td>
@@ -97,18 +89,13 @@
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>Ends On</td>
-                              <td>05/09/2016</td>
-                            </tr>
                           </table>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="panel-body">
+                  <div class="panel-body details-panel-body">
                     <div class="form-group @if($errors->has('description')) has-error @endif">
-                       <label for="description-field">Description</label>
                        <textarea name="description" id="description-field" class="form-control">{{ old("description") }}</textarea>
                     </div>
                     <hr/>
@@ -117,6 +104,9 @@
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                   </div> <!-- ./panel-body -->
+                  <div class="panel-footer">
+
+                  </div>
               </div>  <!-- ./panel -->
           </form>
       </div> <!-- ./col-sm-12 -->

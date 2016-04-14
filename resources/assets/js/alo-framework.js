@@ -20,6 +20,15 @@
         return "";
     }
 
+    AloFramework.prototype.commonModal = function (modalTitle, modalBody, modalStatus) {
+        var commonModalObj = $("#commonModal");
+        if(commonModalObj !== undefined) {
+            commonModalObj.find("#commonModalTitle").text(modalTitle);
+            commonModalObj.find("#commonModalbody").html(modalBody);
+            commonModalObj.modal(modalStatus);
+        }
+    };
+
     /**
      * Add the AloFramework to global namespace
      */

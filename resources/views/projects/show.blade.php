@@ -73,7 +73,7 @@
                         </button>
                         <ul class="dropdown-menu">
                           <li><a href="#"><i class="fa fa-tasks"></i> New Task</a></li>
-                          <li><a href="#"><i class="fa fa-ticket"></i> New Ticket</a></li>
+                          <li><a href="{{ route('tickets.create') }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
                         </ul>
                       </div>
                     </div>
@@ -134,50 +134,30 @@
                   </div>
 
                   <div role="tabpanel" class="tab-pane" id="TicketsTab">
-                    <a href="#" class="link-row">
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <h4>Problem in the hms module</h4>
-                          <label class="label label-default">Open</label>
-                        </div>
-                        <div class="col-sm-2">
-                          <h5>Dated On</h5>
-                          07/04/2016
-                        </div>
-                        <div class="col-sm-3">
-                          <h5>Type</h5>
-                          Sales
-                        </div>
-                        <div class="col-sm-3">
-                          <div class="pull-right">
-                            <h5>Assigned To</h5>
-                            Satheesh Kumar
+                    @foreach($project->tickets as $ticket)
+                      <a href="{{ route('tickets.show', $ticket->id) }}" class="link-row">
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <h4>{{ $ticket->title }}</h4>
+                            <label class="label label-default">{{ $ticket->status() }}</label>
+                          </div>
+                          <div class="col-sm-2">
+                            <h5>Created</h5>
+                            {{ $ticket->created_at->diffForHumans() }}
+                          </div>
+                          <div class="col-sm-3">
+                            <h5>Type</h5>
+                            {{ $ticket->ticket_category->title }}
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="pull-right">
+                              <h5>Assigned</h5>
+                              {{ $ticket->assigned_user->email }}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </a>
-                    <a href="#" class="link-row">
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <h4>Support needed for Sai KRS Hospital</h4>
-                          <label class="label label-default">Open</label>
-                        </div>
-                        <div class="col-sm-2">
-                          <h5>Dated On</h5>
-                          07/04/2016
-                        </div>
-                        <div class="col-sm-3">
-                          <h5>Type</h5>
-                          Support
-                        </div>
-                        <div class="col-sm-3">
-                          <div class="pull-right">
-                            <h5>Assigned To</h5>
-                            Satheesh Kumar
-                          </div>
-                        </div>
-                      </div>
-                    </a>
+                      </a>
+                    @endforeach
                   </div>
                 </div>
               </div>

@@ -20,5 +20,10 @@ class Project extends Model
     {
         return $this->belongsTo('App\User');
     }
- 
+
+    public function tickets()
+    {
+        return $this->hasMany('App\Ticket')->with('ticket_category', 'assigned_user');
+    }
+
 }

@@ -1,4 +1,4 @@
-;(function ($, window) {
+;(function ($, window, aloF) {
     var clientService = new ClientService();
     var projectService = new ProjectService();
 
@@ -16,9 +16,14 @@
     };
 
     TicketController.prototype._events = function () {
+        $("#created_at-field").datepicker();
+
+        /*$("#project-add-btn").click(function() {
+
+            aloF.commonModal('Project Add', '', 'show');
+        });*/
 
         $("#description-field").summernote({
-          height: 200,
           minHeight: null,             // set minimum height of editor
           maxHeight: null,             // set maximum height of editor
           placeholder: 'Post your discussion here...',
@@ -56,6 +61,7 @@
           select: function(event, ui) {
             $("input[name='project_id']").val(ui.item.id);
             $("#project_id-field").val(ui.item.title);
+            return false;
           }
         }).autocomplete('instance')._renderItem = function(ul, item) {
           return $("<li>")
@@ -65,4 +71,4 @@
     };
 
     window.TicketController = TicketController;
-})(jQuery, window);
+})(jQuery, window, AloFramework);

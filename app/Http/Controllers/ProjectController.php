@@ -40,6 +40,18 @@ class ProjectController extends Controller {
 	 */
 	public function store(Request $request)
 	{
+			$format = $request->input('format', 'html');
+			$validator = Validator::make($request->all(), [
+					'title' => 'required'
+			]);
+			if($validator->fails()) {
+					if($format == 'json') {
+						 return Response::json(['result' => 'failure', 'errors' => $validator->errors()]);
+					}
+				  return back()
+				 					->withErrors($validator)
+									->withInput();
+			}
 			$project = new Project();
 
 			$project->title = $request->input("title");
@@ -48,6 +60,9 @@ class ProjectController extends Controller {
 
 			$this->currentProjects()->save($project);
 
+			if($format == 'json') {
+					return Response::json(['result' => 'success', 'project' => $project]);
+			}
 			return redirect()->route('projects.index')->with('message', 'Item created successfully.');
 	}
 
@@ -59,7 +74,7 @@ class ProjectController extends Controller {
 	 */
 	public function show($id)
 	{
-		$project = $this->currentProjects()->findOrFail($id);
+		$project = $this->currentProjects()->with('tickets')->findOrFail($id);
 
 		return view('projects.show', compact('project'));
 	}

@@ -6,7 +6,7 @@
         <div class="col-sm-12">
           <div class="header">
             <h5>
-              <a href="{{ url('tickets') }}">&raquo; Tickets</a> / {{ $ticket->title }}
+              <a href="{{ url('tickets') }}">&raquo; Tickets</a> / {{ $ticket->id }}
               <div class="pull-right">
                 <a href="#" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>
                 <div class="btn-group">
@@ -34,15 +34,25 @@
                   </h3>
                   <hr/>
                 </div>
-                @include('error')
                 <div class="row">
                   <div class="col-sm-6">
-                    <h4>{{ $ticket->title }}</h4>
+                    <label>Ticket Title</label>
+                    <p>{{ $ticket->title }}</p>
                     @if($ticket->client != null)
-                    <h4>Client: <a href="{{ route('clients.show', $ticket->client->id) }}">{{ $ticket->client->name() }}</a></h4>
+                      <div class="well well-sm">
+                        <i class="fa fa-user fa-lg"></i> Client
+                        <div class="pull-right">
+                          <a href="{{ route('clients.show', $ticket->client->id) }}">{{ $ticket->client->name() }}</a>
+                        </div>
+                      </div>
                     @endif
                     @if($ticket->project != null)
-                    <h4>Project: <a href="{{ route('projects.show', $ticket->project->id) }}">{{ $ticket->project->title }}</a></h4>
+                      <div class="well well-sm">
+                        <i class="fa fa-briefcase fa-lg"></i> Project
+                        <div class="pull-right">
+                          <a href="{{ route('projects.show', $ticket->project->id) }}">{{ $ticket->project->title }}</a>
+                        </div>
+                      </div>
                     @endif
                   </div>
                   <div class="col-sm-6">
@@ -77,16 +87,12 @@
                             {{ $ticket->assigned_user->email }}
                           </td>
                         </tr>
-                        <tr>
-                          <td>Ends On</td>
-                          <td>05/09/2016</td>
-                        </tr>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="panel-body">
+              <div class="panel-body details-panel-body">
                 <p>
                   {!! $ticket->description !!}
                 </p>
