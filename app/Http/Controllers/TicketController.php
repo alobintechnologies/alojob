@@ -29,7 +29,18 @@ class TicketController extends Controller {
 	 */
 	public function create()
 	{
-		return view('tickets.create')->with($this->getEditViewModel());
+		$project_id = $request->input('project_number');
+		$project = null;
+		if(is_numeric($project_id)) {
+				$project = AccountUtil::current()->projects()->findOrFail($project_id);
+				if(!$project) {
+						$request->session()->flash('error', 'Project does not exists to add ticket');
+						return back();
+				}
+		}
+		return view('tickets.create')
+						->with($this->getEditViewModel())
+						->with('project', $project);
 	}
 
 	/**
