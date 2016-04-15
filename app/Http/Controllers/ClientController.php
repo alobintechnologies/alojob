@@ -17,7 +17,7 @@ class ClientController extends Controller {
 	 */
 	public function index()
 	{
-		$clients = AccountUtil::current()->clients()->orderBy('id', 'desc')->paginate(10);
+		$clients = $this->currentClients()->orderBy('id', 'desc')->paginate(10);
 
 		return view('clients.index', compact('clients'));
 	}
@@ -65,7 +65,7 @@ class ClientController extends Controller {
 			$client->secondary_email = $request->input("secondary_email");
 			$client->user_id = Auth::user()->id;
 
-			AccountUtil::current()->clients()->save($client);
+			$this->currentClients()->save($client);
 
 			return redirect()->route('clients.index')->with('message', 'Item created successfully.');
 		}
@@ -79,7 +79,7 @@ class ClientController extends Controller {
 	 */
 	public function show($id)
 	{
-		$client = AccountUtil::current()->clients()->findOrFail($id);
+		$client = $this->currentClients()->with('projects')->findOrFail($id);
 
 		return view('clients.show', compact('client'));
 	}
@@ -92,7 +92,7 @@ class ClientController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$client = AccountUtil::current()->clients()->findOrFail($id);
+		$client = $this->currentClients()->with('projects')->findOrFail($id);
 
 		return view('clients.edit', compact('client'));
 	}
@@ -106,7 +106,7 @@ class ClientController extends Controller {
 	 */
 	public function update(Request $request, $id)
 	{
-		$client = AccountUtil::current()->clients()->findOrFail($id);
+		$client = $this->currentClients()->findOrFail($id);
 
 		$client->title = $request->input("title");
         $client->first_name = $request->input("first_name");
@@ -130,13 +130,11 @@ class ClientController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$client = AccountUtil::current()->clients()->findOrFail($id);
+		$client = $this->currentClients()->findOrFail($id);
 		$client->delete();
 
 		return redirect()->route('clients.index')->with('message', 'Item deleted successfully.');
 	}
-
-
 
 	/**
 	 * Filter the project with title for autocomplete display
@@ -144,10 +142,17 @@ class ClientController extends Controller {
 	public function filter(Request $request)
 	{
 			$term = $request->input("term");
-			return AccountUtil::current()->clients()->orWhere(function($query) use($term) {
+			return $this->currentClients()->orWhere(function($query) use($term) {
 				$query->where('first_name', 'like', "%$term%")
 							->where('last_name', 'like', "%$term%");
 			})->get();
 	}
+
+	public function currentClients()
+	{
+			return AccountUtil::current()->clients();
+	}
+
+
 
 }

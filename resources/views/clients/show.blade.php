@@ -110,7 +110,28 @@
                     </a>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="QuotesTab"></div>
-                  <div role="tabpanel" class="tab-pane" id="ProjectsTab"></div>
+                  <div role="tabpanel" class="tab-pane" id="ProjectsTab">
+                    @foreach($client->projects as $project)
+                      <a href="{{ route('projects.show', $project->id) }}" class="link-row">
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <h4>{{ $project->title }}</h4>
+                            <label class="label label-default">Open</label>
+                          </div>
+                          <div class="col-sm-4">
+                            <h5>Dated On</h5>
+                            {{ $project->created_at->diffForHumans() }}
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="pull-right">
+                              <h5>Amount</h5>
+                              <strong>$200.00</strong>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    @endforeach
+                  </div>
                   <div role="tabpanel" class="tab-pane" id="InvoicesTab"></div>
                 </div>
               </div>

@@ -20,4 +20,9 @@ class Client extends Model
     {
         return $this->belongsTo('App\Account');
     }
+
+    public function projects()
+    {
+        return $this->hasMany('App\Project');
+    }
 }

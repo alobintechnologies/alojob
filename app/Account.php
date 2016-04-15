@@ -56,4 +56,9 @@ class Account extends Model
     {
         return $this->hasMany('App\TicketCategory');
     }
+
+    public function quotes()
+    {
+        return $this->hasMany('App\Quote');
+    }
 }

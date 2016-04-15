@@ -5,6 +5,8 @@
  * 3. panel styles
  * 4. summernote styles
  * 5. crud styles
+ * 6. Line items
+ * 7. input-grou-addon with select styles
  */
 
 /* 1. flash messages */
@@ -58,4 +60,23 @@
 }
 .link-row:last-child {
   border-bottom: none;
+}
+
+/* 6. Line items */
+.line-items {
+  .sort-move-icon {
+    cursor: move;
+  }
+  .line-item-row {
+    padding: 7px 0;
+    display: block;
+  }
+}
+
+/* 7. input-grou-addon with select styles */
+.input-group-btn select {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 6px;
+  padding-bottom: 5px;
 }

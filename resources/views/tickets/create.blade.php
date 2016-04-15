@@ -30,7 +30,7 @@
                           <label for="title-field">Title*</label>
                           <input type="text" id="title-field" name="title" class="form-control" value="{{ old("title") }}"/>
                         </div>
-                        <div class="form-group @if($errors->has('client_id')) has-error @endif">
+                        {{--<div class="form-group @if($errors->has('client_id')) has-error @endif">
                           <label for="client_id-field">Client</label>
                           <div class="input-group">
                             <input type="hidden" name="client_id" value="" />
@@ -39,7 +39,7 @@
                               <a href="{{ route('clients.create') }}" class="btn btn-warning">+ New</a>
                             </span>
                           </div>
-                        </div>
+                        </div>--}}
                         <div class="form-group @if($errors->has('project_id')) has-error @endif">
                           <label for="project_id-field">Project</label>
                           <div class="input-group">

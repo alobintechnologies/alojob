@@ -37,6 +37,18 @@
                                   </div>
                                 </div>
                                 <div class="col-sm-12">
+                                  <div class="form-group @if($errors->has('client_id')) has-error @endif">
+                                    <label for="client_id-field">Client</label>
+                                    <div class="input-group">
+                                      <input type="hidden" name="client_id" value="" />
+                                      <input type="text" id="client_id-field" name="client_name" class="form-control" value=""/>
+                                      <span class="input-group-btn">
+                                        <a href="{{ route('clients.create') }}" class="btn btn-warning">+ New</a>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-12">
                                   <div class="form-group @if($errors->has('description')) has-error @endif">
                                      <label for="description-field">Description</label>
                                      <input type="text" id="description-field" name="description" class="form-control" value="{{ old("description") }}"/>
@@ -54,4 +66,15 @@
         </div>  <!-- ./panel -->
       </div> <!-- ./col-sm-12 -->
     </div> <!-- ./row -->
+@endsection
+
+@section('layout-footer')
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      var projectController = new ProjectController();
+      @if($client)
+        projectController.client("{{ $client->id }}", "{{ $client->title }}");
+      @endif
+    });
+  </script>
 @endsection

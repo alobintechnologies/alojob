@@ -65,10 +65,10 @@ class TicketController extends Controller {
     $ticket->description = $request->input("description");
 		$ticket->user_id = Auth::user()->id;
 
-		$client_id = $request->input('client_id');
+		/*$client_id = $request->input('client_id');
 		if(is_numeric($client_id)) {
 			$ticket->client_id = $client_id;
-		}
+		}*/
 		$project_id = $request->input('project_id');
 		if(is_numeric($project_id)) {
 			$ticket->project_id = $project_id;
@@ -89,7 +89,7 @@ class TicketController extends Controller {
 	 */
 	public function show($id)
 	{
-		$ticket = $this->currentTickets()->with('ticket_category', 'client', 'project', 'assigned_user')->findOrFail($id);
+		$ticket = $this->currentTickets()->with('ticket_category', 'project', 'assigned_user')->findOrFail($id);
 
 		return view('tickets.show', compact('ticket'));
 	}
@@ -102,7 +102,7 @@ class TicketController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$ticket = $this->currentTickets()->with('ticket_category', 'client', 'project', 'assigned_user')->findOrFail($id);
+		$ticket = $this->currentTickets()->with('ticket_category', 'project', 'assigned_user')->findOrFail($id);
 
 		return view('tickets.edit', compact('ticket'))->with($this->getEditViewModel());;
 	}
@@ -130,10 +130,10 @@ class TicketController extends Controller {
     $ticket->description = $request->input("description");
 		$ticket->user_id = Auth::user()->id;
 
-		$client_id = $request->input('client_id');
+		/*$client_id = $request->input('client_id');
 		if(is_numeric($client_id)) {
 			$ticket->client_id = $client_id;
-		}
+		}*/
 		$project_id = $request->input('project_id');
 		if(is_numeric($project_id)) {
 			$ticket->project_id = $project_id;

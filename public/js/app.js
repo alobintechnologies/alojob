@@ -9910,6 +9910,55 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
 
 ;(function ($, window, aloF) {
     var clientService = new ClientService();
+
+    function ProjectController(options) {
+      this.options = $.extend({}, options);
+      this._initialize();
+      this._events();
+    }
+
+    ProjectController.prototype.options = {
+      // add any default options in here...
+    }
+
+    ProjectController.prototype._initialize = function () {
+    };
+
+    ProjectController.prototype.client = function (id, name) {
+        $("#client_id-field").val(name);
+        $("input[name='client_id']").val(id);
+    };
+
+    ProjectController.prototype._events = function () {
+        //$("#created_at-field").datepicker();
+
+        /*$("#project-add-btn").click(function() {
+
+            aloF.commonModal('Project Add', '', 'show');
+        });*/
+        $("#client_id-field").autocomplete({
+          source: function (request, response) {
+            clientService.all(request.term, function(data) {
+              response(data);
+            });
+          },
+          select: function(event, ui) {
+            $("input[name='client_id']").val(ui.item.id);
+            $("#client_id-field").val(ui.item.title + " " + ui.item.first_name + " " + ui.item.last_name);
+            return false;
+          }
+        }).autocomplete('instance')._renderItem = function(ul, item) {
+          return $("<li>")
+              .append("<a>" + item.title + " " + item.first_name + " " + item.last_name + "</a>")
+              .appendTo( ul );
+        };
+    };
+
+    window.ProjectController = ProjectController;
+})(jQuery, window, AloFramework);
+
+;(function ($, window, aloF) {
+    var clientService = new ClientService();
     var projectService = new ProjectService();
 
     function TicketController(options) {
@@ -9991,6 +10040,72 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
     };
 
     window.TicketController = TicketController;
+})(jQuery, window, AloFramework);
+
+;(function ($, window, aloF) {
+    var clientService = new ClientService();
+    var projectService = new ProjectService();
+
+    function QuoteController(options) {
+      this.options = $.extend({}, options);
+      this._initialize();
+      this._events();
+    }
+
+    QuoteController.prototype.options = {
+      // add any default options in here...
+    }
+
+    QuoteController.prototype._initialize = function () {
+    };
+
+    QuoteController.prototype.client = function (id, name) {
+        $("#client_id-field").val(name);
+        $("input[name='client_id']").val(id);
+    };
+
+    QuoteController.prototype.project = function (id, name) {
+        $("#project_id-field").val(name);
+        $("input[name='project_id']").val(id);
+    };
+
+    QuoteController.prototype._events = function () {
+        /*$("#client_id-field").autocomplete({
+          source: function (request, response) {
+            clientService.all(request.term, function(data) {
+              response(data);
+            });
+          },
+          select: function(event, ui) {
+            $("input[name='client_id']").val(ui.item.id);
+            $("#client_id-field").val(ui.item.title + " " + ui.item.first_name + " " + ui.item.last_name);
+            return false;
+          }
+        }).autocomplete('instance')._renderItem = function(ul, item) {
+          return $("<li>")
+              .append("<a>" + item.title + " " + item.first_name + " " + item.last_name + "</a>")
+              .appendTo( ul );
+        };*/
+
+        $("#project_id-field").autocomplete({
+          source: function (request, response) {
+            projectService.all(request.term, function(data) {
+              response(data);
+            });
+          },
+          select: function(event, ui) {
+            $("input[name='project_id']").val(ui.item.id);
+            $("#project_id-field").val(ui.item.title);
+            return false;
+          }
+        }).autocomplete('instance')._renderItem = function(ul, item) {
+          return $("<li>")
+              .append("<a>" + item.title + "</a>")
+              .appendTo( ul );
+        };
+    };
+
+    window.QuoteController = QuoteController;
 })(jQuery, window, AloFramework);
 
 //# sourceMappingURL=app.js.map

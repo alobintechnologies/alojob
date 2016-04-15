@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Validator;
 use App\Project;
 use Illuminate\Http\Request;
 use Auth;
@@ -27,9 +27,19 @@ class ProjectController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(Request $request)
 	{
-			return view('projects.create');
+			$client_id = $request->input('client_number');
+			$client = null;
+			if(is_numeric($client_id)) {
+					$client = AccountUtil::current()->projects()->findOrFail($client_id);
+					if(!$client) {
+							$request->session()->flash('error', 'Client does not exists to add project');
+							return back();
+					}
+			}
+			return view('projects.create')
+								->with('client', $client);
 	}
 
 	/**
@@ -57,6 +67,8 @@ class ProjectController extends Controller {
 			$project->title = $request->input("title");
 	    $project->description = $request->input("description");
 			$project->user_id = Auth::user()->id;
+			$project->project_type = $request->input('project_type');
+			$project->client_id = $request->input('client_id');
 
 			$this->currentProjects()->save($project);
 
@@ -87,7 +99,7 @@ class ProjectController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$project = $this->currentProjects()->findOrFail($id);
+		$project = $this->currentProjects()->with('client')->findOrFail($id);
 
 		return view('projects.edit', compact('project'));
 	}
@@ -101,15 +113,25 @@ class ProjectController extends Controller {
 	 */
 	public function update(Request $request, $id)
 	{
-		$project = $this->currentProjects()->findOrFail($id);
+			$validator = Validator::make($request->all(), [
+					'title' => 'required'
+			]);
+			if($validator->fails()) {
+					return back()
+									->withErrors($validator)
+									->withInput();
+			}
+			$project = $this->currentProjects()->findOrFail($id);
 
-		$project->title = $request->input("title");
-    $project->description = $request->input("description");
-		$project->user_id = Auth::user()->id;
+			$project->title = $request->input("title");
+	    $project->description = $request->input("description");
+			$project->user_id = Auth::user()->id;
+			$project->project_type = $request->input('project_type');
+			$project->client_id = $request->input('client_id');
 
-		$project->save();
+			$project->save();
 
-		return redirect()->route('projects.index')->with('message', 'Item updated successfully.');
+			return redirect()->route('projects.index')->with('message', 'Item updated successfully.');
 	}
 
 	/**

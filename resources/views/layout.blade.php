@@ -44,6 +44,7 @@
                       <li><a href="{{ url('/clients') }}"><i class="fa fa-user"></i> Clients</a></li>
                       <li><a href="{{ url('/projects') }}"><i class="fa fa-briefcase"></i> Projects</a></li>
                       <li><a href="{{ url('/tickets') }}"><i class="fa fa-ticket"></i> Tickets</a></li>
+                      <li><a href="{{ url('/quotes') }}"><i class="fa fa-file"></i> Quotes</a></li>
                   </ul>
                 @endif
 

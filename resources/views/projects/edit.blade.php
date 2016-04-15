@@ -31,11 +31,23 @@
                                    <label for="project_type-field">Project Type</label>
                                    <select class="form-control" name="project_type">
                                      <option value="general">General</option>
-                                     <option value="website">website</option>
-                                     <option value="webapp">webapp</option>
-                                     <option value="mobile">mobile</option>
-                                     <option value="other">other</option>
+                                     <option value="website">Website</option>
+                                     <option value="webapp">Webapp</option>
+                                     <option value="mobile">Mobile</option>
+                                     <option value="other">Other</option>
                                    </select>
+                                </div>
+                              </div>
+                              <div class="col-sm-12">
+                                <div class="form-group @if($errors->has('client_id')) has-error @endif">
+                                  <label for="client_id-field">Client</label>
+                                  <div class="input-group">
+                                    <input type="hidden" name="client_id" value="" />
+                                    <input type="text" id="client_id-field" name="client_name" class="form-control" value=""/>
+                                    <span class="input-group-btn">
+                                      <a href="{{ route('clients.create') }}" class="btn btn-warning">+ New</a>
+                                    </span>
+                                  </div>
                                 </div>
                               </div>
                               <div class="col-sm-12">
@@ -43,7 +55,7 @@
                                    <label for="description-field">Description</label>
                                    <input type="text" id="description-field" name="description" class="form-control" value="{{ $project->description }}"/>
                                 </div>
-                              </div>
+                              </div>                              
                           </div>
                           <div class="well well-sm">
                               <button type="submit" class="btn btn-primary">Save</button>
@@ -57,4 +69,15 @@
     </div> <!-- ./col-sm-12 -->
   </div> <!-- ./row -->
 
+@endsection
+
+@section('layout-footer')
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      var projectController = new ProjectController();
+      @if($project->client)
+        projectController.client("{{ $project->client->id }}", "{{ $project->client->title }}");
+      @endif
+    });
+  </script>
 @endsection

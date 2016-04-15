@@ -57,6 +57,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('projects/filter', 'ProjectController@filter');
         Route::resource('projects', 'ProjectController');
         Route::resource('tickets', 'TicketController');
+        Route::resource('quotes', 'QuoteController');
 
         Route::group([
           'prefix' => 'master_datas/{masterType}',

@@ -15,8 +15,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="{{ route('projects.edit', $project->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#"><i class="fa fa-book"></i> New Quote</a></li>
-                  <li><a href="#"><i class="fa fa-tasks"></i> New Job</a></li>
+                  <li><a href="{{ route('quotes.create') }}?project_number={{ $project->id }}"><i class="fa fa-book"></i> New Quote</a></li>
                   <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
                 </ul>
               </div>
@@ -238,7 +237,7 @@
                           + New <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                          <li><a href="#"><i class="fa fa-book"></i> New Quote</a></li>
+                          <li><a href="{{ route('quotes.create') }}?project_number={{ $project->id }}"><i class="fa fa-book"></i> New Quote</a></li>
                           <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
                           <li><a href="#"><i class="fa fa-money"></i> New Payment</a></li>
                         </ul>
@@ -434,4 +433,15 @@
         </div> <!-- ./details-panel-layout -->
     </div>
 </div>
+@endsection
+
+@section('layout-footer')
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $("#serviceItemSortable").sortable({
+            placeholder: "ui-state-highlight",
+            helper: 'clone'
+        });
+    });
+  </script>
 @endsection

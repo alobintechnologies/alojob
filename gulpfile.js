@@ -21,7 +21,10 @@ elixir(function(mix) {
       'clients/client-service.js',
       // projects module
       'projects/project-service.js',
+      'projects/project-controller.js',
       // tickets module
-      'tickets/ticket-controller.js'
+      'tickets/ticket-controller.js',
+      // quotes module
+      'quotes/quote-controller.js'
     ], 'public/js/app.js');
 });
