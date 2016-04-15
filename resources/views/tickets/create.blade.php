@@ -117,6 +117,9 @@
   <script type="text/javascript">
     jQuery(document).ready(function($) {
       var ticketController = new TicketController();
+      @if($project)
+        ticketController.project("{{ $project->id }}", "{{ $project->title }}");
+      @endif
     });
   </script>
 @endsection

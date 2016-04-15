@@ -9925,6 +9925,16 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
     TicketController.prototype._initialize = function () {
     };
 
+    TicketController.prototype.client = function (id, name) {
+        $("#client_id-field").val(name);
+        $("input[name='client_id']").val(id);
+    };
+
+    TicketController.prototype.project = function (id, name) {
+        $("#project_id-field").val(name);
+        $("input[name='project_id']").val(id);
+    };
+
     TicketController.prototype._events = function () {
         $("#created_at-field").datepicker();
 

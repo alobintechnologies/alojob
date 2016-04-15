@@ -73,7 +73,7 @@
                         </button>
                         <ul class="dropdown-menu">
                           <li><a href="#"><i class="fa fa-tasks"></i> New Task</a></li>
-                          <li><a href="{{ route('tickets.create') }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
+                          <li><a href="{{ route('tickets.create') }}?project_number={{ $project->id }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
                         </ul>
                       </div>
                     </div>

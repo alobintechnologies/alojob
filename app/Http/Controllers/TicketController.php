@@ -27,7 +27,7 @@ class TicketController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(Request $request)
 	{
 		$project_id = $request->input('project_number');
 		$project = null;
