@@ -5,7 +5,7 @@
     <div class="col-sm-12">
         <div class="header">
           <h5>
-            <a href="{{ url('projects') }}">&raquo; Projects</a> / {{ $project->title }}
+            <a href="#" class="history-back-btn">&larr; Back</a> / <a href="{{ url('projects') }}">Projects</a> / {{ $project->id }}
             <div class="pull-right">
               <a href="#" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>
               <div class="btn-group">
@@ -15,6 +15,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="{{ route('projects.edit', $project->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
                   <li role="separator" class="divider"></li>
+                  <li><a href="{{ route('tickets.create') }}?project_number={{ $project->id }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
                   <li><a href="{{ route('quotes.create') }}?project_number={{ $project->id }}"><i class="fa fa-book"></i> New Quote</a></li>
                   <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
                 </ul>
@@ -29,15 +30,31 @@
           <div class="panel-heading details-panel-heading">
             <div class="">
               <h3>
-                <i class="fa fa-gavel"></i> <span>Project #{{ $project->id }}</span>
+                <i class="fa fa-gavel"></i> <span>{{ $project->title }} #{{ $project->id }}</span>
                 <small class="pull-right"><label class="label label-info">Draft</label></small>
               </h3>
               <hr/>
             </div>
             <div class="row">
               <div class="col-sm-6">
-                <h2>{{ $project->title }}</h2>
                 <p>{{ $project->description }}</p>
+                @if($project->client != null)
+                  <div class="well well-sm">
+                    <i class="fa fa-user fa-lg"></i> Client
+                    <div class="pull-right">
+                      <a href="{{ route('clients.show', $project->client->id) }}">{{ $project->client->name() }}</a>
+                    </div>
+                  </div>
+                @endif
+                <div class="form-group">
+                  <span>Quick Add</span>
+                  <a href="{{ route('tickets.create') }}?project_number={{ $project->id }}" class="btn btn-default btn-sm">
+                    <i class="fa fa-ticket"></i> Ticket
+                  </a>
+                  <a href="{{ route('quotes.create') }}?project_number={{ $project->id }}" class="btn btn-default btn-sm">
+                    <i class="fa fa-file"></i> Quote
+                  </a>
+                </div>
               </div>
               <div class="col-sm-6">
                 <br />
@@ -133,30 +150,7 @@
                   </div>
 
                   <div role="tabpanel" class="tab-pane" id="TicketsTab">
-                    @foreach($project->tickets as $ticket)
-                      <a href="{{ route('tickets.show', $ticket->id) }}" class="link-row">
-                        <div class="row">
-                          <div class="col-sm-4">
-                            <h4>{{ $ticket->title }}</h4>
-                            <label class="label label-default">{{ $ticket->status() }}</label>
-                          </div>
-                          <div class="col-sm-2">
-                            <h5>Created</h5>
-                            {{ $ticket->created_at->diffForHumans() }}
-                          </div>
-                          <div class="col-sm-3">
-                            <h5>Type</h5>
-                            {{ $ticket->ticket_category->title }}
-                          </div>
-                          <div class="col-sm-3">
-                            <div class="pull-right">
-                              <h5>Assigned</h5>
-                              {{ $ticket->assigned_user->email }}
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    @endforeach
+                    @include('tickets._list', ['tickets' => $project->tickets])
                   </div>
                 </div>
               </div>

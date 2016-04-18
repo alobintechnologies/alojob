@@ -3,7 +3,9 @@
 @section('header')
 <div class="header">
     <ol class="breadcrumb">
-      <li>Back to: <a href="{{ url('tickets') }}">Tickets</a> / {{ $ticket->id }}</li>
+      <li><a href="#" class="history-back-btn">&larr; Back</a></li>
+      <li><a href="{{ url('tickets') }}">Tickets</a></li>
+      <li><a href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->id }}</a></li>
     </ol>
 </div>
 @endsection
@@ -36,7 +38,7 @@
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group @if($errors->has('title')) has-error @endif">
-                          <label for="title-field">Title*</label>
+                          <label for="title-field">Ticket Subject*</label>
                           <input type="text" id="title-field" name="title" class="form-control" value="{{ old("title", $ticket->title) }}"/>
                         </div>
                         {{--<div class="form-group @if($errors->has('client_id')) has-error @endif">
@@ -59,6 +61,10 @@
                               <a href="{{ route('projects.create') }}" class="btn btn-warning">+ New</a>
                             </span>
                           </div>
+                        </div>
+                        <div class="">
+                          <label>Created </label>
+                          <span>{{ $ticket->created_at->diffForHumans() }}</span>
                         </div>
                       </div>
                       <div class="col-sm-6">
@@ -100,9 +106,18 @@
                               </td>
                             </tr>
                             <tr>
-                              <td><label for="created_at-field">Created</label></td>
                               <td>
-                                {{ $ticket->created_at->diffForHumans() }}
+                                <label for="priority_id-field">Priority</label>
+                              </td>
+                              <td>
+                                <div class="form-group">
+                                  <select class="form-control input-sm" name="priority_id" id="priority_id-field">
+                                    <option value="0">Low</option>
+                                    <option value="1">Medium</option>
+                                    <option value="2">High</option>
+                                    <option value="3">Critical</option>
+                                  </select>
+                                </div>
                               </td>
                             </tr>
                           </table>
@@ -116,7 +131,8 @@
                     </div>
                     <hr/>
                     <div class="pull-right">
-                        <a class="btn btn-link btn-sm" href="{{ route('tickets.index') }}"><i class="fa fa-backward"></i> Back</a>
+                        <a class="btn btn-link btn-sm history-back-btn" href="#">&larr; Back</a>
+                        <a href="{{ route('tickets.show', $ticket->id) }}" class="btn btn-default">View</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                   </div> <!-- ./panel-body -->
@@ -142,6 +158,7 @@
         $("input[name='project_id']").val("{{ $ticket->project->id }}");
       @endif
       $("#ticket_status-field").val("{{ $ticket->ticket_status }}");
+      $("#priority_id-field").val("{{ $ticket->priority_id?:0 }}");
     });
   </script>
 @endsection

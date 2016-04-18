@@ -3,7 +3,9 @@
 @section('header')
 <div class="header">
     <ol class="breadcrumb">
-      <li>Back to: <a href="{{ url('tickets') }}">Tickets</a></li>
+      <li><a href="#" class="history-back-btn">&larr; Back</a></li>
+      <li><a href="{{ url('tickets') }}">Tickets</a></li>
+      <li>new</li>
     </ol>
 </div>
 @endsection
@@ -49,6 +51,15 @@
                               <a href="{{ route('projects.create') }}" class="btn btn-warning">+ New</a>
                             </span>
                           </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="priority_id-field">Priority</label>
+                          <select class="form-control" name="priority_id" id="priority_id-field">
+                            <option value="0">Low</option>
+                            <option value="1">Medium</option>
+                            <option value="2">High</option>
+                            <option value="3">Critical</option>
+                          </select>
                         </div>
                       </div>
                       <div class="col-sm-6">
@@ -100,7 +111,7 @@
                     </div>
                     <hr/>
                     <div class="pull-right">
-                        <a class="btn btn-link btn-sm" href="{{ route('tickets.index') }}"><i class="fa fa-backward"></i> Back</a>
+                        <a class="btn btn-link btn-sm history-back-btn" href="#">&larr; Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                   </div> <!-- ./panel-body -->

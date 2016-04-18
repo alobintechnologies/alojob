@@ -25,4 +25,9 @@ class Client extends Model
     {
         return $this->hasMany('App\Project');
     }
+
+    public function tickets()
+    {
+        return $this->hasManyThrough('App\Ticket', 'App\Project');
+    }
 }

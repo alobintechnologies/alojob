@@ -9817,14 +9817,13 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
         this.options = $.extend({}, this.options);
         $.extend(this.options, options);
         this._initialize();
+        this._events();
     }
 
     AloFramework.prototype.options = {
-
     }
 
     AloFramework.prototype._initialize = function () {
-
     }
 
     AloFramework.prototype.getBaseURL = function () {
@@ -9840,6 +9839,12 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
             commonModalObj.find("#commonModalbody").html(modalBody);
             commonModalObj.modal(modalStatus);
         }
+    };
+
+    AloFramework.prototype._events = function () {
+      $(".history-back-btn").click(function() {
+        window.history.back();
+      });
     };
 
     /**

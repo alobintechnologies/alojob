@@ -3,7 +3,9 @@
 @section('header')
 <div class="header">
     <ol class="breadcrumb">
-      <li>Back to: <a href="{{ url('quotes') }}">Quotes</a></li>
+      <li><a href="#" class="history-back-btn">&larr; Back</a></li>
+      <li><a href="{{ url('quotes') }}">Quotes</a></li>
+      <li>new</li>
     </ol>
 </div>
 @endsection
@@ -238,6 +240,11 @@
   <script type="text/javascript">
     jQuery(document).ready(function($) {
       var quoteController = new QuoteController();
+
+      $("#serviceItemSortable").sortable({
+          placeholder: "ui-state-highlight",
+          helper: 'clone'
+      });
       @if($project)
         quoteController.project("{{ $project->id }}", "{{ $project->title }}");
       @endif

@@ -17,7 +17,7 @@ class ProjectController extends Controller {
 	 */
 	public function index()
 	{
-			$projects = $this->currentProjects()->orderBy('title', 'desc')->paginate(10);
+			$projects = $this->currentProjects()->orderBy('title', 'asc')->paginate(10);
 
 			return view('projects.index', compact('projects'));
 	}
@@ -52,7 +52,10 @@ class ProjectController extends Controller {
 	{
 			$format = $request->input('format', 'html');
 			$validator = Validator::make($request->all(), [
-					'title' => 'required'
+					'title' => 'required',
+					'client_id' => 'required'
+			], [
+				'client_id.required' => 'Client field is required'
 			]);
 			if($validator->fails()) {
 					if($format == 'json') {
@@ -86,7 +89,7 @@ class ProjectController extends Controller {
 	 */
 	public function show($id)
 	{
-		$project = $this->currentProjects()->with('tickets')->findOrFail($id);
+		$project = $this->currentProjects()->with('tickets', 'client')->findOrFail($id);
 
 		return view('projects.show', compact('project'));
 	}

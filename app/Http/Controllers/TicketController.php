@@ -17,7 +17,7 @@ class TicketController extends Controller {
 	 */
 	public function index()
 	{
-		$tickets = $this->currentTickets()->with('ticket_category', 'assigned_user')->orderBy('title', 'asc')->paginate(10);
+		$tickets = $this->currentTickets()->with('ticket_category', 'assigned_user', 'project')->orderBy('title', 'asc')->paginate(10);
 
 		return view('tickets.index', compact('tickets'));
 	}
@@ -64,6 +64,7 @@ class TicketController extends Controller {
 		$ticket->title = $request->input("title");
     $ticket->description = $request->input("description");
 		$ticket->user_id = Auth::user()->id;
+		$ticket->priority_id = $request->input('priority_id', 1);
 
 		/*$client_id = $request->input('client_id');
 		if(is_numeric($client_id)) {
@@ -129,6 +130,7 @@ class TicketController extends Controller {
 		$ticket->title = $request->input("title");
     $ticket->description = $request->input("description");
 		$ticket->user_id = Auth::user()->id;
+		$ticket->priority_id = $request->input('priority_id', $ticket->priority_id);
 
 		/*$client_id = $request->input('client_id');
 		if(is_numeric($client_id)) {

@@ -29,7 +29,7 @@
                               <div class="col-sm-6">
                                 <div class="form-group @if($errors->has('project_type')) has-error @endif">
                                    <label for="project_type-field">Project Type</label>
-                                   <select class="form-control" name="project_type">
+                                   <select class="form-control" name="project_type" id="project_type-field">
                                      <option value="general">General</option>
                                      <option value="website">Website</option>
                                      <option value="webapp">Webapp</option>
@@ -75,6 +75,7 @@
   <script type="text/javascript">
     jQuery(document).ready(function($) {
       var projectController = new ProjectController();
+      $("#project_type-field").val("{{ $project->project_type }}");
       @if($project->client)
         projectController.client("{{ $project->client->id }}", "{{ $project->client->name() }}");
       @endif

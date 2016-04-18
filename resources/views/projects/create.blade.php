@@ -1,10 +1,21 @@
 @extends('layout')
+
+@section('header')
+<div class="header">
+    <ol class="breadcrumb">
+      <li><a href="#" class="history-back-btn">&larr; Back</a></li>
+      <li><a href="{{ url('projects') }}">Projects</a></li>
+      <li>new</li>
+    </ol>
+</div>
+@endsection
+
 @section('content')
 
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
-                <div class="panel-heading"><i class="fa fa-briefcase"></i> Projects / Create</div>
+                <div class="panel-heading"><a href="{{ url('projects') }}"><i class="fa fa-briefcase"></i> Projects</a> / Create</div>
                 <div class="panel-body">
                   <form action="{{ route('projects.store') }}" method="POST" class="form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -18,6 +29,18 @@
                             @include('error')
                             <h2 class="title">Basic Information</h2>
                             <div class="row">
+                                <div class="col-sm-12">
+                                  <div class="form-group @if($errors->has('client_id')) has-error @endif">
+                                    <label for="client_id-field">Client*</label>
+                                    <div class="input-group">
+                                      <input type="hidden" name="client_id" value="" />
+                                      <input type="text" id="client_id-field" name="client_name" class="form-control" value=""/>
+                                      <span class="input-group-btn">
+                                        <a href="{{ route('clients.create') }}" class="btn btn-warning">+ New</a>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
                                 <div class="col-sm-6">
                                   <div class="form-group @if($errors->has('title')) has-error @endif">
                                     <label for="title-field">Title*</label>
@@ -34,18 +57,6 @@
                                        <option value="mobile">mobile</option>
                                        <option value="other">other</option>
                                      </select>
-                                  </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="form-group @if($errors->has('client_id')) has-error @endif">
-                                    <label for="client_id-field">Client</label>
-                                    <div class="input-group">
-                                      <input type="hidden" name="client_id" value="" />
-                                      <input type="text" id="client_id-field" name="client_name" class="form-control" value=""/>
-                                      <span class="input-group-btn">
-                                        <a href="{{ route('clients.create') }}" class="btn btn-warning">+ New</a>
-                                      </span>
-                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-sm-12">

@@ -17,7 +17,7 @@ class ClientController extends Controller {
 	 */
 	public function index()
 	{
-		$clients = $this->currentClients()->orderBy('id', 'desc')->paginate(10);
+		$clients = $this->currentClients()->orderBy('first_name', 'asc')->paginate(10);
 
 		return view('clients.index', compact('clients'));
 	}
@@ -79,7 +79,11 @@ class ClientController extends Controller {
 	 */
 	public function show($id)
 	{
-		$client = $this->currentClients()->with('projects')->findOrFail($id);
+		$client = $this->currentClients()->with(['projects' => function($query) {
+			$query->take(5);
+		}, 'tickets' => function($query) {
+			$query->with('ticket_category', 'assigned_user')->take(5);
+		}])->findOrFail($id);
 
 		return view('clients.show', compact('client'));
 	}

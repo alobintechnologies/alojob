@@ -55,7 +55,7 @@
                                   <div class="row">
                                     <div class="col-sm-6 col-lg-7">
                                       <small class="pull-right"><label class="label label-info">{{ $ticket->status() }}</label></small>
-                                      <span>{{ str_limit($ticket->title, 100) }}</span>
+                                      <span><i class="fa {{ $ticket->priority_icon() }}"></i> {{ str_limit($ticket->title, 100) }}</span>
                                     </div>
                                     <div class="col-sm-3 col-lg-2">
                                       {{ str_limit($ticket->ticket_category->title, 15) }}

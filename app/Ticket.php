@@ -46,4 +46,32 @@ class Ticket extends Model
             return "Closed";
         }
     }
+
+    public function priority_icon()
+    {
+        switch($this->priority_id) {
+          case 0:
+            return "fa-arrow-down";
+          case 1:
+            return "fa-exclamation-circle";
+          case 2:
+            return "fa-arrow-up";
+          case 3:
+            return "fa-times-circle-o";
+        }
+    }
+
+    public function priority()
+    {
+       switch($this->priority_id) {
+         case 0:
+           return "Low";
+         case 1:
+           return "Medium";
+         case 2:
+           return "High";
+         case 3:
+           return "Critical";
+       }
+    }
 }

@@ -2,13 +2,14 @@
 @section('header')
 <div class="header">
     <ol class="breadcrumb">
-      <li>Back to: <a href="{{ url('clients') }}">Clients</a></li>
+      <li><a href="#" class="history-back-btn">&larr; Back</a></li>
+      <li><a href="{{ url('clients') }}">Clients</a></li>
     </ol>
 </div>
 @endsection
 
 @section('content')
-  <h1>
+  <h3>
     {{ $client->name() }}
     <div class="btn-group pull-right">
       <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -22,7 +23,7 @@
         <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
       </ul>
     </div>
-  </h1>
+  </h3>
   <hr/>
   <div class="row">
       <div class="col-sm-8">
@@ -36,8 +37,8 @@
                         + New <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fa fa-book"></i> New Quote</a></li>
-                        <li><a href="#"><i class="fa fa-gavel"></i> New Project</a></li>
+                        <li><a href="{{ route('quotes.create') }}"><i class="fa fa-book"></i> New Quote</a></li>
+                        <li><a href="{{ route('projects.create') }}?client_number={{ $client->id }}"><i class="fa fa-gavel"></i> New Project</a></li>
                         <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
                       </ul>
                     </div>
@@ -147,7 +148,7 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li><a href="#"><i class="fa fa-tasks"></i> New Task</a></li>
-                      <li><a href="#"><i class="fa fa-ticket"></i> New Ticket</a></li>
+                      <li><a href="{{ route('tickets.create') }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
                     </ul>
                   </div>
                 </div>
@@ -208,28 +209,7 @@
               </div>
 
               <div role="tabpanel" class="tab-pane" id="TicketsTab">
-                <a href="#" class="link-row">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h4>Problem in the hms module</h4>
-                      <label class="label label-default">Open</label>
-                    </div>
-                    <div class="col-sm-2">
-                      <h5>Dated On</h5>
-                      07/04/2016
-                    </div>
-                    <div class="col-sm-3">
-                      <h5>Project</h5>
-                      HMS
-                    </div>
-                    <div class="col-sm-3">
-                      <div class="pull-right">
-                        <h5>Assigned To</h5>
-                        Satheesh Kumar
-                      </div>
-                    </div>
-                  </div>
-                </a>
+                @include('tickets._list', ['tickets' => $client->tickets])
               </div>
             </div>
           </div>

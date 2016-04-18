@@ -6,8 +6,9 @@
         <div class="col-sm-12">
           <div class="header">
             <h5>
-              <a href="{{ url('tickets') }}">&raquo; Tickets</a> / {{ $ticket->id }}
+              <a href="#" class="history-back-btn">&larr; Back</a> / <a href="{{ url('tickets') }}">Tickets</a> / {{ $ticket->id }}
               <div class="pull-right">
+                <a href="{{ route('tickets.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
                 <a href="#" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>
                 <div class="btn-group">
                   <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,15 +30,14 @@
               <div class="panel-heading details-panel-heading">
                 <div class="">
                   <h3>
-                    <i class="fa fa-ticket"></i> <span>Ticket #{{ $ticket->id }}</span>
+                    <i class="fa fa-ticket"></i> <span>{{ $ticket->title }} #{{ $ticket->id }}</span>
                     <small class="pull-right"><label class="label label-info">{{ $ticket->status() }}</label></small>
                   </h3>
                   <hr/>
                 </div>
                 <div class="row">
                   <div class="col-sm-6">
-                    <label>Ticket Title</label>
-                    <p>{{ $ticket->title }}</p>
+                    <br />
                     @if($ticket->client != null)
                       <div class="well well-sm">
                         <i class="fa fa-user fa-lg"></i> Client
@@ -61,10 +61,10 @@
                       <table class="table table-striped table-bordered">
                         <tr>
                           <td>
-                            <label for="ticket_number">Ticket Number</label>
+                            <label for="ticket_number">Priority</label>
                           </td>
                           <td>
-                            #{{ $ticket->id }}
+                            {{ $ticket->priority() }} <i class="fa {{ $ticket->priority_icon() }}"></i>
                           </td>
                         </tr>
                         <tr>
@@ -98,7 +98,7 @@
                 </p>
                 <hr/>
                 <div class="pull-right">
-                    <a class="btn btn-link btn-sm" href="{{ route('tickets.index') }}"><i class="fa fa-backward"></i> Back</a>
+                    <a class="btn btn-link btn-sm history-back-btn" href="#">&larr; Back</a>
                     <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
