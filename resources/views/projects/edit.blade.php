@@ -55,7 +55,7 @@
                                    <label for="description-field">Description</label>
                                    <input type="text" id="description-field" name="description" class="form-control" value="{{ $project->description }}"/>
                                 </div>
-                              </div>                              
+                              </div>
                           </div>
                           <div class="well well-sm">
                               <button type="submit" class="btn btn-primary">Save</button>
@@ -76,7 +76,7 @@
     jQuery(document).ready(function($) {
       var projectController = new ProjectController();
       @if($project->client)
-        projectController.client("{{ $project->client->id }}", "{{ $project->client->title }}");
+        projectController.client("{{ $project->client->id }}", "{{ $project->client->name() }}");
       @endif
     });
   </script>

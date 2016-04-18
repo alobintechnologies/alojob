@@ -32,7 +32,7 @@ class ProjectController extends Controller {
 			$client_id = $request->input('client_number');
 			$client = null;
 			if(is_numeric($client_id)) {
-					$client = AccountUtil::current()->projects()->findOrFail($client_id);
+					$client = AccountUtil::current()->clients()->findOrFail($client_id);
 					if(!$client) {
 							$request->session()->flash('error', 'Client does not exists to add project');
 							return back();

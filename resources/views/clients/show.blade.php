@@ -18,7 +18,7 @@
         <li><a href="{{ route('clients.edit', $client->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
         <li role="separator" class="divider"></li>
         <li><a href="#"><i class="fa fa-book"></i> New Quote</a></li>
-        <li><a href="#"><i class="fa fa-gavel"></i> New Project</a></li>
+        <li><a href="{{ route('projects.create') }}?client_number={{ $client->id }}"><i class="fa fa-gavel"></i> New Project</a></li>
         <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
       </ul>
     </div>

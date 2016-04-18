@@ -73,7 +73,7 @@
     jQuery(document).ready(function($) {
       var projectController = new ProjectController();
       @if($client)
-        projectController.client("{{ $client->id }}", "{{ $client->title }}");
+        projectController.client("{{ $client->id }}", "{{ $client->name() }}");
       @endif
     });
   </script>
