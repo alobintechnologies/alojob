@@ -16,22 +16,32 @@
         <div class="col-sm-12">
           <form action="{{ route('tickets.store') }}" method="POST" class="form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <div class="panel panel-default details-panel-layout">
+              @include('error')
+              <div class="panel panel-light panel-default details-panel-layout">
                   <div class="panel-heading details-panel-heading">
-                    <div class="">
-                      <h3>
-                        <i class="fa fa-ticket"></i> <span>Ticket #new</span>
-                        <small class="pull-right"><label class="label label-info">Open</label></small>
-                      </h3>
-                      <hr/>
+                    <h3>
+                      <div class="row">
+                        <div class="col-sm-10">
+                          <div class="form-group details-panel-form-group @if($errors->has('title')) has-error @endif">
+                            <textarea name="title" id="title-field" name="title" autofocus="autofocus" data-autoresize="true" rows="1" class="form-control details-panel-title-field" placeholder="Type ticket subject here...">{{ old("title") }}</textarea>
+                          </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <small class="pull-right"><label class="label label-info">Open</label></small>
+                        </div>
+                      </div>
+                    </h3>
+                  </div>
+                  <div class="panel-body details-panel-body">
+                    <div class="form-group @if($errors->has('description')) has-error @endif">
+                       <textarea name="description" id="description-field" class="form-control">{{ old("description") }}</textarea>
                     </div>
-                    @include('error')
+                    <p>
+                      Attach files by drag and drop or <input type="file" multiple="multiple" class="file-chooser"><button type="button" class="btn-link file-chooser-text">browse from computer</button>
+                    </p>
+                    <hr />
                     <div class="row">
                       <div class="col-sm-6">
-                        <div class="form-group @if($errors->has('title')) has-error @endif">
-                          <label for="title-field">Title*</label>
-                          <input type="text" id="title-field" name="title" class="form-control" value="{{ old("title") }}"/>
-                        </div>
                         {{--<div class="form-group @if($errors->has('client_id')) has-error @endif">
                           <label for="client_id-field">Client</label>
                           <div class="input-group">
@@ -59,6 +69,7 @@
                             <option value="1">Medium</option>
                             <option value="2">High</option>
                             <option value="3">Critical</option>
+                            <i class="fa fa-"></i>
                           </select>
                         </div>
                       </div>
@@ -104,18 +115,9 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="panel-body details-panel-body">
-                    <div class="form-group @if($errors->has('description')) has-error @endif">
-                       <textarea name="description" id="description-field" class="form-control">{{ old("description") }}</textarea>
-                    </div>
-                    <hr/>
-                    <div class="pull-right">
-                        <a class="btn btn-link btn-sm history-back-btn" href="#">&larr; Back</a>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary">Post ticket</button>
                   </div> <!-- ./panel-body -->
-                  <div class="panel-footer">
+                  <div class="panel-footer details-panel-footer">
 
                   </div>
               </div>  <!-- ./panel -->

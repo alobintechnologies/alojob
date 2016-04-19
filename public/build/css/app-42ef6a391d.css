@@ -7684,16 +7684,42 @@ button.close {
   margin-bottom: 30px; }
 
 /* 3. panel styles */
+.panel.panel-light {
+  border-color: #f0f0f0; }
+  .panel.panel-light .panel-heading,
+  .panel.panel-light .panel-footer {
+    background-color: #fcfcfc; }
+
 .details-panel-layout .details-panel-heading {
   padding: 10px 30px 0 30px; }
-  .details-panel-layout .details-panel-heading .panel-details {
-    padding: 30px 30px 10px 30px;
-    background-color: #fcfcfc; }
-    .details-panel-layout .details-panel-heading .panel-details .form-group {
-      margin-bottom: 0px; }
+  .details-panel-layout .details-panel-heading .details-panel-form-group {
+    margin-bottom: 0; }
+  .details-panel-layout .details-panel-heading .details-panel-title-field {
+    margin-bottom: 0;
+    min-height: 36px;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: normal;
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0 0 2px;
+    resize: none;
+    overflow: hidden;
+    box-sizing: border-box; }
 
 .details-panel-layout .details-panel-body {
   padding: 30px; }
+
+.details-panel-layout .details-panel-heading .panel-details,
+.details-panel-layout .details-panel-footer .panel-details {
+  padding: 10px 30px 30px 30px;
+  background-color: #fcfcfc; }
+  .details-panel-layout .details-panel-heading .panel-details .form-group,
+  .details-panel-layout .details-panel-footer .panel-details .form-group {
+    margin-bottom: 0px; }
 
 /* 4. summernote styles */
 .note-editor.note-frame {
@@ -7704,6 +7730,8 @@ button.close {
   padding: 7px 0;
   display: block;
   border-bottom: 1px solid #efefef; }
+  .link-row .link-column, .link-row p {
+    margin: 10px 0; }
   @media (max-width: 767px) {
     .link-row span.visible-xs {
       display: inline-block !important; } }
@@ -7729,5 +7757,17 @@ button.close {
   margin-bottom: 0px;
   padding-top: 6px;
   padding-bottom: 5px; }
+
+.file-chooser {
+  position: absolute;
+  width: 240px;
+  padding: 5px;
+  margin-left: -80px;
+  cursor: pointer;
+  opacity: 0.0001;
+  display: inline; }
+
+.file-chooser-text {
+  padding: 0; }
 
 /*# sourceMappingURL=app.css.map */

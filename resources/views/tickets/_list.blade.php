@@ -1,23 +1,22 @@
 @foreach($tickets as $ticket)
   <a href="{{ route('tickets.show', $ticket->id) }}" class="link-row">
     <div class="row">
-      <div class="col-sm-4">
-        <h4>{{ $ticket->title }}</h4>
-        <label class="label label-default">{{ $ticket->status() }}</label>
+      <div class="col-sm-5">
+        <h5>{{ $ticket->title }}</h5>
       </div>
       <div class="col-sm-2">
-        <h5>Created</h5>
-        {{ $ticket->created_at->diffForHumans() }}
+        <h5><small>{{ $ticket->created_at->format('M d Y') }}</small></h5>
       </div>
-      <div class="col-sm-3">
-        <h5>Type</h5>
-        {{ $ticket->ticket_category->title }}
+      <div class="col-sm-2">
+        <p>{{ $ticket->ticket_category->title }}</p>
       </div>
-      <div class="col-sm-3">
-        <div class="pull-right">
-          <h5>Assigned</h5>
-          {{ $ticket->assigned_user->email }}
-        </div>
+      <div class="col-sm-2">
+        <p>{{ $ticket->assigned_user->email }}</p>
+      </div>
+      <div class="col-sm-1">
+        <p class="pull-right">
+          <label class="label label-default">{{ $ticket->status() }}</label>
+        </p>
       </div>
     </div>
   </a>

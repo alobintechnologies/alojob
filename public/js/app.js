@@ -9845,6 +9845,13 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
       $(".history-back-btn").click(function() {
         window.history.back();
       });
+
+      $('textarea[data-autoresize]').on('keyup input', function() {
+        var offset = this.offsetHeight - this.clientHeight;
+        if((this.scrollHeight + offset) < 182) {
+          $(this).css('height', 'auto').css('height', this.scrollHeight + offset);
+        }
+      }).removeAttr('data-autoresize');
     };
 
     /**
@@ -9998,15 +10005,14 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
         });*/
 
         $("#description-field").summernote({
-          minHeight: null,             // set minimum height of editor
+          minHeight: 200,             // set minimum height of editor
           maxHeight: null,             // set maximum height of editor
           placeholder: 'Post your discussion here...',
           toolbar: [
              //[groupname, [button list]]
              ['style', ['bold', 'italic', 'underline', 'clear']],
-             ['color', ['color']],
-             ['para', ['ul', 'ol', 'paragraph']]
-         ]
+             ['para', ['ul', 'ol']]
+          ]
         });
 
         $("#client_id-field").autocomplete({

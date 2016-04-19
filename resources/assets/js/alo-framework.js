@@ -32,6 +32,13 @@
       $(".history-back-btn").click(function() {
         window.history.back();
       });
+
+      $('textarea[data-autoresize]').on('keyup input', function() {
+        var offset = this.offsetHeight - this.clientHeight;
+        if((this.scrollHeight + offset) < 182) {
+          $(this).css('height', 'auto').css('height', this.scrollHeight + offset);
+        }
+      }).removeAttr('data-autoresize');
     };
 
     /**

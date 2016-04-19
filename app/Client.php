@@ -30,4 +30,9 @@ class Client extends Model
     {
         return $this->hasManyThrough('App\Ticket', 'App\Project');
     }
+
+    public function activities()
+    {
+        return $this->hasMany('App\Activity');
+    }
 }
