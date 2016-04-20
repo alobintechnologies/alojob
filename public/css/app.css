@@ -7690,6 +7690,18 @@ button.close {
   .panel.panel-light .panel-footer {
     background-color: #fcfcfc; }
 
+.panel.panel-borderless {
+  border: none; }
+  .panel.panel-borderless .panel-heading h4 > a {
+    color: inherit; }
+  .panel.panel-borderless .panel-heading,
+  .panel.panel-borderless .panel-footer,
+  .panel.panel-borderless .panel-body {
+    padding: 0; }
+  .panel.panel-borderless .panel-heading,
+  .panel.panel-borderless .panel-footer {
+    background: none; }
+
 .details-panel-layout .details-panel-heading {
   padding: 10px 30px 0 30px; }
   .details-panel-layout .details-panel-heading .details-panel-form-group {
@@ -7698,7 +7710,7 @@ button.close {
     margin-bottom: 0;
     min-height: 36px;
     font-size: 28px;
-    line-height: 36px;
+    line-height: 28px;
     font-weight: normal;
     -webkit-appearance: none;
     border: none;
@@ -7709,21 +7721,33 @@ button.close {
     resize: none;
     overflow: hidden;
     box-sizing: border-box; }
+  .details-panel-layout .details-panel-heading .panel-details {
+    padding: 30px 30px 10px 30px; }
 
 .details-panel-layout .details-panel-body {
   padding: 30px; }
 
-.details-panel-layout .details-panel-heading .panel-details,
-.details-panel-layout .details-panel-footer .panel-details {
-  padding: 10px 30px 30px 30px;
+.details-panel-layout .panel-details {
   background-color: #fcfcfc; }
-  .details-panel-layout .details-panel-heading .panel-details .form-group,
-  .details-panel-layout .details-panel-footer .panel-details .form-group {
+  .details-panel-layout .panel-details .form-group {
     margin-bottom: 0px; }
 
+.details-panel-layout .details-panel-footer {
+  padding: 15px 30px; }
+  .details-panel-layout .details-panel-footer .panel-details {
+    padding: 10px 30px 30px 30px; }
+
 /* 4. summernote styles */
-.note-editor.note-frame {
-  border: none; }
+.editor-borderless .note-editor.note-frame {
+  border-color: #efefef; }
+  .editor-borderless .note-editor.note-frame .panel-heading {
+    border: none; }
+  .editor-borderless .note-editor.note-frame .panel-heading,
+  .editor-borderless .note-editor.note-frame .panel-footer {
+    background: none; }
+
+.editor-statusbarless .note-editor .note-statusbar {
+  display: none; }
 
 /* 5. crud styles */
 .link-row {
@@ -7765,7 +7789,7 @@ button.close {
   margin-left: -80px;
   cursor: pointer;
   opacity: 0.0001;
-  display: inline; }
+  display: inline !important; }
 
 .file-chooser-text {
   padding: 0; }

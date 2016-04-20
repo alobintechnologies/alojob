@@ -1,9 +1,5 @@
 @foreach($tickets as $ticket)
-  @if(isset($client))
   <a href="{{ route('tickets.show', $ticket->id) }}?client_number={{ $client->id }}" class="link-row">
-  @else
-  <a href="{{ route('tickets.show', $ticket->id) }}" class="link-row">
-  @endif
     <div class="row">
       <div class="col-sm-4">
         <h5>

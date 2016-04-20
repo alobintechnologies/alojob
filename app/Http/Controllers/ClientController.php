@@ -82,7 +82,7 @@ class ClientController extends Controller {
 		$client = $this->currentClients()->with(['projects' => function($query) {
 			$query->orderBy('created_at', 'desc')->take(5);
 		}, 'tickets' => function($query) {
-			$query->with('ticket_category', 'assigned_user')->orderBy('created_at', 'desc')->take(5);
+			$query->with('ticket_category', 'assigned_user', 'project')->orderBy('created_at', 'desc')->take(5);
 		}])->findOrFail($id);
 
 		return view('clients.show', compact('client'));

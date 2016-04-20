@@ -50,7 +50,7 @@
               </div>
               <div class="col-sm-6">
                 <div class="client-details panel-details">
-                  <table class="table table-striped table-bordered">
+                  <table class="table">
                     <tr>
                       <th>Company Name</th>
                       <td>{{ $client->company_name }}</td>
@@ -70,108 +70,113 @@
           </div>
           <div class="panel-body">
             <div class="col-sm-12">
-                <div class="panel">
-                  <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#ProjectsTab" role="tab" data-toggle="tab">Projects</a></li>
-                    <li role="presentation"><a href="#QuotesTab" role="tab" data-toggle="tab">Quotes</a></li>
-                    <li role="presentation"><a href="#InvoicesTab" role="tab" data-toggle="tab">Invoices</a></li>
-                    <li role="presentation" class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">+ New <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a href="{{ route('quotes.create') }}"><i class="fa fa-book"></i> Quote</a></li>
-                        <li><a href="{{ route('projects.create') }}?client_number={{ $client->id }}"><i class="fa fa-gavel"></i> Project</a></li>
-                        <li><a href="#"><i class="fa fa-file"></i> Invoice</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <!-- Tab panes -->
-                  <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="ProjectsTab">
-                      @include('projects._list', ['projects' => $client->projects])
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="QuotesTab"></div>
-                    <div role="tabpanel" class="tab-pane" id="InvoicesTab"></div>
+                <div class="panel panel-borderless">
+                  <div class="panel-heading">
+                    <h4>
+                      <a href="{{ route('projects.index') }}"><i class="fa fa-briefcase"></i> Projects</a>
+                      <div class="pull-right">
+                        <a href="{{ route('projects.index') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> All Projects</a>
+                        <a href="{{ route('projects.create') }}?client_number={{ $client->id }}" class="btn btn-sm btn-success">+ New</a>
+                      </div>
+                    </h4>
+                  </div>
+                  <div class="panel-body">
+                    @include('projects._list', ['projects' => $client->projects, 'client' => $client])
                   </div>
                 </div> <!-- ./overview-panel -->
-                <div class="panel panel-default">
+                <div class="clearfix">
+                  &nbsp;
+                </div>
+                <div class="panel panel-borderless">
                   <div class="panel-heading">
                     <h4>
                       <a href="{{ route('tickets.index') }}"><i class="fa fa-ticket"></i> Tickets</a>
                       <div class="pull-right">
+                        <a href="{{ route('tickets.index') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> All Tickets</a>
                         <a href="{{ route('tickets.create') }}" class="btn btn-sm btn-success">+ New</a>
                       </div>
                     </h4>
                   </div>
                   <div class="panel-body">
-                      @include('tickets._list', ['tickets' => $client->tickets])
+                      @include('clients._tickets', ['tickets' => $client->tickets, 'client' => $client])
                   </div>
               </div> <!-- ./tasks-tickets-panel -->
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4>
-                    Discussions
-                    <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-sm"><i class="fa fa-comments"></i> New Discussion</a>
-                    </div>
-                  </h4>
-                </div>
-                <div class="panel-body">
-                  <a href="#" class="link-row">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <h4>Problem in the hms module</h4>
-                        <label class="label label-info">Open</label>
-                      </div>
-                      <div class="col-sm-2">
-                        <h5>Dated On</h5>
-                        07/04/2016
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="pull-right">
-                          <h5>Created By</h5>
-                          Satheesh Kumar
+              <div class="clearfix">
+                &nbsp;
+              </div>
+              <div class="panel panel-borderless">
+                  <div class="panel-heading">
+                    <h4>
+                      <i class="fa fa-book"></i> Billing
+                      <div class="pull-right">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            + New <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="{{ route('quotes.create') }}"><i class="fa fa-book"></i> New Quote</a></li>
+                            <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
+                            <li><a href="#"><i class="fa fa-money"></i> New Payment</a></li>
+                          </ul>
                         </div>
                       </div>
+                    </h4>
+                  </div>
+                  <div class="panel-body">
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#BillingOverviewTab" role="tab" data-toggle="tab">Overview</a></li>
+                      <li><a href="#QuotesTab" role="tab" data-toggle="tab">Quotes</a></li>
+                      <li><a href="#InvoicesTab" role="tab" data-toggle="tab">Invoices</a></li>
+                      <li><a href="#PaymentsTab" role="tab" data-toggle="tab">Payments</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                      <div role="tabpanel" class="tab-pane active" id="BillingOverviewTab">
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="QuotesTab">
+                        <a href="#" class="link-row">
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <h4>Quote #1</h4>
+                              <label class="label label-default">Draft</label>
+                            </div>
+                            <div class="col-sm-4">
+                              <h5>Dated On</h5>
+                              07/04/2016
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="pull-right">
+                                <h5>Amount</h5>
+                                <strong>$200.00</strong>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                      <div class="tab-pane" role="tabpanel" id="InvoicesTab">                        
+                        <a href="#" class="link-row">
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <h4>Invoice #1</h4>
+                              <label class="label label-info">Paid</label>
+                            </div>
+                            <div class="col-sm-4">
+                              <h5>Dated On</h5>
+                              07/04/2016
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="pull-right">
+                                <h5>Amount</h5>
+                                <strong>$200.00</strong>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="PaymentsTab"></div>
                     </div>
-                  </a>
-                  <a href="#" class="link-row">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <h4>Problem in the hms module</h4>
-                        <label class="label label-info">Open</label>
-                      </div>
-                      <div class="col-sm-2">
-                        <h5>Dated On</h5>
-                        07/04/2016
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="pull-right">
-                          <h5>Created By</h5>
-                          Satheesh Kumar
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="#" class="link-row">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <h4>Problem in the hms module</h4>
-                        <label class="label label-default">Closed</label>
-                      </div>
-                      <div class="col-sm-2">
-                        <h5>Dated On</h5>
-                        07/04/2016
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="pull-right">
-                          <h5>Created By</h5>
-                          Satheesh Kumar
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div> <!-- ./discussion-panel -->
+                  </div>
+              </div> <!-- ./billings-panel -->
             </div>
             <div class="col-sm-6">
               <div class="panel panel-default">
@@ -256,7 +261,7 @@
               </div> <!-- ./ files-panel -->
             </div>
         </div><!-- ./details-panel-body -->
-        <div class="panel-footer">
+        <div class="panel-footer details-panel-footer">
           <div class="">
             <span>Note: Deleting this client will remove thier projects, tasks, tickets, discussions, etc.</span>
             <form action="{{ route('clients.destroy', $client->id) }}" method="POST" style="display: inline;" class="pull-right" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">

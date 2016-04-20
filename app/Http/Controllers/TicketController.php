@@ -88,11 +88,12 @@ class TicketController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($id, Request $request)
 	{
 		$ticket = $this->currentTickets()->with('ticket_category', 'project', 'assigned_user')->findOrFail($id);
 
-		return view('tickets.show', compact('ticket'));
+		return view('tickets.show', compact('ticket'))
+									->with($this->getShowViewModel($request));
 	}
 
 	/**
@@ -180,6 +181,19 @@ class TicketController extends Controller {
 			return [
 				'ticket_categories' => $ticket_categories,
 				'assignees' => $assignees
+			];
+	}
+
+	protected function getShowViewModel(Request $request)
+	{
+			$client_number = $request->input("client_number");
+			$client = null;
+			if(is_numeric($client_number)) {
+				$client = AccountUtil::current()->clients()->findOrFail($client_number);
+			}
+
+			return [
+				'client' => $client
 			];
 	}
 

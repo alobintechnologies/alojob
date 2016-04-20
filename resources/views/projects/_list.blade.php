@@ -2,7 +2,7 @@
   <a href="{{ route('projects.show', $project->id) }}" class="link-row">
     <div class="row">
       <div class="col-sm-6">
-        <h5>{{ $project->title }}</h5>
+        <h5>{{ $project->title }} - <small>{{ str_limit($project->description, 100) }}</small></h5>
       </div>
       <div class="col-sm-2">
         <h5><small>{{ $project->created_at->format('M d Y') }}</small></h5>
