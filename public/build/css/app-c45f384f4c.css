@@ -7721,16 +7721,14 @@ button.close {
     resize: none;
     overflow: hidden;
     box-sizing: border-box; }
-  .details-panel-layout .details-panel-heading .panel-details {
-    padding: 30px 30px 10px 30px; }
+  .details-panel-layout .details-panel-heading .panel-details .table {
+    margin-bottom: 0; }
 
 .details-panel-layout .details-panel-body {
   padding: 30px; }
 
-.details-panel-layout .panel-details {
-  background-color: #fcfcfc; }
-  .details-panel-layout .panel-details .form-group {
-    margin-bottom: 0px; }
+.details-panel-layout .panel-details .form-group {
+  margin-bottom: 0px; }
 
 .details-panel-layout .details-panel-footer {
   padding: 15px 30px; }

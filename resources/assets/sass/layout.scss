@@ -68,14 +68,15 @@
       box-sizing: border-box;
     }
     .panel-details {
-      padding: 30px 30px 10px 30px;
+      .table {
+        margin-bottom: 0;
+      }
     }
   }
   .details-panel-body {
     padding: 30px;
   }
   .panel-details {
-    background-color: #fcfcfc;
     .form-group {
       margin-bottom: 0px;
       .input-sm {

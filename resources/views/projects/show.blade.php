@@ -12,7 +12,7 @@
                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Action <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-right">
                   <li><a href="{{ route('projects.edit', $project->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="{{ route('tickets.create') }}?project_number={{ $project->id }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
@@ -58,18 +58,18 @@
               </div>
               <div class="col-sm-6">
                 <br />
-                <div class="project-details panel-details">
-                  <table class="table table-striped table-bordered">
+                <div class="project-details panel-details well well-sm">
+                  <table class="table">
                     <tr>
-                      <td>Project Type</td>
+                      <th>Project Type</th>
                       <td>{{ $project->project_type }}</td>
                     </tr>
                     <tr>
-                      <td>Started On</td>
+                      <th>Started On</th>
                       <td>07/04/2016</td>
                     </tr>
                     <tr>
-                      <td>Ends On</td>
+                      <th>Ends On</th>
                       <td>05/09/2016</td>
                     </tr>
                   </table>
@@ -230,7 +230,7 @@
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           + New <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-right">
                           <li><a href="{{ route('quotes.create') }}?project_number={{ $project->id }}"><i class="fa fa-book"></i> New Quote</a></li>
                           <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
                           <li><a href="#"><i class="fa fa-money"></i> New Payment</a></li>

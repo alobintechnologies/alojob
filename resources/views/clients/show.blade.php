@@ -21,7 +21,7 @@
                     <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Action <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-right">
                       <li><a href="{{ route('clients.edit', $client->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
                       <li role="separator" class="divider"></li>
                       <li><a href="{{ route('quotes.create') }}"><i class="fa fa-book"></i> New Quote</a></li>
@@ -49,7 +49,7 @@
                 </div>
               </div>
               <div class="col-sm-6">
-                <div class="client-details panel-details">
+                <div class="client-details well well-sm panel-details">
                   <table class="table">
                     <tr>
                       <th>Company Name</th>
@@ -153,7 +153,7 @@
                           </div>
                         </a>
                       </div>
-                      <div class="tab-pane" role="tabpanel" id="InvoicesTab">                        
+                      <div class="tab-pane" role="tabpanel" id="InvoicesTab">
                         <a href="#" class="link-row">
                           <div class="row">
                             <div class="col-sm-4">
@@ -188,7 +188,7 @@
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           + New <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-right">
                           <li><a href="#"><i class="fa fa-tasks"></i> Record Payment</a></li>
                           <li><a href="#"><i class="fa fa-ticket"></i> Record Deposit</a></li>
                         </ul>
