@@ -76,7 +76,7 @@
                       <a href="{{ route('projects.index') }}"><i class="fa fa-briefcase"></i> Projects</a>
                       <div class="pull-right">
                         <a href="{{ route('projects.index') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> All Projects</a>
-                        <a href="{{ route('projects.create') }}?client_number={{ $client->id }}" class="btn btn-sm btn-success">+ New</a>
+                        <a href="{{ route('projects.create') }}?client_number={{ $client->id }}" class="btn btn-sm btn-primary">+ New</a>
                       </div>
                     </h4>
                   </div>
@@ -93,7 +93,7 @@
                       <a href="{{ route('tickets.index') }}"><i class="fa fa-ticket"></i> Tickets</a>
                       <div class="pull-right">
                         <a href="{{ route('tickets.index') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> All Tickets</a>
-                        <a href="{{ route('tickets.create') }}" class="btn btn-sm btn-success">+ New</a>
+                        <a href="{{ route('tickets.create') }}" class="btn btn-sm btn-primary">+ New</a>
                       </div>
                     </h4>
                   </div>
@@ -107,16 +107,15 @@
               <div class="panel panel-borderless">
                   <div class="panel-heading">
                     <h4>
-                      <i class="fa fa-book"></i> Billing
+                      <i class="fa fa-book"></i> Billing Details
                       <div class="pull-right">
                         <div class="btn-group">
-                          <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             + New <span class="caret"></span>
                           </button>
-                          <ul class="dropdown-menu">
-                            <li><a href="{{ route('quotes.create') }}"><i class="fa fa-book"></i> New Quote</a></li>
-                            <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
-                            <li><a href="#"><i class="fa fa-money"></i> New Payment</a></li>
+                          <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="{{ route('quotes.create') }}"><i class="fa fa-file-o"></i> New Quote</a></li>
+                            <li><a href="#"><i class="fa fa-file-text-o"></i> New Invoice</a></li>
                           </ul>
                         </div>
                       </div>
@@ -127,27 +126,70 @@
                       <li class="active"><a href="#BillingOverviewTab" role="tab" data-toggle="tab">Overview</a></li>
                       <li><a href="#QuotesTab" role="tab" data-toggle="tab">Quotes</a></li>
                       <li><a href="#InvoicesTab" role="tab" data-toggle="tab">Invoices</a></li>
-                      <li><a href="#PaymentsTab" role="tab" data-toggle="tab">Payments</a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
                       <div role="tabpanel" class="tab-pane active" id="BillingOverviewTab">
+                        <div class="clearfix">&nbsp;</div>
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <a href="{{ route('quotes.index') }}?client_number={{ $client->id }}">
+                              <div class="tile tile-primary">
+                                <h5>
+                                  Unpaid Invoices
+                                  <span class="pull-right tile-icon"><i class="fa fa-file-text-o fa-lg"></i></span>
+                                </h5>
+                                <span class="status-number">5</span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="col-sm-4">
+                            <a href="{{ route('quotes.index') }}?client_number={{ $client->id }}">
+                              <div class="tile tile-primary">
+                                <h5>
+                                  Total Paid
+                                  <span class="pull-right tile-icon"><i class="fa fa-dollar fa-lg"></i></span>
+                                </h5>
+                                <span class="status-number">5,00,000</span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="col-sm-4">
+                            <a href="{{ route('quotes.index') }}?client_number={{ $client->id }}">
+                              <div class="tile tile-primary">
+                                <h5>
+                                  Total Balance
+                                  <span class="pull-right tile-icon"><i class="fa fa-dollar fa-lg"></i></span>
+                                </h5>
+                                <span class="status-number">1,23,3420</span>
+                              </div>
+                            </a>
+                          </div>
+                        </div> <!-- ./row -->
+                        <div class="clearfix">&nbsp;</div>
                       </div>
                       <div role="tabpanel" class="tab-pane" id="QuotesTab">
                         <a href="#" class="link-row">
                           <div class="row">
                             <div class="col-sm-4">
-                              <h4>Quote #1</h4>
-                              <label class="label label-default">Draft</label>
+                              <h5>Quote #1</h5>
                             </div>
-                            <div class="col-sm-4">
-                              <h5>Dated On</h5>
-                              07/04/2016
+                            <div class="col-sm-3">
+                              <h5>
+                                <small>Project Name</small>
+                              </h5>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-1">
+                              <h5>
+                                <small>Apr 13 2016</small>
+                              </h5>
+                            </div>
+                            <div class="col-sm-2">
+                              <h5><label class="label label-default">Draft</label></h5>
+                            </div>
+                            <div class="col-sm-2">
                               <div class="pull-right">
-                                <h5>Amount</h5>
-                                <strong>$200.00</strong>
+                                <h5>$2,00,000</h5>
                               </div>
                             </div>
                           </div>
@@ -173,7 +215,6 @@
                           </div>
                         </a>
                       </div>
-                      <div role="tabpanel" class="tab-pane" id="PaymentsTab"></div>
                     </div>
                   </div>
               </div> <!-- ./billings-panel -->
@@ -182,10 +223,10 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4>
-                    Billing History
+                    <i class="fa fa-th-list"></i> Payment History
                     <div class="pull-right">
                       <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           + New <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
@@ -200,29 +241,51 @@
                   <a href="#" class="link-row">
                     <div class="row">
                       <div class="col-xs-4">
-                        <strong>Payment</strong>
+                        <span>Invoice</span>
                       </div>
                       <div class="col-xs-4">
                         07/04/2016
                       </div>
                       <div class="col-xs-4">
-                        <strong>$300.00</strong>
+                        <span class="pull-right">$3,00,000.00</span>
                       </div>
                     </div>
                   </a>
                   <a href="#" class="link-row">
                     <div class="row">
                       <div class="col-xs-4">
-                        <strong>Payment</strong>
+                        <span>Invoice</span>
                       </div>
                       <div class="col-xs-4">
-                        07/04/2016
+                        17/04/2016
                       </div>
                       <div class="col-xs-4">
-                        <strong>$300.00</strong>
+                        <span class="pull-right">$1,23,300.00</span>
                       </div>
                     </div>
                   </a>
+                  <a href="#" class="link-row">
+                    <div class="row">
+                      <div class="col-xs-4">
+                        <span>Payment</span>
+                      </div>
+                      <div class="col-xs-4">
+                        21/04/2016
+                      </div>
+                      <div class="col-xs-4">
+                        <span class="pull-right">$2,00,000.00</span>
+                      </div>
+                    </div>
+                  </a>
+
+                  <div class="row">
+                    <div class="col-xs-8">
+                      <h5>Total</h5>
+                    </div>
+                    <div class="col-xs-4">
+                      <h5 class="pull-right">$6,23,300.00</h5>
+                    </div>
+                  </div>
                 </div>
               </div> <!-- ./billing-history-panel -->
             </div>
@@ -230,36 +293,43 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4>
-                    Files
-                    <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-sm"><i class="fa fa-upload"></i> Upload</a>
-                    </div>
+                    Attachments
                   </h4>
                 </div>
                 <div class="panel-body">
                   <a href="#" class="link-row">
                     <div class="row">
-                      <div class="col-sm-2">
-                        <i class="fa fa-file fa-lg"></i>
+                      <div class="col-xs-2">
+                        <i class="fa fa-file-word-o fa-lg"></i>
                       </div>
-                      <div class="col-sm-10">
-                        Proposal attachment.pdf
+                      <div class="col-xs-9">
+                        Proposal attachment.docx
+                      </div>
+                      <div class="col-xs-1">
+                        <span><i class="fa fa-trash-o"></i></span>
                       </div>
                     </div>
                   </a>
                   <a href="#" class="link-row">
                     <div class="row">
-                      <div class="col-sm-2">
-                        <i class="fa fa-file fa-lg"></i>
+                      <div class="col-xs-2">
+                        <i class="fa fa-file-pdf-o fa-lg"></i>
                       </div>
-                      <div class="col-sm-10">
+                      <div class="col-xs-9">
                         Proposal attachment.pdf
+                      </div>
+                      <div class="col-xs-1">
+                        <span><i class="fa fa-trash-o"></i></span>
                       </div>
                     </div>
                   </a>
+                  <div class="clearfix">&nbsp;</div>
+                  <p>
+                    Attach files by <input type="file" multiple="multiple" class="file-chooser"><button type="button" class="btn-link file-chooser-text">selecting from your computer</button>
+                  </p>
                 </div>
               </div> <!-- ./ files-panel -->
-            </div>
+            </div> <!-- ./col-sm-6 -->
         </div><!-- ./details-panel-body -->
         <div class="panel-footer details-panel-footer">
           <div class="">

@@ -55,9 +55,9 @@
   }
 }
 /* Button Styles */
-.btn {
+/*.btn {
   @include make-it-uppercase;
-}
+}*/
 .btn-lg.round {
   @include border-radius(24px);
 }

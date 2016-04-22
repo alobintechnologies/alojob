@@ -21,10 +21,15 @@
 
 /* 3. panel styles */
 .panel.panel-light {
-  border-color: #f0f0f0;
+  border-color: #efefef;
   .panel-heading,
   .panel-footer {
     background-color: #fcfcfc;
+  }
+  .panel-heading {
+    .heading-info {
+      color: #aaa;
+    }
   }
 }
 .panel.panel-borderless {
@@ -92,8 +97,14 @@
 }
 /* 4. summernote styles */
 .editor-borderless {
+  border: 1px solid #efefef;
+  padding: 7px;
+  border-radius: 5px;
+  background-color: #fafafa;
   .note-editor.note-frame {
     border-color: #efefef;
+    box-shadow: none;
+    padding: 7px;
     .panel-heading {
       border: none;
     }
@@ -161,4 +172,92 @@
 }
 .file-chooser-text {
   padding: 0;
+}
+
+/* 8. Tile css */
+
+.tile {
+  width: 100%;
+	display: inline-block;
+	box-sizing: border-box;
+	background: #fff;
+  border: 1px solid #efefef;
+	padding: 20px;
+
+  .title {
+		margin-top: 0px;
+    font-weight: normal;
+	}
+  .status-number {
+    font-size: $font-size-h2;
+  }
+  .tile-icon {
+    font-size: $font-size-h4;
+  }
+
+  &.tile-primary, &.tile-info, &.tile-danger, &.tile-warning, &.tile-success {
+    color: #fff;
+  }
+
+  &.tile-primary {
+    color: $brand-primary;
+
+		&:hover {
+			color: darken($brand-primary, 10%);
+		}
+  }
+
+  &.tile-info {
+    color: $brand-info;
+
+		&:hover {
+			color: darken($brand-info, 10%);
+		}
+  }
+
+  &.tile-danger {
+    color: $brand-danger;
+
+		&:hover {
+			color: darken($brand-danger, 10%);
+		}
+  }
+
+  &.tile-warning {
+    color: $brand-warning;
+
+		&:hover {
+			color: darken($brand-warning, 10%);
+		}
+  }
+
+  &.tile-success {
+    color: $brand-success;
+
+		&:hover {
+			color: darken($brand-success, 10%);
+		}
+  }
+}
+
+/* Form styles */
+.inline-select {
+  border-color: #efefef;
+}
+
+/* Well Styles */
+.well-light {
+  background-color: #fff;
+  border-style: dashed;
+  border-color: #efefef;
+}
+
+/* breadcrumb styles */
+.breadcrumb {
+  padding: 8px 0px;
+  margin-bottom: 10px;
+  list-style: none;
+  background-color: transparent;
+  border-radius: 4px;
+  border: none;
 }

@@ -41,7 +41,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                   <div class="form-group @if($errors->has('title')) has-error @endif">
                                     <label for="title-field">Title*</label>
                                     <input type="text" id="title-field" name="title" class="form-control" value="{{ old("title") }}"/>

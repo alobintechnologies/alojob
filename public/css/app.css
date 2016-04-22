@@ -7099,11 +7099,9 @@ button.close {
   line-height: 2; }
 
 /* Button Styles */
-.btn {
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 1px; }
-
+/*.btn {
+  @include make-it-uppercase;
+}*/
 .btn-lg.round, .btn-group-lg > .round.btn {
   border-radius: radius; }
 
@@ -7685,10 +7683,12 @@ button.close {
 
 /* 3. panel styles */
 .panel.panel-light {
-  border-color: #f0f0f0; }
+  border-color: #efefef; }
   .panel.panel-light .panel-heading,
   .panel.panel-light .panel-footer {
     background-color: #fcfcfc; }
+  .panel.panel-light .panel-heading .heading-info {
+    color: #aaa; }
 
 .panel.panel-borderless {
   border: none; }
@@ -7736,13 +7736,20 @@ button.close {
     padding: 10px 30px 30px 30px; }
 
 /* 4. summernote styles */
-.editor-borderless .note-editor.note-frame {
-  border-color: #efefef; }
-  .editor-borderless .note-editor.note-frame .panel-heading {
-    border: none; }
-  .editor-borderless .note-editor.note-frame .panel-heading,
-  .editor-borderless .note-editor.note-frame .panel-footer {
-    background: none; }
+.editor-borderless {
+  border: 1px solid #efefef;
+  padding: 7px;
+  border-radius: 5px;
+  background-color: #fafafa; }
+  .editor-borderless .note-editor.note-frame {
+    border-color: #efefef;
+    box-shadow: none;
+    padding: 7px; }
+    .editor-borderless .note-editor.note-frame .panel-heading {
+      border: none; }
+    .editor-borderless .note-editor.note-frame .panel-heading,
+    .editor-borderless .note-editor.note-frame .panel-footer {
+      background: none; }
 
 .editor-statusbarless .note-editor .note-statusbar {
   display: none; }
@@ -7791,5 +7798,62 @@ button.close {
 
 .file-chooser-text {
   padding: 0; }
+
+/* 8. Tile css */
+.tile {
+  width: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #efefef;
+  padding: 20px; }
+  .tile .title {
+    margin-top: 0px;
+    font-weight: normal; }
+  .tile .status-number {
+    font-size: 30px; }
+  .tile .tile-icon {
+    font-size: 18px; }
+  .tile.tile-primary, .tile.tile-info, .tile.tile-danger, .tile.tile-warning, .tile.tile-success {
+    color: #fff; }
+  .tile.tile-primary {
+    color: #E77E24; }
+    .tile.tile-primary:hover {
+      color: #c36515; }
+  .tile.tile-info {
+    color: #5bc0de; }
+    .tile.tile-info:hover {
+      color: #31b0d5; }
+  .tile.tile-danger {
+    color: #DF382C; }
+    .tile.tile-danger:hover {
+      color: #bc271c; }
+  .tile.tile-warning {
+    color: #EFB73E; }
+    .tile.tile-warning:hover {
+      color: #e7a413; }
+  .tile.tile-success {
+    color: #38B44A; }
+    .tile.tile-success:hover {
+      color: #2c8d3a; }
+
+/* Form styles */
+.inline-select {
+  border-color: #efefef; }
+
+/* Well Styles */
+.well-light {
+  background-color: #fff;
+  border-style: dashed;
+  border-color: #efefef; }
+
+/* breadcrumb styles */
+.breadcrumb {
+  padding: 8px 0px;
+  margin-bottom: 10px;
+  list-style: none;
+  background-color: transparent;
+  border-radius: 4px;
+  border: none; }
 
 /*# sourceMappingURL=app.css.map */

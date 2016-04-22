@@ -90,7 +90,7 @@ class TicketController extends Controller {
 	 */
 	public function show($id, Request $request)
 	{
-		$ticket = $this->currentTickets()->with('ticket_category', 'project', 'assigned_user')->findOrFail($id);
+		$ticket = $this->currentTickets()->with('ticket_category', 'project', 'assigned_user', 'user')->findOrFail($id);
 
 		return view('tickets.show', compact('ticket'))
 									->with($this->getShowViewModel($request));

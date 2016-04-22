@@ -74,4 +74,9 @@ class Ticket extends Model
            return "Critical";
        }
     }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
 }

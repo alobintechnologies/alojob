@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTicketsWithPriority extends Migration
+class AlterTicketsWithComments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AlterTicketsWithPriority extends Migration
     public function up()
     {
       Schema::table('tickets', function(Blueprint $table) {
-        $table->integer('priority_id')->nullable();
+        $table->integer('comments_count')->nullable();
       });
     }
 
@@ -25,7 +25,7 @@ class AlterTicketsWithPriority extends Migration
     public function down()
     {
       Schema::table('tickets', function(Blueprint $table) {
-        $table->dropColumn('priority_id');
+        $table->dropColumn('comments_count');
       });
     }
 }

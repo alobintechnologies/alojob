@@ -66,4 +66,9 @@ class Account extends Model
     {
         return $this->hasMany('App\Activity');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

@@ -83,6 +83,8 @@ class ClientController extends Controller {
 			$query->orderBy('created_at', 'desc')->take(5);
 		}, 'tickets' => function($query) {
 			$query->with('ticket_category', 'assigned_user', 'project')->orderBy('created_at', 'desc')->take(5);
+		}, 'quotes' => function($query) {
+			$query->orderBy('created_at', 'desc')->take(5);
 		}])->findOrFail($id);
 
 		return view('clients.show', compact('client'));

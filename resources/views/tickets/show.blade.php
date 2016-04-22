@@ -1,95 +1,47 @@
 @extends('layout')
 
+@section('header')
+<div class="header">
+    <ol class="breadcrumb">
+      <li><a href="#" class="history-back-btn">&larr; Back</a></li>
+      <li><a href="{{ url('tickets') }}">Tickets</a></li>
+      <li><a href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->id }}</a></li>
+    </ol>
+</div>
+@endsection
+
+
 @section('content')
 
     <div class="row">
         <div class="col-sm-12">
-          <div class="header">
-            <h5>
-              <a href="#" class="history-back-btn">&larr; Back</a> / <a href="{{ url('tickets') }}">Tickets</a> / {{ $ticket->id }}
-              <div class="pull-right">
-                <a href="{{ route('tickets.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
-                <a href="#" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Action <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a href="{{ route('tickets.edit', $ticket->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#"><i class="fa fa-mail-forward"></i> Email Assignee</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="clearfix">
-                &nbsp;
-              </div>
-            </h5>
-          </div>
-          <div class="panel panel-default details-panel-layout">
+          <div class="panel panel-light details-panel-layout">
               <div class="panel-heading details-panel-heading">
                 <div class="">
                   <h3>
-                    <i class="fa fa-ticket"></i> <span>{{ $ticket->title }} #{{ $ticket->id }}</span>
-                    <small class="pull-right"><label class="label label-info">{{ $ticket->status() }}</label></small>
+                    <i class="fa fa-ticket"></i> <span>{{ $ticket->title }} <small><label class="label label-info label-sm">{{ $ticket->status() }}</label></small></span>
+                    <div class="pull-right">
+
+                      <a href="{{ route('tickets.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
+                      <a href="#" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Action <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li><a href="{{ route('tickets.edit', $ticket->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="#"><i class="fa fa-mail-forward"></i> Email Assignee</a></li>
+                        </ul>
+                      </div>
+                    </div>
                   </h3>
                   <hr/>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <br />
-                    @if($ticket->client != null)
-                      <div class="well well-sm">
-                        <i class="fa fa-user fa-lg"></i> Client
-                        <div class="pull-right">
-                          <a href="{{ route('clients.show', $ticket->client->id) }}">{{ $ticket->client->name() }}</a>
-                        </div>
-                      </div>
-                    @endif
-                    @if($ticket->project != null)
-                      <div class="well well-sm">
-                        <i class="fa fa-briefcase fa-lg"></i> Project
-                        <div class="pull-right">
-                          <a href="{{ route('projects.show', $ticket->project->id) }}">{{ $ticket->project->title }}</a>
-                        </div>
-                      </div>
-                    @endif
-                  </div>
-                  <div class="col-sm-6">
-                    <br />
-                    <div class="ticket-details panel-details">
-                      <table class="table table-striped table-bordered">
-                        <tr>
-                          <td>
-                            <label for="ticket_number">Priority</label>
-                          </td>
-                          <td>
-                            {{ $ticket->priority() }} <i class="fa {{ $ticket->priority_icon() }}"></i>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label for="ticket_category_id-field">Category</label></td>
-                          <td>
-                            {{ $ticket->ticket_category->title }}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label for="created_at-field">Created On</label></td>
-                          <td>
-                            {{ $ticket->created_at->diffForHumans() }}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="assigned_user_id">Assigned To</label>
-                          </td>
-                          <td>
-                            {{ $ticket->assigned_user->email }}
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
+                  <p class="heading-info">
+                    <span>Posted by {{ $ticket->user->email }} on {{ $ticket->created_at->format('M d, Y') }},
+                      {{ $ticket->ticket_category->title }} with <i class="fa {{ $ticket->priority_icon() }}"></i> {{ $ticket->priority() }} priority and assigned to {{ $ticket->assigned_user->email }}
+                    </span>
+                  </p>
                 </div>
               </div>
               <div class="panel-body details-panel-body">

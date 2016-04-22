@@ -35,4 +35,9 @@ class Client extends Model
     {
         return $this->hasMany('App\Activity');
     }
+
+    public function quotes()
+    {
+        return $this->hasManyThrough('App\Quote', 'App\Project');
+    }
 }
