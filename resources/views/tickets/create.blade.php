@@ -39,35 +39,36 @@
                     </h3>
                   </div>
                   <div class="panel-body details-panel-body">
-                    <div class="form-group editor-borderless editor-statusbarless @if($errors->has('description')) has-error @endif">
+                    <div class="form-group editor-borderless editor-statusbarless @if($errors->has('description')) has-error @endif" id="description-field-group">
                        <textarea name="description" id="description-field" class="form-control" tabindex="1">{{ old("description") }}</textarea>
-                       <p>
-                          <span>Set category as</span>
-                          <select class="input-sm inline-select" name="ticket_category_id">
-                            @foreach($ticket_categories as $ticket_category)
-                              <option value="{{ $ticket_category->id }}">{{ $ticket_category->title }}</option>
-                            @endforeach
-                          </select>
-                          <span>with</span>
-                          <select class="input-sm inline-select" name="priority_id" id="priority_id-field">
-                            <option value="0">Low</option>
-                            <option value="1">Medium</option>
-                            <option value="2">High</option>
-                            <option value="3">Critical</option>
-                          </select>
-                          <span>priority and assigned to</span>
-                          <select class="input-sm inline-select" name="assigned_user_id" id="assigned_user_id-field">
-                            @foreach($assignees as $assignee)
-                              <option value="{{ $assignee->user->id }}">{{ $assignee->user->email }}</option>
-                            @endforeach
-                          </select>
-                       </p>
-
-                       <p class="well well-sm well-light">
-                         <i class="fa fa-paperclip"></i> To attach files <input type="file" multiple="multiple" class="file-chooser"><button type="button" class="btn-link file-chooser-text">select from your computer</button>
-                       </p>
                     </div>
                     <hr />
+                    <p>
+                       <span>Set category as</span>
+                       <select class="input-sm inline-select" name="ticket_category_id">
+                         @foreach($ticket_categories as $ticket_category)
+                           <option value="{{ $ticket_category->id }}">{{ $ticket_category->title }}</option>
+                         @endforeach
+                       </select>
+                       <span>with</span>
+                       <select class="input-sm inline-select" name="priority_id" id="priority_id-field">
+                         <option value="0">Low</option>
+                         <option value="1">Medium</option>
+                         <option value="2">High</option>
+                         <option value="3">Critical</option>
+                       </select>
+                       <span>priority and assigned to</span>
+                       <select class="input-sm inline-select" name="assigned_user_id" id="assigned_user_id-field">
+                         @foreach($assignees as $assignee)
+                           <option value="{{ $assignee->user->id }}">{{ $assignee->user->email }}</option>
+                         @endforeach
+                       </select>
+                    </p>
+
+                    <p class="well well-sm well-light">
+                      <i class="fa fa-paperclip"></i> To attach files <input type="file" multiple="multiple" class="file-chooser"><button type="button" class="btn-link file-chooser-text">select from your computer</button>
+                    </p>
+                    {{--<hr />
                     <div class="">
                       <div class="form-group @if($errors->has('project_id')) has-error @endif">
                         <label for="project_id-field">Project</label>
@@ -80,8 +81,8 @@
                         </div>
                       </div>
                     </div>
-                    <hr />
-                    <button type="submit" class="btn btn-primary">Post ticket</button> or <a href="#" class="btn btn-default">Cancel</a>
+                    <hr />--}}
+                    <button type="submit" class="btn btn-primary">Post ticket</button> or <a href="{{ route('tickets.index') }}" class="btn btn-default">Cancel</a>
                   </div> <!-- ./panel-body -->
               </div>  <!-- ./panel -->
           </form>

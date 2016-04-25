@@ -10005,14 +10005,20 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
         });*/
 
         $("#description-field").summernote({
-          minHeight: 200,             // set minimum height of editor
-          maxHeight: null,             // set maximum height of editor
+          minHeight: 200,
+          maxHeight: null,
+          focus: false,
           placeholder: 'Type your discussion here...',
           toolbar: [
              //[groupname, [button list]]
              ['style', ['bold', 'italic', 'underline', 'clear']],
              ['para', ['ul', 'ol']]
-          ]
+          ],
+          callbacks: {
+            onInit: function() {
+              $("#description-field-group").find('.note-editor .note-toolbar .note-btn').attr('tabindex', '-1');
+           }
+          }
         });
 
         $("#client_id-field").autocomplete({

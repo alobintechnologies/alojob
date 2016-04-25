@@ -16,7 +16,11 @@ elixir(function(mix) {
         .version('public/css/app.css');
 
     mix.scripts([
-      'jquery.js','jquery-ui.min.js','bootstrap.min.js', 'summernote.min.js', 'alo-framework.js',
+      'jquery.js',
+      'jquery-ui.min.js',
+      'bootstrap.min.js',
+      'summernote.min.js', 
+      'alo-framework.js',
       // clients module
       'clients/client-service.js',
       // projects module
