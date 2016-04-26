@@ -24,7 +24,7 @@ class Project extends Model
 
     public function tickets()
     {
-        return $this->hasMany('App\Ticket')->with('ticket_category', 'assigned_user');
+        return $this->hasMany('App\Ticket');
     }
 
     public function activities()

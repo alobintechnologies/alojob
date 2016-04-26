@@ -7,9 +7,9 @@
       @if($project)
         <li><a href="{{ route('projects.index') }}">Projects</a></li>
         <li><a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a></li>
-        <li><a href="{{ route('tickets.index') }}?project_number={{ $project->id }}">Tickets</a></li>
+        <li><a href="{{ route('projects.tickets.index', $project->id) }}">Tickets</a></li>
       @else
-        <li><a href="{{ route('tickets.index') }}">Tickets</a></li>
+        <li><a href="{{ route('projects.tickets.index', $project->id) }}">Tickets</a></li>
       @endif
       <li>new</li>
     </ol>
@@ -20,7 +20,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-          <form action="{{ route('tickets.store') }}" method="POST" class="form">
+          <form action="{{ route('projects.tickets.store', $project->id) }}" method="POST" class="form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
               @include('error')
               <div class="panel panel-light panel-default details-panel-layout">
@@ -82,7 +82,7 @@
                       </div>
                     </div>
                     <hr />--}}
-                    <button type="submit" class="btn btn-primary">Post ticket</button> or <a href="{{ route('tickets.index') }}" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Post ticket</button> or <a href="{{ route('projects.tickets.index', $project->id) }}" class="btn btn-default">Cancel</a>
                   </div> <!-- ./panel-body -->
               </div>  <!-- ./panel -->
           </form>

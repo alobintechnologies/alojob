@@ -87,9 +87,9 @@ class ProjectController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Project $project)
 	{
-		$project = $this->currentProjects()->with('tickets', 'client')->findOrFail($id);
+		//$project = $this->currentProjects()->with('tickets', 'client')->findOrFail($id);
 
 		return view('projects.show', compact('project'));
 	}

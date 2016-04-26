@@ -37,9 +37,9 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <span>Quick Add</span>
-                  <a href="{{ route('tickets.create') }}" class="btn btn-default btn-sm">
+                  {{--<a href="{{ route('projects.tickets.create') }}" class="btn btn-default btn-sm">
                     <i class="fa fa-ticket"></i> Ticket
-                  </a>
+                  </a>--}}
                   <a href="{{ route('projects.create') }}?client_number={{ $client->id }}" class="btn btn-default btn-sm">
                     <i class="fa fa-gavel"></i> Project
                   </a>
@@ -87,7 +87,7 @@
                 <div class="clearfix">
                   &nbsp;
                 </div>
-                <div class="panel panel-borderless">
+                {{--<div class="panel panel-borderless">
                   <div class="panel-heading">
                     <h4>
                       <a href="{{ route('tickets.index') }}"><i class="fa fa-ticket"></i> Tickets</a>
@@ -103,7 +103,7 @@
               </div> <!-- ./tasks-tickets-panel -->
               <div class="clearfix">
                 &nbsp;
-              </div>
+              </div>--}}
               <div class="panel panel-borderless">
                   <div class="panel-heading">
                     <h4>

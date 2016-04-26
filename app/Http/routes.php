@@ -32,6 +32,10 @@
   return $currentAccount;
 });*/
 
+Route::bind('projects', function($id) {
+  return App\Project::findOrFail($id);
+});
+
 Route::group(['middleware' => 'web'], function () {
 
     Route::get('/', function () {
@@ -56,7 +60,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource("clients","ClientController");
         Route::get('projects/filter', 'ProjectController@filter');
         Route::resource('projects', 'ProjectController');
-        Route::resource('tickets', 'TicketController');
+        Route::resource('projects.tickets', 'TicketController');
         Route::resource('quotes', 'QuoteController');
 
         Route::group([

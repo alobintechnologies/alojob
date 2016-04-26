@@ -2,11 +2,12 @@
 
 @section('header')
 <div class="header">
-    <ol class="breadcrumb">
-      <li><a href="#" class="history-back-btn">&larr; Back</a></li>
-      <li><a href="{{ url('tickets') }}">Tickets</a></li>
-      <li><a href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->id }}</a></li>
-    </ol>
+  <ol class="breadcrumb">
+    <li><a href="#" class="history-back-btn">&larr; Back</a></li>
+    <li><a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a></li>
+    <li><a href="{{ route('projects.tickets.index', $project->id) }}">Tickets</a></li>
+    <li><a href="{{ route('projects.tickets.show', ['projects' => $project->id, 'tickets' => $ticket->id]) }}">{{ $ticket->id }}</a></li>
+  </ol>
 </div>
 @endsection
 
@@ -14,131 +15,79 @@
 
     <div class="row">
         <div class="col-sm-12">
-          <form action="{{ route('tickets.update', $ticket->id) }}" method="POST" class="form">
+          <form action="{{ route('projects.tickets.update', ['projects' => $project->id, 'tickets' => $ticket->id]) }}" method="POST" class="form">
               <input type="hidden" name="_method" value="PUT">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <div class="panel panel-default details-panel-layout">
+              @include('error')
+              <div class="panel panel-light panel-default details-panel-layout">
                   <div class="panel-heading details-panel-heading">
-                    <div class="">
-                      <h3>
-                        <i class="fa fa-ticket"></i> <span>Ticket #{{ $ticket->id }}</span>
-                        <small class="pull-right">
-                          <select class="form-control input-sm" name="ticket_status" id="ticket_status-field">
-                            <option value="0">Open</option>
-                            <option value="1">On Hold</option>
-                            <option value="2">Invalid</option>
-                            <option value="3">Fixed</option>
-                            <option value="4">Closed</option>
-                          </select>
-                        </small>
-                      </h3>
-                      <hr/>
-                    </div>
-                    @include('error')
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group @if($errors->has('title')) has-error @endif">
-                          <label for="title-field">Ticket Subject*</label>
-                          <input type="text" id="title-field" name="title" class="form-control" value="{{ old("title", $ticket->title) }}"/>
-                        </div>
-                        {{--<div class="form-group @if($errors->has('client_id')) has-error @endif">
-                          <label for="client_id-field">Client</label>
-                          <div class="input-group">
-                            <input type="hidden" name="client_id" value="" />
-                            <input type="text" id="client_id-field" name="client_name" class="form-control" value=""/>
-                            <span class="input-group-btn">
-                              <a href="{{ route('clients.create') }}" class="btn btn-warning">+ New</a>
-                            </span>
-                          </div>
-                        </div>--}}
-                        <div class="form-group @if($errors->has('project_id')) has-error @endif">
-                          <label for="project_id-field">Project</label>
-                          <div class="input-group">
-                          <input type="hidden" name="project_id" value="" />
-                          <input type="text" id="project_id-field" name="project_name" class="form-control" value=""/>
-                            <span class="input-group-btn">
-                              {{--<button type="button" id="project-add-btn" class="btn btn-warning">+ New</button>--}}
-                              <a href="{{ route('projects.create') }}" class="btn btn-warning">+ New</a>
-                            </span>
+                    <h3>
+                      <div class="row">
+                        <div class="col-sm-10">
+                          <div class="form-group details-panel-form-group @if($errors->has('title')) has-error @endif">
+                            <textarea tabindex="0" name="title" id="title-field" name="title" autofocus="autofocus" data-autoresize="true" rows="1" class="form-control details-panel-title-field" placeholder="Type ticket subject here...">{{ old("title", $ticket->title) }}</textarea>
                           </div>
                         </div>
-                        <div class="">
-                          <label>Created </label>
-                          <span>{{ $ticket->created_at->diffForHumans() }}</span>
+                        <div class="col-sm-2">
+                          <small class="pull-right">
+                            <select class="form-control input-sm" name="ticket_status" id="ticket_status-field">
+                              <option value="0">Open</option>
+                              <option value="1">On Hold</option>
+                              <option value="2">Invalid</option>
+                              <option value="3">Fixed</option>
+                              <option value="4">Closed</option>
+                            </select>
+                          </small>
                         </div>
                       </div>
-                      <div class="col-sm-6">
-                        <br />
-                        <div class="project-details panel-details">
-                          <table class="table table-striped table-bordered">
-                            <tr>
-                              <td>
-                                <label for="ticket_number">Ticket Number</label>
-                              </td>
-                              <td>
-                                #{{ $ticket->id }}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td><label for="ticket_category_id-field">Category</label></td>
-                              <td>
-                                <div class="form-group @if($errors->has('ticket_category_id')) has-error @endif">
-                                   <select class="form-control input-sm" name="ticket_category_id">
-                                     @foreach($ticket_categories as $ticket_category)
-                                       <option value="{{ $ticket_category->id }}" @if($ticket->ticket_category->id == $ticket_category->id) selected="selected" @endif>{{ $ticket_category->title }}</option>
-                                     @endforeach
-                                   </select>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <label for="assigned_user_id">Assigned To</label>
-                              </td>
-                              <td>
-                                <div class="form-group">
-                                   <select class="form-control input-sm" name="assigned_user_id" id="assigned_user_id-field">
-                                     @foreach($assignees as $assignee)
-                                       <option value="{{ $assignee->user->id }}" @if($ticket->assigned_user->id == $assignee->user->id) selected="selected" @endif>{{ $assignee->user->email }}</option>
-                                     @endforeach
-                                   </select>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <label for="priority_id-field">Priority</label>
-                              </td>
-                              <td>
-                                <div class="form-group">
-                                  <select class="form-control input-sm" name="priority_id" id="priority_id-field">
-                                    <option value="0">Low</option>
-                                    <option value="1">Medium</option>
-                                    <option value="2">High</option>
-                                    <option value="3">Critical</option>
-                                  </select>
-                                </div>
-                              </td>
-                            </tr>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
+                    </h3>
                   </div>
                   <div class="panel-body details-panel-body">
-                    <div class="form-group @if($errors->has('description')) has-error @endif">
-                       <textarea name="description" id="description-field" class="form-control">{{ old("description", $ticket->description) }}</textarea>
+                    <div class="form-group editor-borderless editor-statusbarless @if($errors->has('description')) has-error @endif" id="description-field-group">
+                       <textarea name="description" id="description-field" class="form-control" tabindex="1">{{ old("description", $ticket->description) }}</textarea>
                     </div>
-                    <hr/>
-                    <div class="pull-right">
-                        <a class="btn btn-link btn-sm history-back-btn" href="#">&larr; Back</a>
-                        <a href="{{ route('tickets.show', $ticket->id) }}" class="btn btn-default">View</a>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                    <hr />
+                    <p>
+                       <span>Set category as</span>
+                       <select class="input-sm inline-select" name="ticket_category_id">
+                         @foreach($ticket_categories as $ticket_category)
+                           <option value="{{ $ticket_category->id }}" @if($ticket_category->id == $ticket->ticket_category->id) selected="selected" @endif>{{ $ticket_category->title }}</option>
+                         @endforeach
+                       </select>
+                       <span>with</span>
+                       <select class="input-sm inline-select" name="priority_id" id="priority_id-field">
+                         <option value="0">Low</option>
+                         <option value="1">Medium</option>
+                         <option value="2">High</option>
+                         <option value="3">Critical</option>
+                       </select>
+                       <span>priority and assigned to</span>
+                       <select class="input-sm inline-select" name="assigned_user_id" id="assigned_user_id-field">
+                         @foreach($assignees as $assignee)
+                           <option value="{{ $assignee->user->id }}" @if($assignee->user->id == $ticket->assigned_user->id) selected="selected" @endif>{{ $assignee->user->email }}</option>
+                         @endforeach
+                       </select>
+                    </p>
+
+                    <p class="well well-sm well-light">
+                      <i class="fa fa-paperclip"></i> To attach files <input type="file" multiple="multiple" class="file-chooser"><button type="button" class="btn-link file-chooser-text">select from your computer</button>
+                    </p>
+                    {{--<hr />
+                    <div class="">
+                      <div class="form-group @if($errors->has('project_id')) has-error @endif">
+                        <label for="project_id-field">Project</label>
+                        <div class="input-group">
+                          <input type="hidden" name="project_id" value="" />
+                          <input type="text" id="project_id-field" name="project_name" class="form-control" value="" placeholder="Type project title here..."/>
+                          <span class="input-group-btn">
+                            <a href="{{ route('projects.create') }}" class="btn btn-warning">+ New</a>
+                          </span>
+                        </div>
+                      </div>
                     </div>
+                    <hr />--}}
+                    <button type="submit" class="btn btn-primary">Post ticket</button> or <a href="{{ route('projects.tickets.index', $project->id) }}" class="btn btn-default">Cancel</a>
                   </div> <!-- ./panel-body -->
-                  <div class="panel-footer">
-                      <!-- TODO: Code the attachments and comments in here... -->
-                  </div>
               </div>  <!-- ./panel -->
           </form>
       </div> <!-- ./col-sm-12 -->

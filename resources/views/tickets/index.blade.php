@@ -7,7 +7,7 @@
                 <div class="panel-heading">
                   <h2>
                       <i class="fa fa-ticket"></i> Tickets
-                      <a class="btn btn-success pull-right" href="{{ route('tickets.create') }}"><i class="fa fa-plus"></i> Create</a>
+                      <a class="btn btn-success pull-right" href="{{ route('projects.tickets.create', $project->id) }}"><i class="fa fa-plus"></i> Create</a>
                   </h2>
                 </div>
                 <div class="panel-body">
@@ -51,7 +51,7 @@
                                 <hr />
                               </div>
                               @foreach($tickets as $ticket)
-                                <a href="{{ url('tickets/'.$ticket->id) }}" class="ticket link-row">
+                                <a href="{{ route('projects.tickets.show', ['projects' => $project->id, 'tickets' => $ticket->id]) }}" class="ticket link-row">
                                   <div class="row">
                                     <div class="col-sm-6 col-lg-7">
                                       <small class="pull-right"><label class="label label-info">{{ $ticket->status() }}</label></small>

@@ -15,7 +15,7 @@
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li><a href="{{ route('projects.edit', $project->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="{{ route('tickets.create') }}?project_number={{ $project->id }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
+                  <li><a href="{{ route('projects.tickets.create', $project->id) }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
                   <li><a href="{{ route('quotes.create') }}?project_number={{ $project->id }}"><i class="fa fa-book"></i> New Quote</a></li>
                   <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
                 </ul>
@@ -48,7 +48,7 @@
                 @endif
                 <div class="form-group">
                   <span>Quick Add</span>
-                  <a href="{{ route('tickets.create') }}?project_number={{ $project->id }}" class="btn btn-default btn-sm">
+                  <a href="{{ route('projects.tickets.create', $project->id) }}" class="btn btn-default btn-sm">
                     <i class="fa fa-ticket"></i> Ticket
                   </a>
                   <a href="{{ route('quotes.create') }}?project_number={{ $project->id }}" class="btn btn-default btn-sm">
@@ -89,7 +89,7 @@
                         </button>
                         <ul class="dropdown-menu">
                           <li><a href="#"><i class="fa fa-tasks"></i> New Task</a></li>
-                          <li><a href="{{ route('tickets.create') }}?project_number={{ $project->id }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
+                          <li><a href="{{ route('projects.tickets.create', $project->id) }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
                         </ul>
                       </div>
                     </div>
@@ -150,7 +150,7 @@
                   </div>
 
                   <div role="tabpanel" class="tab-pane" id="TicketsTab">
-                    @include('tickets._list', ['tickets' => $project->tickets])
+                    @include('tickets._list', ['project' => $project, 'tickets' => $project->tickets])
                   </div>
                 </div>
               </div>

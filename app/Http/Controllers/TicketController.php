@@ -6,6 +6,7 @@ use Validator;
 use AccountUtil;
 use Auth;
 use App\Ticket;
+use App\Project;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller {
@@ -15,11 +16,11 @@ class TicketController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Project $project)
 	{
-		$tickets = $this->currentTickets()->with('ticket_category', 'assigned_user', 'project')->orderBy('title', 'asc')->paginate(10);
+		$tickets = $project->tickets()->with('ticket_category', 'assigned_user', 'project')->orderBy('title', 'asc')->paginate(10);
 
-		return view('tickets.index', compact('tickets'));
+		return view('tickets.index', compact('tickets'))->with('project', $project);
 	}
 
 	/**
@@ -27,17 +28,8 @@ class TicketController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(Request $request)
+	public function create(Project $project, Request $request)
 	{
-		$project_id = $request->input('project_number');
-		$project = null;
-		if(is_numeric($project_id)) {
-				$project = AccountUtil::current()->projects()->findOrFail($project_id);
-				if(!$project) {
-						$request->session()->flash('error', 'Project does not exists to add ticket');
-						return back();
-				}
-		}
 		return view('tickets.create')
 						->with($this->getEditViewModel())
 						->with('project', $project);
@@ -49,7 +41,7 @@ class TicketController extends Controller {
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(Project $project, Request $request)
 	{
 		$validator = Validator::make($request->all(), [
 			'title' => 'required'
@@ -65,19 +57,10 @@ class TicketController extends Controller {
     $ticket->description = $request->input("description");
 		$ticket->user_id = Auth::user()->id;
 		$ticket->priority_id = $request->input('priority_id', 1);
-
-		/*$client_id = $request->input('client_id');
-		if(is_numeric($client_id)) {
-			$ticket->client_id = $client_id;
-		}*/
-		$project_id = $request->input('project_id');
-		if(is_numeric($project_id)) {
-			$ticket->project_id = $project_id;
-		}
 		$ticket->assigned_user_id = $request->input("assigned_user_id");
 		$ticket->ticket_category_id = $request->input("ticket_category_id");
 
-		$this->currentTickets()->save($ticket);
+		$project->tickets()->save($ticket);
 
 		return redirect()->route('tickets.index')->with('message', 'Item created successfully.');
 	}
@@ -88,12 +71,13 @@ class TicketController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id, Request $request)
+	public function show(Project $project, $id, Request $request)
 	{
-		$ticket = $this->currentTickets()->with('ticket_category', 'project', 'assigned_user', 'user')->findOrFail($id);
+		$ticket = $project->tickets()->with('ticket_category', 'assigned_user', 'user')->findOrFail($id);
 
 		return view('tickets.show', compact('ticket'))
-									->with($this->getShowViewModel($request));
+									->with($this->getShowViewModel($request))
+									->with('project', $project);
 	}
 
 	/**
@@ -102,11 +86,13 @@ class TicketController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Project $project, $id)
 	{
-		$ticket = $this->currentTickets()->with('ticket_category', 'project', 'assigned_user')->findOrFail($id);
+		$ticket = $project->tickets()->with('ticket_category', 'assigned_user')->findOrFail($id);
 
-		return view('tickets.edit', compact('ticket'))->with($this->getEditViewModel());;
+		return view('tickets.edit', compact('ticket'))
+										->with($this->getEditViewModel())
+										->with('project', $project);
 	}
 
 	/**
@@ -116,7 +102,7 @@ class TicketController extends Controller {
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Project $project, Request $request, $id)
 	{
 		$validator = Validator::make($request->all(), [
 			'title' => 'required'
@@ -126,7 +112,7 @@ class TicketController extends Controller {
 								->withErrors($validator)
 								->withInput();
 		}
-		$ticket = $this->currentTickets()->findOrFail($id);
+		$ticket = $project->tickets()->findOrFail($id);
 
 		$ticket->title = $request->input("title");
     $ticket->description = $request->input("description");
@@ -137,10 +123,7 @@ class TicketController extends Controller {
 		if(is_numeric($client_id)) {
 			$ticket->client_id = $client_id;
 		}*/
-		$project_id = $request->input('project_id');
-		if(is_numeric($project_id)) {
-			$ticket->project_id = $project_id;
-		}
+		$ticket->project_id = $project->id;
 		$ticket_status = $request->input('ticket_status');
 		if(is_numeric($ticket_status)) {
 			$ticket->ticket_status = $ticket_status;
@@ -160,17 +143,12 @@ class TicketController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Project $project, $id)
 	{
-		$ticket = $this->currentTickets()->findOrFail($id);
+		$ticket = $project->tickets()->findOrFail($id);
 		$ticket->delete();
 
 		return redirect()->route('tickets.index')->with('message', 'Item deleted successfully.');
-	}
-
-	public function currentTickets()
-	{
-			return AccountUtil::current()->tickets();
 	}
 
 	protected function getEditViewModel()
