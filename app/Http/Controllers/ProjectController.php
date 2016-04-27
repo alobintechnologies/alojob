@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Validator;
 use App\Project;
+use App\Client;
 use Illuminate\Http\Request;
 use Auth;
 use AccountUtil;
@@ -15,9 +16,9 @@ class ProjectController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Client $client)
 	{
-			$projects = $this->currentProjects()->orderBy('title', 'asc')->paginate(10);
+			$projects = $client->projects()->orderBy('title', 'asc')->paginate(10);
 
 			return view('projects.index', compact('projects'));
 	}
@@ -27,17 +28,8 @@ class ProjectController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(Request $request)
+	public function create(Client $client, Request $request)
 	{
-			$client_id = $request->input('client_number');
-			$client = null;
-			if(is_numeric($client_id)) {
-					$client = AccountUtil::current()->clients()->findOrFail($client_id);
-					if(!$client) {
-							$request->session()->flash('error', 'Client does not exists to add project');
-							return back();
-					}
-			}
 			return view('projects.create')
 								->with('client', $client);
 	}
@@ -48,14 +40,11 @@ class ProjectController extends Controller {
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(Client $client, Request $request)
 	{
 			$format = $request->input('format', 'html');
 			$validator = Validator::make($request->all(), [
-					'title' => 'required',
-					'client_id' => 'required'
-			], [
-				'client_id.required' => 'Client field is required'
+				'title' => 'required'
 			]);
 			if($validator->fails()) {
 					if($format == 'json') {
@@ -71,9 +60,8 @@ class ProjectController extends Controller {
 	    $project->description = $request->input("description");
 			$project->user_id = Auth::user()->id;
 			$project->project_type = $request->input('project_type');
-			$project->client_id = $request->input('client_id');
 
-			$this->currentProjects()->save($project);
+			$client->projects()->save($project);
 
 			if($format == 'json') {
 					return Response::json(['result' => 'success', 'project' => $project]);
@@ -87,11 +75,12 @@ class ProjectController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Project $project)
+	public function show(Client $client, $id)
 	{
-		//$project = $this->currentProjects()->with('tickets', 'client')->findOrFail($id);
+		$project = $client->projects()->with('tickets', 'client')->findOrFail($id);
 
-		return view('projects.show', compact('project'));
+		return view('projects.show', compact('project'))
+						->with('client', $client);
 	}
 
 	/**
@@ -100,11 +89,12 @@ class ProjectController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Client $client, $id)
 	{
-		$project = $this->currentProjects()->with('client')->findOrFail($id);
+		$project = $client->projects()->findOrFail($id);
 
-		return view('projects.edit', compact('project'));
+		return view('projects.edit', compact('project'))
+						->with('client', $client);
 	}
 
 	/**
@@ -114,7 +104,7 @@ class ProjectController extends Controller {
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Client $client, Request $request, $id)
 	{
 			$validator = Validator::make($request->all(), [
 					'title' => 'required'
@@ -124,15 +114,14 @@ class ProjectController extends Controller {
 									->withErrors($validator)
 									->withInput();
 			}
-			$project = $this->currentProjects()->findOrFail($id);
+			$project = $client->projects()->findOrFail($id);
 
 			$project->title = $request->input("title");
 	    $project->description = $request->input("description");
 			$project->user_id = Auth::user()->id;
 			$project->project_type = $request->input('project_type');
-			$project->client_id = $request->input('client_id');
 
-			$project->save();
+			$client->projects()->save($project);
 
 			return redirect()->route('projects.index')->with('message', 'Item updated successfully.');
 	}
@@ -143,10 +132,9 @@ class ProjectController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Client $client, $id)
 	{
-		$project = $this->currentProjects()->findOrFail($id);
-		$project->delete();
+		$client->projetcs()->findOrFail($id)->delete();
 
 		return redirect()->route('projects.index')->with('message', 'Item deleted successfully.');
 	}

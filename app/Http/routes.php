@@ -33,7 +33,11 @@
 });*/
 
 Route::bind('projects', function($id) {
-  return App\Project::findOrFail($id);
+  return AccountUtil::current()->projects()->findOrFail($id);
+});
+
+Route::bind('clients', function($id) {
+  return AccountUtil::current()->clients()->findOrFail($id);
 });
 
 Route::group(['middleware' => 'web'], function () {
@@ -58,8 +62,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('users', 'UserController');
         Route::get('clients/filter', 'ClientController@filter');
         Route::resource("clients","ClientController");
-        Route::get('projects/filter', 'ProjectController@filter');
-        Route::resource('projects', 'ProjectController');
+        Route::get('clients/{clients}/projects/filter', 'ProjectController@filter');
+        Route::resource('clients.projects', 'ProjectController');
         Route::resource('projects.tickets', 'TicketController');
         Route::resource('quotes', 'QuoteController');
 
