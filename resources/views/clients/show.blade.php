@@ -3,7 +3,7 @@
 <div class="header">
     <ol class="breadcrumb">
       <li><a href="#" class="history-back-btn">&larr; Back</a></li>
-      <li><a href="{{ url('clients') }}">Clients</a></li>
+      <li><a href="{{ route('clients.index') }}">Clients</a></li>
     </ol>
 </div>
 @endsection
@@ -25,7 +25,7 @@
                       <li><a href="{{ route('clients.edit', $client->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
                       <li role="separator" class="divider"></li>
                       <li><a href="{{ route('quotes.create') }}"><i class="fa fa-book"></i> New Quote</a></li>
-                      <li><a href="{{ route('projects.create') }}?client_number={{ $client->id }}"><i class="fa fa-gavel"></i> New Project</a></li>
+                      <li><a href="{{ route('clients.projects.create', $client->id) }}"><i class="fa fa-gavel"></i> New Project</a></li>
                       <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
                     </ul>
                   </div>
@@ -40,7 +40,7 @@
                   {{--<a href="{{ route('projects.tickets.create') }}" class="btn btn-default btn-sm">
                     <i class="fa fa-ticket"></i> Ticket
                   </a>--}}
-                  <a href="{{ route('projects.create') }}?client_number={{ $client->id }}" class="btn btn-default btn-sm">
+                  <a href="{{ route('clients.projects.create', $client->id) }}" class="btn btn-default btn-sm">
                     <i class="fa fa-gavel"></i> Project
                   </a>
                   <a href="{{ route('quotes.create') }}" class="btn btn-default btn-sm">
@@ -73,10 +73,10 @@
                 <div class="panel panel-borderless">
                   <div class="panel-heading">
                     <h4>
-                      <a href="{{ route('projects.index') }}"><i class="fa fa-briefcase"></i> Projects</a>
+                      <a href="{{ route('clients.projects.index', $client->id) }}"><i class="fa fa-briefcase"></i> Projects</a>
                       <div class="pull-right">
-                        <a href="{{ route('projects.index') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> All Projects</a>
-                        <a href="{{ route('projects.create') }}?client_number={{ $client->id }}" class="btn btn-sm btn-primary">+ New</a>
+                        <a href="{{ route('clients.projects.index', $client->id) }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> All Projects</a>
+                        <a href="{{ route('clients.projects.create', $client->id) }}" class="btn btn-sm btn-primary">+ New</a>
                       </div>
                     </h4>
                   </div>

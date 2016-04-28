@@ -1,4 +1,15 @@
 @extends('layout')
+
+@section('header')
+<div class="header">
+    <ol class="breadcrumb">
+      <li><a href="#" class="history-back-btn">&larr; Back</a></li>
+      <li><a href="{{ route('clients.show', $client->id) }}">{{ $client->name() }}</a></li>
+      <li><a href="{{ route('clients.projects.index', $client->id) }}">Projects</a></li>
+    </ol>
+</div>
+@endsection
+
 @section('content')
 
   <div class="row">
@@ -7,7 +18,7 @@
               <div class="panel-heading">
                 <h2>
                     <i class="fa fa-briefcase"></i> Projects
-                    <a class="btn btn-success pull-right" href="{{ route('projects.create') }}"><i class="fa fa-plus"></i> Create</a>
+                    <a class="btn btn-success pull-right" href="{{ route('clients.projects.create', $client->id) }}"><i class="fa fa-plus"></i> Create</a>
                 </h2>
               </div>
               <div class="panel-body">
@@ -46,7 +57,7 @@
                             </div>
                             <hr />
                             @foreach($projects as $project)
-                              <a href="{{ url('projects/'.$project->id) }}" class="project link-row">
+                              <a href="{{ route('clients.projects.show', ['clients' => $client->id, 'projects' => $project->id]) }}" class="project link-row">
                                 <div class="row">
                                   <div class="col-sm-1">
                                     <i class="fa fa-2x fa-user"></i>

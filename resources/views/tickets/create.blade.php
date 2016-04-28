@@ -4,13 +4,9 @@
 <div class="header">
     <ol class="breadcrumb">
       <li><a href="#" class="history-back-btn">&larr; Back</a></li>
-      @if($project)
-        <li><a href="{{ route('projects.index') }}">Projects</a></li>
-        <li><a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a></li>
-        <li><a href="{{ route('projects.tickets.index', $project->id) }}">Tickets</a></li>
-      @else
-        <li><a href="{{ route('projects.tickets.index', $project->id) }}">Tickets</a></li>
-      @endif
+      <li><a href="{{ route('clients.projects.index', $project->client->id) }}">Projects</a></li>
+      <li><a href="{{ route('clients.projects.show', ['clients' => $project->client->id, 'projects' => $project->id]) }}">{{ $project->title }}</a></li>
+      <li><a href="{{ route('projects.tickets.index', $project->id) }}">Tickets</a></li>
       <li>new</li>
     </ol>
 </div>

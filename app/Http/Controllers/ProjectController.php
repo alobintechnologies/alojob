@@ -12,15 +12,22 @@ use AccountUtil;
 class ProjectController extends Controller {
 
 	/**
+	 * App\Client
+	 */
+	protected $client;
+
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index(Client $client)
+	public function index($clientId)
 	{
-			$projects = $client->projects()->orderBy('title', 'asc')->paginate(10);
+			$this->setCurrentClient($clientId);
+			$projects = $this->client->projects()->orderBy('title', 'asc')->paginate(10);
 
-			return view('projects.index', compact('projects'));
+			return view('projects.index', compact('projects'))
+									->with('client', $this->client);
 	}
 
 	/**
@@ -28,10 +35,11 @@ class ProjectController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(Client $client, Request $request)
+	public function create($clientId, Request $request)
 	{
+			$this->setCurrentClient($clientId);
 			return view('projects.create')
-								->with('client', $client);
+								->with('client', $this->client);
 	}
 
 	/**
@@ -40,7 +48,7 @@ class ProjectController extends Controller {
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function store(Client $client, Request $request)
+	public function store($clientId, Request $request)
 	{
 			$format = $request->input('format', 'html');
 			$validator = Validator::make($request->all(), [
@@ -55,13 +63,14 @@ class ProjectController extends Controller {
 									->withInput();
 			}
 			$project = new Project();
+			$this->setCurrentClient($clientId);
 
 			$project->title = $request->input("title");
 	    $project->description = $request->input("description");
 			$project->user_id = Auth::user()->id;
 			$project->project_type = $request->input('project_type');
 
-			$client->projects()->save($project);
+			$this->client->projects()->save($project);
 
 			if($format == 'json') {
 					return Response::json(['result' => 'success', 'project' => $project]);
@@ -75,12 +84,13 @@ class ProjectController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Client $client, $id)
+	public function show($clientId, $id)
 	{
-		$project = $client->projects()->with('tickets', 'client')->findOrFail($id);
+			$this->setCurrentClient($clientId);
+			$project = $this->client->projects()->with('tickets')->findOrFail($id);
 
-		return view('projects.show', compact('project'))
-						->with('client', $client);
+			return view('projects.show', compact('project'))
+							->with('client', $this->client);
 	}
 
 	/**
@@ -89,12 +99,13 @@ class ProjectController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit(Client $client, $id)
+	public function edit($clientId, $id)
 	{
-		$project = $client->projects()->findOrFail($id);
+			$this->setCurrentClient($clientId);
+			$project = $this->client->projects()->findOrFail($id);
 
-		return view('projects.edit', compact('project'))
-						->with('client', $client);
+			return view('projects.edit', compact('project'))
+							->with('client', $this->client);
 	}
 
 	/**
@@ -104,7 +115,7 @@ class ProjectController extends Controller {
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function update(Client $client, Request $request, $id)
+	public function update($clientId, Request $request, $id)
 	{
 			$validator = Validator::make($request->all(), [
 					'title' => 'required'
@@ -114,14 +125,15 @@ class ProjectController extends Controller {
 									->withErrors($validator)
 									->withInput();
 			}
-			$project = $client->projects()->findOrFail($id);
+			$this->setCurrentClient($clientId);
+			$project = $this->client->projects()->findOrFail($id);
 
 			$project->title = $request->input("title");
 	    $project->description = $request->input("description");
 			$project->user_id = Auth::user()->id;
 			$project->project_type = $request->input('project_type');
 
-			$client->projects()->save($project);
+			$project->save($project);
 
 			return redirect()->route('projects.index')->with('message', 'Item updated successfully.');
 	}
@@ -132,9 +144,10 @@ class ProjectController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(Client $client, $id)
+	public function destroy($clientId, $id)
 	{
-		$client->projetcs()->findOrFail($id)->delete();
+			$this->setCurrentClient($clientId);
+			$this->client->projects()->findOrFail($id)->delete();
 
 		return redirect()->route('projects.index')->with('message', 'Item deleted successfully.');
 	}
@@ -148,9 +161,17 @@ class ProjectController extends Controller {
 			return $this->currentProjects()->where('title', 'like', "%$term%")->get();
 	}
 
-	public function currentProjects()
+	public function setCurrentClient($clientId)
 	{
-			return AccountUtil::current()->projects();
+			$this->client = AccountUtil::current()->clients()->findOrFail($clientId);
+			if(!$this->client) {
+				return App::abort(404, 'Client not found');
+			}
+	}
+
+	public function currentProjects($clientId = false)
+	{
+			return AccountUtil::current()->projects()->where('client_id', $clientId);
 	}
 
 }

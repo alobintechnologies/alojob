@@ -4,7 +4,8 @@
 <div class="header">
   <ol class="breadcrumb">
     <li><a href="#" class="history-back-btn">&larr; Back</a></li>
-    <li><a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a></li>
+    <li><a href="{{ route('clients.projects.index', $project->client->id) }}">Projects</a></li>
+    <li><a href="{{ route('clients.projects.show', ['clients' => $project->client->id, 'projects' => $project->id]) }}">{{ $project->title }}</a></li>
     <li><a href="{{ route('projects.tickets.index', $project->id) }}">Tickets</a></li>
     <li><a href="{{ route('projects.tickets.show', ['projects' => $project->id, 'tickets' => $ticket->id]) }}">{{ $ticket->id }}</a></li>
   </ol>

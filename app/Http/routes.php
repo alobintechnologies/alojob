@@ -32,13 +32,13 @@
   return $currentAccount;
 });*/
 
-Route::bind('projects', function($id) {
+/*Route::bind('projects', function($id) {
   return AccountUtil::current()->projects()->findOrFail($id);
 });
 
 Route::bind('clients', function($id) {
   return AccountUtil::current()->clients()->findOrFail($id);
-});
+});*/
 
 Route::group(['middleware' => 'web'], function () {
 

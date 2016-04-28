@@ -1,5 +1,5 @@
 @foreach($projects as $project)
-  <a href="{{ route('projects.show', $project->id) }}" class="link-row">
+  <a href="{{ route('clients.projects.show', ['clients' => $client->id, 'projects' => $project->id]) }}" class="link-row">
     <div class="row">
       <div class="col-sm-6">
         <h5>{{ $project->title }} - <small>{{ str_limit($project->description, 100) }}</small></h5>

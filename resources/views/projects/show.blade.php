@@ -1,37 +1,40 @@
 @extends('layout')
 
+@section('header')
+<div class="header">
+    <ol class="breadcrumb">
+      <li><a href="#" class="history-back-btn">&larr; Back</a></li>
+      <li><a href="{{ route('clients.show', $client->id) }}">{{ $client->name() }}</a></li>
+      <li><a href="{{ route('clients.projects.index', $client->id) }}">Projects</a></li>
+      <li>{{ $project->title }}</li>
+    </ol>
+</div>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-sm-12">
-        <div class="header">
-          <h5>
-            <a href="#" class="history-back-btn">&larr; Back</a> / <a href="{{ url('projects') }}">Projects</a> / {{ $project->id }}
-            <div class="pull-right">
-              <a href="#" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>
-              <div class="btn-group">
-                <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Action <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  <li><a href="{{ route('projects.edit', $project->id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="{{ route('projects.tickets.create', $project->id) }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
-                  <li><a href="{{ route('quotes.create') }}?project_number={{ $project->id }}"><i class="fa fa-book"></i> New Quote</a></li>
-                  <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="clearfix">
-              &nbsp;
-            </div>
-          </h5>
-        </div>
         <div class="panel panel-default details-panel-layout">
           <div class="panel-heading details-panel-heading">
             <div class="">
               <h3>
                 <i class="fa fa-gavel"></i> <span>{{ $project->title }} #{{ $project->id }}</span>
-                <small class="pull-right"><label class="label label-info">Draft</label></small>
+                <small><label class="label label-info">Draft</label></small>
+                <div class="pull-right">
+                  <a href="#" class="btn btn-sm btn-default"><i class="fa fa-print"></i></a>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Action <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <li><a href="{{ route('clients.projects.edit', ['clients' => $client->id, 'projects' => $project->id]) }}"><i class="fa fa-pencil"></i> Edit</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="{{ route('projects.tickets.create', $project->id) }}"><i class="fa fa-ticket"></i> New Ticket</a></li>
+                      <li><a href="{{ route('quotes.create') }}?project_number={{ $project->id }}"><i class="fa fa-book"></i> New Quote</a></li>
+                      <li><a href="#"><i class="fa fa-file"></i> New Invoice</a></li>
+                    </ul>
+                  </div>
+                </div>
               </h3>
               <hr/>
             </div>
@@ -150,7 +153,7 @@
                   </div>
 
                   <div role="tabpanel" class="tab-pane" id="TicketsTab">
-                    @include('tickets._list', ['project' => $project, 'tickets' => $project->tickets])
+                    @include('projects._tickets', ['project' => $project, 'tickets' => $project->tickets])
                   </div>
                 </div>
               </div>
@@ -414,7 +417,7 @@
           <div class="panel-footer">
             <div class="">
               <span>Note: Deleting this project will remove its tasks, tickets, discussions, etc.</span>
-              <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display:inline-block;" class="pull-right" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
+              <form action="{{ route('clients.projects.destroy', ['clients' => $client->id, 'projects' => $project->id]) }}" method="POST" style="display:inline-block;" class="pull-right" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="btn-group pull-right" role="group" aria-label="">

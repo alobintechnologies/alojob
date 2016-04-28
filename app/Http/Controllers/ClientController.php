@@ -74,10 +74,10 @@ class ClientController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  App\Client $client
+	 * @param  int $id
 	 * @return Response
 	 */
-	public function show(Client $client)
+	public function show($id)
 	{
 		$client = $this->currentClients()->with(['projects' => function($query) {
 			$query->orderBy('created_at', 'desc')->take(5);
@@ -85,7 +85,7 @@ class ClientController extends Controller {
 			$query->with('ticket_category', 'assigned_user', 'project')->orderBy('created_at', 'desc')->take(5);
 		}, 'quotes' => function($query) {
 			$query->orderBy('created_at', 'desc')->take(5);
-		}]);//->findOrFail($id);
+		}])->findOrFail($id);
 
 		return view('clients.show', compact('client'));
 	}
@@ -158,7 +158,4 @@ class ClientController extends Controller {
 	{
 			return AccountUtil::current()->clients();
 	}
-
-
-
 }
