@@ -41,20 +41,20 @@
                     <hr />
                     <p>
                        <span>Set category as</span>
-                       <select class="input-sm inline-select" name="ticket_category_id">
+                       <select class="input-sm inline-select form-control" name="ticket_category_id">
                          @foreach($ticket_categories as $ticket_category)
                            <option value="{{ $ticket_category->id }}">{{ $ticket_category->title }}</option>
                          @endforeach
                        </select>
                        <span>with</span>
-                       <select class="input-sm inline-select" name="priority_id" id="priority_id-field">
+                       <select class="input-sm inline-select form-control" name="priority_id" id="priority_id-field">
                          <option value="0">Low</option>
                          <option value="1">Medium</option>
                          <option value="2">High</option>
                          <option value="3">Critical</option>
                        </select>
                        <span>priority and assigned to</span>
-                       <select class="input-sm inline-select" name="assigned_user_id" id="assigned_user_id-field">
+                       <select class="input-sm inline-select form-control" name="assigned_user_id" id="assigned_user_id-field">
                          @foreach($assignees as $assignee)
                            <option value="{{ $assignee->user->id }}">{{ $assignee->user->email }}</option>
                          @endforeach

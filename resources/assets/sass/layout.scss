@@ -28,7 +28,7 @@
   }
   .panel-heading {
     .heading-info {
-      color: #aaa;
+      color: #666;
     }
   }
 }
@@ -265,6 +265,12 @@
 /* Form styles */
 .inline-select {
   border-color: #efefef;
+  display: inline !important;
+  width: auto !important;
+}
+.inline-input {
+  display: inline !important;
+  width: auto !important;
 }
 
 /* Well Styles */

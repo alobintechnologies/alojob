@@ -4,6 +4,7 @@
 <div class="header">
     <ol class="breadcrumb">
       <li><a href="#" class="history-back-btn">&larr; Back</a></li>
+      <li><a href="{{ route('clients.projects.index', $project->client->id) }}">Projects</a></li>
       <li><a href="{{ route('clients.projects.show', ['clients' => $project->client->id, 'projects' => $project->id]) }}">{{ $project->title }}</a></li>
       <li><a href="{{ route('projects.tickets.index', $project->id) }}">Tickets</a></li>
       <li><a href="{{ route('projects.tickets.show', ['projects' => $project->id, 'tickets' => $ticket->id]) }}">{{ $ticket->id }}</a></li>
@@ -16,7 +17,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-      <div class="panel panel-light details-panel-layout">
+      <div class="panel panel-light details-panel-layout ticket-show-panel">
           <div class="panel-heading details-panel-heading">
             <div class="">
               <h3>
@@ -45,23 +46,54 @@
             </div>
           </div>
           <div class="panel-body details-panel-body">
-            <p>
-              {!! $ticket->description !!}
-            </p>
-            <hr/>
-            <div class="pull-right">
-                <a class="btn btn-link btn-sm history-back-btn" href="#">&larr; Back</a>
-                <form action="{{ route('projects.tickets.destroy', ['projects' => $project->id, 'tickets' => $ticket->id]) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="btn-group pull-right" role="group" aria-label="...">
-                        <a class="btn btn-warning btn-group" role="group" href="{{ route('projects.tickets.edit', ['projects' => $project->id, 'tickets' => $ticket->id]) }}"><i class="fa fa-edit"></i> Edit</a>
-                        <button type="submit" class="btn btn-danger">Delete <i class="fa fa-trash"></i></button>
-                    </div>
-                </form>
+            <div class="row">
+              <div class="col-sm-8">
+                <p class="ticket-desc">
+                  {!! $ticket->description !!}
+                </p>
+              </div>
+              <div class="col-sm-4">
+                <div class="pull-right">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <a class="history-back-btn" href="#">&larr; Back</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a class="" href="{{ route('projects.tickets.edit', ['projects' => $project->id, 'tickets' => $ticket->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                    </li>
+                    <li class="list-group-item">
+                      <form action="{{ route('projects.tickets.destroy', ['projects' => $project->id, 'tickets' => $ticket->id]) }}" method="POST" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                      </form>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <hr />
+              </div>
+              <div class="col-sm-8">
+                <h5>Discuss about this ticket</h5>
+                <div class="ticket-comments">
+                  <!-- show the comments already entered in here... -->
+                  @include('comments.index', ['resource' => $ticket])
+                </div>
+              </div>
+              <div class="clearfix"></div>
             </div>
+
           </div> <!-- ./panel-body -->
       </div>  <!-- ./panel -->
   </div> <!-- ./col-sm-12 -->
 </div> <!-- ./row -->
+@endsection
+
+@section('layout-footer')  
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      var commentController = new CommentController();
+    });
+  </script>
 @endsection

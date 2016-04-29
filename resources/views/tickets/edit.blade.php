@@ -8,6 +8,7 @@
     <li><a href="{{ route('clients.projects.show', ['clients' => $project->client->id, 'projects' => $project->id]) }}">{{ $project->title }}</a></li>
     <li><a href="{{ route('projects.tickets.index', $project->id) }}">Tickets</a></li>
     <li><a href="{{ route('projects.tickets.show', ['projects' => $project->id, 'tickets' => $ticket->id]) }}">{{ $ticket->id }}</a></li>
+    <li>Edit</li>
   </ol>
 </div>
 @endsection
@@ -31,7 +32,7 @@
                         </div>
                         <div class="col-sm-2">
                           <small class="pull-right">
-                            <select class="form-control input-sm" name="ticket_status" id="ticket_status-field">
+                            <select class="form-control input-sm" name="ticket_status" id="ticket_status-field" tabindex="-1">
                               <option value="0">Open</option>
                               <option value="1">On Hold</option>
                               <option value="2">Invalid</option>
@@ -50,20 +51,20 @@
                     <hr />
                     <p>
                        <span>Set category as</span>
-                       <select class="input-sm inline-select" name="ticket_category_id">
+                       <select class="input-sm inline-select form-control" name="ticket_category_id">
                          @foreach($ticket_categories as $ticket_category)
                            <option value="{{ $ticket_category->id }}" @if($ticket_category->id == $ticket->ticket_category->id) selected="selected" @endif>{{ $ticket_category->title }}</option>
                          @endforeach
                        </select>
                        <span>with</span>
-                       <select class="input-sm inline-select" name="priority_id" id="priority_id-field">
+                       <select class="input-sm inline-select form-control" name="priority_id" id="priority_id-field">
                          <option value="0">Low</option>
                          <option value="1">Medium</option>
                          <option value="2">High</option>
                          <option value="3">Critical</option>
                        </select>
                        <span>priority and assigned to</span>
-                       <select class="input-sm inline-select" name="assigned_user_id" id="assigned_user_id-field">
+                       <select class="input-sm inline-select form-control" name="assigned_user_id" id="assigned_user_id-field">
                          @foreach($assignees as $assignee)
                            <option value="{{ $assignee->user->id }}" @if($assignee->user->id == $ticket->assigned_user->id) selected="selected" @endif>{{ $assignee->user->email }}</option>
                          @endforeach

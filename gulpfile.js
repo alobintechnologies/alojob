@@ -19,13 +19,16 @@ elixir(function(mix) {
       'jquery.js',
       'jquery-ui.min.js',
       'bootstrap.min.js',
-      'summernote.min.js', 
+      'summernote.min.js',
       'alo-framework.js',
       // clients module
       'clients/client-service.js',
       // projects module
       'projects/project-service.js',
       'projects/project-controller.js',
+      // comments module
+      'comments/comment-controller.js',
+      'comments/comment-service.js',
       // tickets module
       'tickets/ticket-controller.js',
       // quotes module
