@@ -70,10 +70,11 @@ class TicketController extends Controller {
 		$ticket->priority_id = $request->input('priority_id', 1);
 		$ticket->assigned_user_id = $request->input("assigned_user_id");
 		$ticket->ticket_category_id = $request->input("ticket_category_id");
+		$ticket->account_id = $this->project->account_id;
 
 		$this->project->tickets()->save($ticket);
 
-		return redirect()->route('tickets.index')->with('message', 'Ticket created successfully.');
+		return redirect()->route('projects.tickets.index', $this->project->id)->with('message', 'Ticket created successfully.');
 	}
 
 	/**
@@ -146,7 +147,7 @@ class TicketController extends Controller {
 
 		$ticket->save();
 
-		return redirect()->route('tickets.index')->with('message', 'Item updated successfully.');
+		return redirect()->route('projects.tickets.show', ['projects' => $this->project->id, 'tickets' => $ticket->id])->with('message', 'Item updated successfully.');
 	}
 
 	/**
@@ -161,7 +162,7 @@ class TicketController extends Controller {
 		$ticket = $this->project->tickets()->findOrFail($id);
 		$ticket->delete();
 
-		return redirect()->route('tickets.index')->with('message', 'Item deleted successfully.');
+		return redirect()->route('projects.tickets.index', $this->project->id)->with('message', 'Item deleted successfully.');
 	}
 
 	protected function getEditViewModel()

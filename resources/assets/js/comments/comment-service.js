@@ -25,5 +25,16 @@
       });
     };
 
+    CommentService.prototype.add = function (comment, successCallBack) {
+      $.ajax({
+        url: aloF.getBaseURL() + "/comments",
+        data: comment,
+        success: function(data) {
+          if(successCallBack != null)
+            successCallBack(data);
+        }
+      });
+    };
+
     window.CommentService = CommentService;
 })(jQuery, window, AloFramework);

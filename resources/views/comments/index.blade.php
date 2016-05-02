@@ -21,7 +21,15 @@
         </p>
       </div>
       <div class="media-body">
+        <input type="hidden" name="commentable-type" id="commentable-type" value="{{ $resourceType ?: '' }}" />
+        <input type="hidden" name="commentable-type-id" id="commentable-type-id" value="{{ $resourceId ?: '' }}" />
         <textarea name="comment" rows="2" class="form-control" id="comment-editor"></textarea>
+        <div class="clearfix"></div>
+        <div class="pull-right">
+          <button type="button" name="save-comment" id="save-comment" class="btn btn-success">Reply</button>
+          <span>or</span>
+          <button type="button" name="cancel-comment" id="cancel-comment" class="btn btn-default">Cancel</button>
+        </div>
       </div>
     </div>
   </div>

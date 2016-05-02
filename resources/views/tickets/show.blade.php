@@ -14,7 +14,6 @@
 
 
 @section('content')
-
 <div class="row">
     <div class="col-sm-12">
       <div class="panel panel-light details-panel-layout ticket-show-panel">
@@ -39,8 +38,8 @@
               </h3>
               <hr/>
               <p class="heading-info">
-                <span>Posted by {{ $ticket->user->email }} on {{ $ticket->created_at->format('M d, Y') }},
-                  {{ $ticket->ticket_category->title }} with <i class="fa {{ $ticket->priority_icon() }}"></i> {{ $ticket->priority() }} priority and assigned to {{ $ticket->assigned_user->email }}
+                <span>
+                  Posted by {{ $ticket->user->email }} on {{ $ticket->created_at->format('M d, Y') }}, {{ $ticket->ticket_category->title }} with <i class="fa {{ $ticket->priority_icon() }}"></i> {{ $ticket->priority() }} priority and assigned to {{ $ticket->assigned_user->email }}
                 </span>
               </p>
             </div>
@@ -78,19 +77,18 @@
                 <h5>Discuss about this ticket</h5>
                 <div class="ticket-comments">
                   <!-- show the comments already entered in here... -->
-                  @include('comments.index', ['resource' => $ticket])
+                  @include('comments.index', ['resourceId' => $ticket->id, 'resourceType' => 'Ticket'])
                 </div>
               </div>
               <div class="clearfix"></div>
             </div>
-
           </div> <!-- ./panel-body -->
       </div>  <!-- ./panel -->
   </div> <!-- ./col-sm-12 -->
 </div> <!-- ./row -->
 @endsection
 
-@section('layout-footer')  
+@section('layout-footer')
   <script type="text/javascript">
     jQuery(document).ready(function($) {
       var commentController = new CommentController();

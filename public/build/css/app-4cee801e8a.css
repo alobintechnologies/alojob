@@ -7879,6 +7879,10 @@ button.close {
   border-radius: 4px;
   border: none; }
 
+/* comment styles */
+.comment-editor .note-editor.note-frame {
+  border-color: #efefef; }
+
 .ticket.link-row .ticket-desc {
   color: #646464; }
 

@@ -1,5 +1,7 @@
 ;(function ($, window, aloF) {
 
+    var commentService = new CommentService();
+
     function CommentController(options) {
       this.options = $.extend({}, options);
       this._initialize();
@@ -33,6 +35,18 @@
               $("#comment-editor-group").find('.note-editor .note-toolbar .note-btn').attr('tabindex', '-1');
            }
           }
+        });
+
+        $("#save-comment").click(function() {
+          var commentObj = {
+            comment : $("#comment-editor").summernote('code'),
+            resourceType : $("#commentable-type").val(),
+            resourceId : $("#commentable-type-id").val()
+          };
+
+          commentService.add(commentObj, function (data) {
+            console.log(data);
+          });
         });
     };
 

@@ -27,8 +27,8 @@ elixir(function(mix) {
       'projects/project-service.js',
       'projects/project-controller.js',
       // comments module
-      'comments/comment-controller.js',
       'comments/comment-service.js',
+      'comments/comment-controller.js',
       // tickets module
       'tickets/ticket-controller.js',
       // quotes module

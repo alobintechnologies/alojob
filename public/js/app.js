@@ -9970,6 +9970,49 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
 })(jQuery, window, AloFramework);
 
 ;(function ($, window, aloF) {
+    function CommentService(options) {
+      this.options = $.extend({}, options);
+      this._initialize();
+    }
+
+    CommentService.prototype.options = {
+      // add any default options in here...
+    }
+
+    CommentService.prototype._initialize = function () {
+
+    };
+
+    CommentService.prototype.all = function (term, successCallBack) {
+      $.ajax({
+        url: aloF.getBaseURL() + "/projects/filter",
+        data: {
+          term: term
+        },
+        success: function(data) {
+          if(successCallBack != null)
+            successCallBack(data);
+        }
+      });
+    };
+
+    CommentService.prototype.add = function (comment, successCallBack) {
+      $.ajax({
+        url: aloF.getBaseURL() + "/comments",
+        data: comment,
+        success: function(data) {
+          if(successCallBack != null)
+            successCallBack(data);
+        }
+      });
+    };
+
+    window.CommentService = CommentService;
+})(jQuery, window, AloFramework);
+
+;(function ($, window, aloF) {
+
+    var commentService = new CommentService();
 
     function CommentController(options) {
       this.options = $.extend({}, options);
@@ -10005,39 +10048,21 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
            }
           }
         });
+
+        $("#save-comment").click(function() {
+          var commentObj = {
+            comment : $("#comment-editor").summernote('code'),
+            resourceType : $("#commentable-type").val(),
+            resourceId : $("#commentable-type-id").val()
+          };
+
+          commentService.add(commentObj, function (data) {
+            console.log(data);
+          });
+        });
     };
 
     window.CommentController = CommentController;
-})(jQuery, window, AloFramework);
-
-;(function ($, window, aloF) {
-    function CommentService(options) {
-      this.options = $.extend({}, options);
-      this._initialize();
-    }
-
-    CommentService.prototype.options = {
-      // add any default options in here...
-    }
-
-    CommentService.prototype._initialize = function () {
-
-    };
-
-    CommentService.prototype.all = function (term, successCallBack) {
-      $.ajax({
-        url: aloF.getBaseURL() + "/projects/filter",
-        data: {
-          term: term
-        },
-        success: function(data) {
-          if(successCallBack != null)
-            successCallBack(data);
-        }
-      });
-    };
-
-    window.CommentService = CommentService;
 })(jQuery, window, AloFramework);
 
 ;(function ($, window, aloF) {
