@@ -292,7 +292,17 @@
 
 /* comment styles */
 .comment-editor {
-  .note-editor.note-frame {
-    border-color: #efefef;
+  .comment-editor-holder {
+    .note-editor.note-frame {
+      border: none;
+      .note-statusbar {
+        display: none;
+      }
+    }
+  }
+}
+.comment {
+  .profile-pic {
+    color: #ccc;
   }
 }

@@ -7880,8 +7880,13 @@ button.close {
   border: none; }
 
 /* comment styles */
-.comment-editor .note-editor.note-frame {
-  border-color: #efefef; }
+.comment-editor .comment-editor-holder .note-editor.note-frame {
+  border: none; }
+  .comment-editor .comment-editor-holder .note-editor.note-frame .note-statusbar {
+    display: none; }
+
+.comment .profile-pic {
+  color: #ccc; }
 
 .ticket.link-row .ticket-desc {
   color: #646464; }

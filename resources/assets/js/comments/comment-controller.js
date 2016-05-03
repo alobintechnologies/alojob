@@ -20,9 +20,35 @@
         $("input[name='client_id']").val(id);
     };
 
+    CommentController.prototype.updateComments = function (data) {
+        var resourceData = {
+          'resourceType' : 'Ticket',
+          'resourceId' : this.options.ticketId,
+          'comment' : data.comment
+        };
+        commentService.show(resourceData, function(html) {
+          $("#comments-holder").append(html);
+        });
+    };
+
+    CommentController.prototype.showComments = function () {
+        var resourceData = {
+          'resourceType' : 'Ticket',
+          'resourceId' : this.options.ticketId
+        };
+        $("#comments-holder").html('<p>Loading comments...</p>');
+
+        commentService.all(resourceData, function(data) {
+          $("#comments-holder").html(data);
+        });
+    };
+
     CommentController.prototype._events = function () {
+        var self = this;
+        self.showComments();
+
         $("#comment-editor").summernote({
-          minHeight: 200,
+          minHeight: 100,
           maxHeight: null,
           focus: false,
           placeholder: 'Add comment or upload file here...',
@@ -38,6 +64,8 @@
         });
 
         $("#save-comment").click(function() {
+          var saveBtn = $(this);
+          saveBtn.prop('disabled', true);
           var commentObj = {
             comment : $("#comment-editor").summernote('code'),
             resourceType : $("#commentable-type").val(),
@@ -45,7 +73,9 @@
           };
 
           commentService.add(commentObj, function (data) {
-            console.log(data);
+            self.updateComments(data);
+            $("#comment-editor").summernote('code', '');
+            saveBtn.prop('disabled', false);
           });
         });
     };

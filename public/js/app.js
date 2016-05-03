@@ -9824,6 +9824,11 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
     }
 
     AloFramework.prototype._initialize = function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
     }
 
     AloFramework.prototype.getBaseURL = function () {
@@ -9983,12 +9988,9 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
 
     };
 
-    CommentService.prototype.all = function (term, successCallBack) {
+    CommentService.prototype.all = function (data, successCallBack) {
       $.ajax({
-        url: aloF.getBaseURL() + "/projects/filter",
-        data: {
-          term: term
-        },
+        url: aloF.getBaseURL() + "/comments?resourceType=" + data.resourceType + "&resourceId=" + data.resourceId,
         success: function(data) {
           if(successCallBack != null)
             successCallBack(data);
@@ -9999,7 +10001,18 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
     CommentService.prototype.add = function (comment, successCallBack) {
       $.ajax({
         url: aloF.getBaseURL() + "/comments",
+        type: 'POST',
         data: comment,
+        success: function(data) {
+          if(successCallBack != null)
+            successCallBack(data);
+        }
+      });
+    };
+
+    CommentService.prototype.show = function (data, successCallBack) {
+      $.ajax({
+        url: aloF.getBaseURL() + "/comments/" + data.comment.id,
         success: function(data) {
           if(successCallBack != null)
             successCallBack(data);
@@ -10032,9 +10045,35 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
         $("input[name='client_id']").val(id);
     };
 
+    CommentController.prototype.updateComments = function (data) {
+        var resourceData = {
+          'resourceType' : 'Ticket',
+          'resourceId' : this.options.ticketId,
+          'comment' : data.comment
+        };
+        commentService.show(resourceData, function(html) {
+          $("#comments-holder").append(html);
+        });
+    };
+
+    CommentController.prototype.showComments = function () {
+        var resourceData = {
+          'resourceType' : 'Ticket',
+          'resourceId' : this.options.ticketId
+        };
+        $("#comments-holder").html('<p>Loading comments...</p>');
+
+        commentService.all(resourceData, function(data) {
+          $("#comments-holder").html(data);
+        });
+    };
+
     CommentController.prototype._events = function () {
+        var self = this;
+        self.showComments();
+
         $("#comment-editor").summernote({
-          minHeight: 200,
+          minHeight: 100,
           maxHeight: null,
           focus: false,
           placeholder: 'Add comment or upload file here...',
@@ -10050,6 +10089,8 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
         });
 
         $("#save-comment").click(function() {
+          var saveBtn = $(this);
+          saveBtn.prop('disabled', true);
           var commentObj = {
             comment : $("#comment-editor").summernote('code'),
             resourceType : $("#commentable-type").val(),
@@ -10057,7 +10098,9 @@ return a.each(f,function(a,b){p.appendChildNodes(e,b.childNodes),p.remove(b)}),d
           };
 
           commentService.add(commentObj, function (data) {
-            console.log(data);
+            self.updateComments(data);
+            $("#comment-editor").summernote('code', '');
+            saveBtn.prop('disabled', false);
           });
         });
     };

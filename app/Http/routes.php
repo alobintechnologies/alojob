@@ -66,6 +66,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('clients.projects', 'ProjectController');
         Route::resource('projects.tickets', 'TicketController');
         Route::resource('quotes', 'QuoteController');
+        Route::resource('comments', 'CommentController');        
 
         Route::group([
           'prefix' => 'master_datas/{masterType}',

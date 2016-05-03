@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Comment;
+use AccountUtil;
+use Validator;
 
 class CommentController extends Controller
 {
@@ -19,10 +21,11 @@ class CommentController extends Controller
     {
         $this->setupResource($request);
         $comments = AccountUtil::current()->comments()
+                      ->with('author')
                       ->where('commentable_type', $this->resourceType)
-                      ->where('commentable_id', $this->resourceId)->paginate();
+                      ->where('commentable_id', $this->resourceId)->get();
 
-        return $comments;
+        return view('comments.comment', compact('comments'));
     }
 
     /**
@@ -33,13 +36,13 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make([
+        $validator = Validator::make($request->all(), [
           'comment' => 'required'
         ]);
         $this->setupResource($request);
 
-        if(!$validator->fails($comment)) {
-          return Response::json(['result' => 'failure', 'errors' => $validator->errors()]);
+        if($validator->fails()) {
+          return response()->json(['result' => 'failure', 'errors' => $validator->errors()]);
         } else {
           $comment = new Comment;
           $comment->commentable_type = $this->resourceType;
@@ -48,7 +51,7 @@ class CommentController extends Controller
           $comment->author_id = $request->user()->id;
 
           AccountUtil::current()->comments()->save($comment);
-          return Response::json(['result' => 'success', 'comment' => $comment]);
+          return response()->json(['result' => 'success', 'comment' => $comment]);
         }
     }
 
@@ -58,9 +61,15 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        //$this->setupResource($request);
+        $comment = AccountUtil::current()->comments()->with('author')->findOrFail($id);
+        if($comment) {
+          return view('comments.show', compact('comment')); //response()->json(['result' => 'success', 'comment' => $comment]);
+        } else {
+          return response()->json('');
+        }
     }
 
     /**
@@ -97,9 +106,9 @@ class CommentController extends Controller
         $comment = AccountUtil::current()->comments()->findOrFail($id);
         if($comment) {
             $comment->delete();
-            return Response::json(['result' => 'success']);
+            return response()->json(['result' => 'success']);
         } else {
-          return Response::json(['result' => 'failure']);
+          return response()->json(['result' => 'failure']);
         }
     }
 

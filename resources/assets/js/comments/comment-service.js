@@ -12,12 +12,9 @@
 
     };
 
-    CommentService.prototype.all = function (term, successCallBack) {
+    CommentService.prototype.all = function (data, successCallBack) {
       $.ajax({
-        url: aloF.getBaseURL() + "/projects/filter",
-        data: {
-          term: term
-        },
+        url: aloF.getBaseURL() + "/comments?resourceType=" + data.resourceType + "&resourceId=" + data.resourceId,
         success: function(data) {
           if(successCallBack != null)
             successCallBack(data);
@@ -28,7 +25,18 @@
     CommentService.prototype.add = function (comment, successCallBack) {
       $.ajax({
         url: aloF.getBaseURL() + "/comments",
+        type: 'POST',
         data: comment,
+        success: function(data) {
+          if(successCallBack != null)
+            successCallBack(data);
+        }
+      });
+    };
+
+    CommentService.prototype.show = function (data, successCallBack) {
+      $.ajax({
+        url: aloF.getBaseURL() + "/comments/" + data.comment.id,
         success: function(data) {
           if(successCallBack != null)
             successCallBack(data);

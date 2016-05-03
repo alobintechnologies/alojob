@@ -75,9 +75,10 @@
               </div>
               <div class="col-sm-8">
                 <h5>Discuss about this ticket</h5>
+                <br />
                 <div class="ticket-comments">
                   <!-- show the comments already entered in here... -->
-                  @include('comments.index', ['resourceId' => $ticket->id, 'resourceType' => 'Ticket'])
+                  @include('comments.index', ['resourceId' => $ticket->id, 'resourceType' => 'Ticket', 'comments' => $ticket->comments])
                 </div>
               </div>
               <div class="clearfix"></div>
@@ -91,7 +92,9 @@
 @section('layout-footer')
   <script type="text/javascript">
     jQuery(document).ready(function($) {
-      var commentController = new CommentController();
+      var commentController = new CommentController({
+        'ticketId': '{{ $ticket->id }}'
+      });
     });
   </script>
 @endsection
