@@ -20,6 +20,7 @@ elixir(function(mix) {
       'jquery-ui.min.js',
       'bootstrap.min.js',
       'summernote.min.js',
+      'dropzone.js',
       'alo-framework.js',
       // clients module
       'clients/client-service.js',

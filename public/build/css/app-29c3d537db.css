@@ -7880,13 +7880,36 @@ button.close {
   border: none; }
 
 /* comment styles */
-.comment-editor .comment-editor-holder .note-editor.note-frame {
-  border: none; }
-  .comment-editor .comment-editor-holder .note-editor.note-frame .note-statusbar {
-    display: none; }
+.comment-editor .comment-editor-block {
+  padding: 7px;
+  background-color: #f0f0f0;
+  border-radius: 4px; }
+
+.comment-editor .comment-editor-holder {
+  padding: 7px;
+  border: 1px solid #efefef;
+  border-radius: 4px;
+  background-color: #fff; }
+  .comment-editor .comment-editor-holder .note-editor.note-frame {
+    border: none;
+    box-shadow: none; }
+    .comment-editor .comment-editor-holder .note-editor.note-frame .panel-heading {
+      background-color: #fff;
+      border: none; }
+    .comment-editor .comment-editor-holder .note-editor.note-frame .note-statusbar {
+      display: none; }
 
 .comment .profile-pic {
   color: #ccc; }
+
+/* dropzone styles */
+.dropzone {
+  border: 1px dashed #efefef;
+  padding: 15px;
+  background-color: #fff; }
+
+.dropzone.dz-clickable {
+  cursor: pointer; }
 
 .ticket.link-row .ticket-desc {
   color: #646464; }
