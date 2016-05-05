@@ -17,8 +17,9 @@ class CreateAttachmentsTable extends Migration
          */
         Schema::create ( 'attachments', function ($table) {
           $table->increments ( 'id' );
-          $table->string ( 'attachment_url', 1000 );
-          $table->string( 'attachment_ext', 50);
+          $table->string ( 'filename')->index();
+          $table->string( 'extension', 50);
+          $table->string( 'content_type', 255)->nullable();
           $table->string ( 'attachable_type' )->index ();
           $table->integer ( 'attachable_id' )->unsigned ();
 

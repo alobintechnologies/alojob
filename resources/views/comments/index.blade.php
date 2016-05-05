@@ -17,10 +17,16 @@
           {{--<p class="well well-sm well-light">
             <i class="fa fa-paperclip"></i> To attach files <input type="file" multiple="multiple" class="file-chooser"><button type="button" class="btn-link file-chooser-text">select from your computer</button>
           </p>--}}
-          <form action="{{ route('attachments.store') }}?resourceType=Ticket&amp;resourceId={{ $resourceId }}" class="dropzone" id="commentFormDropzone">
+          {{--<form action="{{ route('attachments.store') }}?resourceType=Ticket&amp;resourceId={{ $resourceId }}" class="dropzone" id="commentFormDropzone">
               <input type="hidden" name="_token" value="{{ csrf_token() }}" />
           </form>
+          --}}
+          <div id="comment-file-uploader" class="uploader">
+            <i class="fa fa-paperclip"></i> Drag &amp; drop to attach files or <input type="file" multiple="multiple" class="file-chooser"><button type="button" class="btn-link file-chooser-text">select from your computer</button>
+          </div>
           <div class="clearfix"></div>
+          <div class="attachments" id="attachments-preview" file-counter="">
+          </div>
         </div>
         <div>
           <button type="button" name="save-comment" id="save-comment" class="btn btn-success">Reply</button>

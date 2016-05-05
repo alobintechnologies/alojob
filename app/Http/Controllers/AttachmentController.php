@@ -55,17 +55,21 @@ class AttachmentController extends Controller
             $extension = $file->getClientOriginalExtension();
             $directory = storage_path() . "/app/attachments/{$this->resourceType}/{$this->resourceId}";
             $filename = sha1(time()) . ".{$extension}";
-            $file->move($directory, $filename);
+            //$file->move($directory, $filename);
 
             $attachment = new Attachment;
             $attachment->attachable_type = $this->resourceType;
             $attachment->attachable_id = $this->resourceId;
-            $attachment->attachment_url = $directory . '/' . $filename;
+            $attachment->filename = $filename;
+            $attachment->extension = $extension;
             $attachment->user_id = $request->user()->id;
 
             AccountUtil::current()->attachments()->save($attachment);
 
-            return response()->json(['result' => 'success', 'attachment' => $attachment]);
+            return view('attachments.show', compact('attachment'))
+                      ->with('resourceType', $this->resourceType)
+                      ->with('resourceId', $this->resourceId);
+            //return response()->json(['result' => 'success', 'attachment' => $attachment]);
         }
     }
 
