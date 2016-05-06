@@ -89,7 +89,7 @@
         },
         onUploadError: function(id, message) {
           //$.danidemo.updateFileStatus(id, 'error', message);
-          console.log(message);
+          //console.log(message);
           $('#attachment-preview-' + id).find('span.attachment-preview-status').html(message).addClass('attachment-preview-status-' +'error');
           //$.danidemo.addLog('#demo-debug', 'error', 'Failed to Upload file #' + id + ': ' + message);
         },
