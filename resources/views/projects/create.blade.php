@@ -4,7 +4,7 @@
 <div class="header">
     <ol class="breadcrumb">
       <li><a href="#" class="history-back-btn">&larr; Back</a></li>
-      <li><a href="{{ route('clients.projects.index', $project->client->id) }}">Projects</a></li>
+      <li><a href="{{ route('clients.projects.index', $client->id) }}">Projects</a></li>
       <li>new</li>
     </ol>
 </div>
@@ -16,7 +16,7 @@
         <div class="panel panel-default">
             <div class="panel-heading"><a href="{{ url('projects') }}"><i class="fa fa-briefcase"></i> Projects</a> / Create</div>
             <div class="panel-body">
-              <form action="{{ route('projects.store') }}" method="POST" class="form">
+              <form action="{{ route('clients.projects.store', $client->id) }}" method="POST" class="form">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
@@ -67,7 +67,7 @@
                         </div>
                         <div class="well well-sm">
                             <button type="submit" class="btn btn-primary">Create</button>
-                            <a class="btn btn-link pull-right" href="{{ route('projects.index') }}"><i class="fa fa-backward"></i> Back</a>
+                            <a class="btn btn-link pull-right" href="{{ route('clients.projects.index', $client->id) }}"><i class="fa fa-backward"></i> Back</a>
                         </div>
                     </div>
                 </div>

@@ -85,7 +85,7 @@
           $('#attachment-preview-' + id).find('span.attachment-preview-status').html('Upload Complete').addClass('attachment-preview-status-' + status);
           //$.danidemo.updateFileProgress(id, '100%');
           $('#attachment-preview-' + id).find('div.progress-bar').width('100%');
-	        $('#attachment-preview-' + id).find('span.sr-only').html('100% Complete');       
+	        $('#attachment-preview-' + id).find('span.sr-only').html('100% Complete');
         },
         onUploadError: function(id, message) {
           //$.danidemo.updateFileStatus(id, 'error', message);
@@ -147,6 +147,7 @@
           placeholder: 'Add comment or upload file here...',
           toolbar: [
              ['style', ['bold', 'italic', 'underline', 'clear']],
+             ['color', ['color']],
              ['para', ['ul', 'ol']]
           ],
           callbacks: {

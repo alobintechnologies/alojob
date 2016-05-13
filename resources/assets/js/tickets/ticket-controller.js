@@ -41,6 +41,7 @@
           toolbar: [
              //[groupname, [button list]]
              ['style', ['bold', 'italic', 'underline', 'clear']],
+             ['color', ['color']],
              ['para', ['ul', 'ol']]
           ],
           callbacks: {
