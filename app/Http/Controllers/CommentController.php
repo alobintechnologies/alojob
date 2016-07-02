@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Comment;
+use App\Attachment;
 use AccountUtil;
 use Validator;
 
@@ -21,11 +22,11 @@ class CommentController extends Controller
     {
         $this->setupResource($request);
         $comments = AccountUtil::current()->comments()
-                      ->with('author')
+                      ->with('author', 'attachments')
                       ->where('commentable_type', $this->resourceType)
                       ->where('commentable_id', $this->resourceId)->get();
 
-        return view('comments.comment', compact('comments'));
+        return view('comments.list', compact('comments'));
     }
 
     /**
@@ -51,6 +52,23 @@ class CommentController extends Controller
           $comment->author_id = $request->user()->id;
 
           AccountUtil::current()->comments()->save($comment);
+
+          $attachments = $request->get('attachments');
+
+          foreach ($attachments as $file) {
+              \Log::info($file);
+              $attachment = new Attachment;
+              $attachment->filename = $file['filename'];
+              $attachment->extension = $file['extension'];
+              $attachment->content_type = $file['content_type'];
+              $attachment->label = $file['label'];
+              $attachment->attachable_type = 'Comment';
+              $attachment->attachable_id = $comment->id;
+              $attachment->user_id = $request->user()->id;
+
+              AccountUtil::current()->attachments()->save($attachment);
+          }
+
           return response()->json(['result' => 'success', 'comment' => $comment]);
         }
     }
@@ -64,7 +82,7 @@ class CommentController extends Controller
     public function show($id, Request $request)
     {
         //$this->setupResource($request);
-        $comment = AccountUtil::current()->comments()->with('author')->findOrFail($id);
+        $comment = AccountUtil::current()->comments()->with('author', 'attachments')->findOrFail($id);
         if($comment) {
           return view('comments.show', compact('comment')); //response()->json(['result' => 'success', 'comment' => $comment]);
         } else {

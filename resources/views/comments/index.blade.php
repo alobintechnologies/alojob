@@ -25,7 +25,7 @@
             <i class="fa fa-paperclip"></i> Drag &amp; drop to attach files or <input type="file" multiple="multiple" class="file-chooser"><button type="button" class="btn-link file-chooser-text">select from your computer</button>
           </div>
           <div class="clearfix"></div>
-          <div class="attachments" id="attachments-preview" file-counter="">
+          <div class="attachments list-group" id="attachments-preview" file-counter="0">
           </div>
         </div>
         <div>

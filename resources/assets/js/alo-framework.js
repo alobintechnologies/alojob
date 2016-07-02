@@ -20,7 +20,7 @@
 
     AloFramework.prototype.getBaseURL = function () {
         return location.protocol + "//" + location.hostname +
-            (location.port && ":" + location.port) + "/alojob/public";
+            (location.port && ":" + location.port);// + "/alojob/public";
         return "";
     }
 

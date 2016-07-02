@@ -29,17 +29,17 @@ class AttachmentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Upload the file into filesystem.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
+     * This will not save the attachments in database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -54,21 +54,20 @@ class AttachmentController extends Controller
         } else {
             $extension = $file->getClientOriginalExtension();
             $directory = storage_path() . "/app/attachments/{$this->resourceType}/{$this->resourceId}";
-            $filename = sha1(time()) . ".{$extension}";
+            $filename = sha1(time());
             $file->move($directory, $filename);
 
             $attachment = new Attachment;
             $attachment->attachable_type = $this->resourceType;
             $attachment->attachable_id = $this->resourceId;
             $attachment->filename = $filename;
+            $attachment->label = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $attachment->content_type = $file->getClientMimeType();
             $attachment->extension = $extension;
             $attachment->user_id = $request->user()->id;
 
-            AccountUtil::current()->attachments()->save($attachment);
+            //AccountUtil::current()->attachments()->save($attachment);
 
-            /*return view('attachments.show', compact('attachment'))
-                      ->with('resourceType', $this->resourceType)
-                      ->with('resourceId', $this->resourceId);*/
             return response()->json(['result' => 'success', 'attachment' => $attachment]);
         }
     }

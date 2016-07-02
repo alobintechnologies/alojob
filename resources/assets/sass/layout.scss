@@ -50,6 +50,7 @@
   }
 }
 .details-panel-layout {
+  box-shadow: 0 -2px 5px 1px rgba(0, 0, 0, 0.05);
   .details-panel-heading {
     padding: 10px 30px 0 30px;
 
@@ -312,6 +313,26 @@
       .note-statusbar {
         display: none;
       }
+    }
+  }
+  .attachments {
+    margin: 15px;
+    .attachment {
+      font-size: 12px;
+      input[name="attachment-label"] {
+        max-width: 400px;
+        border-width: 0px;
+        outline: none;
+        &:hover {
+          background-color: #ffd;
+        }
+        &:focus {
+          border-bottom-width: 1px;
+          background-color: #fff;
+        }
+      }
+    }
+    .attachment-success {
     }
   }
 }

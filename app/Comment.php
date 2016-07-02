@@ -20,4 +20,9 @@ class Comment extends Model
     {
         return $this->belongsTo('App\User', 'author_id');
     }
+
+    public function attachments()
+    {
+        return $this->hasMany('App\Attachment', 'attachable_id')->where('attachable_type', 'Comment');
+    }
 }

@@ -7997,38 +7997,37 @@ button.close {
   .panel.panel-borderless .panel-footer {
     background: none; }
 
-.details-panel-layout .details-panel-heading {
-  padding: 10px 30px 0 30px; }
-  .details-panel-layout .details-panel-heading .details-panel-form-group {
-    margin-bottom: 0; }
-  .details-panel-layout .details-panel-heading .details-panel-title-field {
-    margin-bottom: 0;
-    min-height: 36px;
-    font-size: 28px;
-    line-height: 28px;
-    font-weight: normal;
-    -webkit-appearance: none;
-    border: none;
-    outline: none;
-    background: transparent;
-    box-shadow: none;
-    padding: 0 0 2px;
-    resize: none;
-    overflow: hidden;
-    box-sizing: border-box; }
-  .details-panel-layout .details-panel-heading .panel-details .table {
-    margin-bottom: 0; }
-
-.details-panel-layout .details-panel-body {
-  padding: 30px; }
-
-.details-panel-layout .panel-details .form-group {
-  margin-bottom: 0px; }
-
-.details-panel-layout .details-panel-footer {
-  padding: 15px 30px; }
-  .details-panel-layout .details-panel-footer .panel-details {
-    padding: 10px 30px 30px 30px; }
+.details-panel-layout {
+  box-shadow: 0 -2px 5px 1px rgba(0, 0, 0, 0.05); }
+  .details-panel-layout .details-panel-heading {
+    padding: 10px 30px 0 30px; }
+    .details-panel-layout .details-panel-heading .details-panel-form-group {
+      margin-bottom: 0; }
+    .details-panel-layout .details-panel-heading .details-panel-title-field {
+      margin-bottom: 0;
+      min-height: 36px;
+      font-size: 28px;
+      line-height: 28px;
+      font-weight: normal;
+      -webkit-appearance: none;
+      border: none;
+      outline: none;
+      background: transparent;
+      box-shadow: none;
+      padding: 0 0 2px;
+      resize: none;
+      overflow: hidden;
+      box-sizing: border-box; }
+    .details-panel-layout .details-panel-heading .panel-details .table {
+      margin-bottom: 0; }
+  .details-panel-layout .details-panel-body {
+    padding: 30px; }
+  .details-panel-layout .panel-details .form-group {
+    margin-bottom: 0px; }
+  .details-panel-layout .details-panel-footer {
+    padding: 15px 30px; }
+    .details-panel-layout .details-panel-footer .panel-details {
+      padding: 10px 30px 30px 30px; }
 
 /* 4. summernote styles */
 .editor-borderless {
@@ -8193,6 +8192,20 @@ button.close {
       border: none; }
     .comment-editor .comment-editor-holder .note-editor.note-frame .note-statusbar {
       display: none; }
+
+.comment-editor .attachments {
+  margin: 15px; }
+  .comment-editor .attachments .attachment {
+    font-size: 12px; }
+    .comment-editor .attachments .attachment input[name="attachment-label"] {
+      max-width: 400px;
+      border-width: 0px;
+      outline: none; }
+      .comment-editor .attachments .attachment input[name="attachment-label"]:hover {
+        background-color: #ffd; }
+      .comment-editor .attachments .attachment input[name="attachment-label"]:focus {
+        border-bottom-width: 1px;
+        background-color: #fff; }
 
 .comment .profile-pic {
   color: #ccc; }

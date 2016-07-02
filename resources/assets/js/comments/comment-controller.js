@@ -51,14 +51,23 @@
         onNewFile: function(id, file) {
           //$.danidemo.addFile('#demo-files', id, file);
           var i = id;
-          var template = '<div id="attachment-preview-' + i + '">' +
-		                   '<span class="attachment-preview-id">#' + i + '</span> - ' + file.name + ' <span class="attachment-preview-size">(' + self.humanizeSize(file.size) + ')</span> - Status: <span class="attachment-preview-status">Waiting to upload</span>'+
-		                   '<div class="progress progress-striped active">'+
+          var template = '<div id="attachment-preview-' + i + '" class="attachment">' +
+                        '<input type="hidden" name="attachment-id" value="" /> '+
+                        '<input type="hidden" name="attachment-filename" value="" /> ' +
+                        '<input type="hidden" name="attachment-extension" value="" />' +
+                        '<input type="hidden" name="attachment-content_type" value="" />' +
+		                    //'<span class="attachment-preview-id">#' + i + '</span> - ' +
+                        '<input type="text" name="attachment-label" value="" class="inline" />' +
+                        '<span style="display:none" class="attachment-label-size"></span>'+
+                        '<span class="extension"></span> ' +
+                        ' <span class="attachment-preview-size">(' + self.humanizeSize(file.size) + ')</span>' +
+                        '<span class="attachment-preview-status label label-info">Waiting to upload</span>'+
+		                    '<div class="progress progress-striped active progress-sm">'+
 		                       '<div class="progress-bar" role="progressbar" style="width: 0%;">'+
 		                           '<span class="sr-only">0% Complete</span>'+
 		                       '</div>'+
-		                   '</div>'+
-		               '</div>';
+		                    '</div>'+
+		                '</div>';
             var attachmentsCount = $("#attachments-preview").attr('file-counter');
          		if (!attachmentsCount) {
          			$("#attachments-preview").empty();
@@ -71,21 +80,30 @@
         },
         onComplete: function() {
           //$.danidemo.addLog('#demo-debug', 'default', 'All pending tranfers completed');
+
         },
         onUploadProgress: function(id, percent) {
             var percentStr = percent + '%';
+            var attachmentEl = $('#attachment-preview-' + id);
           //$.danidemo.updateFileProgress(id, percentStr);
-            $('#attachment-preview-' + id).find('div.progress-bar').width(percent);
-		        $('#attachment-preview-' + id).find('span.sr-only').html(percent + ' Complete');
+            attachmentEl.find('div.progress-bar').width(percent);
+		        attachmentEl.find('span.sr-only').html(percent + ' Complete');
         },
         onUploadSuccess: function(id, data) {
-          //$.danidemo.addLog('#demo-debug', 'success', 'Upload of file #' + id + ' completed');
-          //$.danidemo.addLog('#demo-debug', 'info', 'Server Response for file #' + id + ': ' + JSON.stringify(data));
-          //$.danidemo.updateFileStatus(id, 'success', 'Upload Complete');
-          $('#attachment-preview-' + id).find('span.attachment-preview-status').html('Upload Complete').addClass('attachment-preview-status-' + status);
+          var attachmentEl = $('#attachment-preview-' + id);
+          attachmentEl.find('input[name="attachment-filename"]').val(data.attachment.filename);
+          attachmentEl.find('input[name="attachment-extension"]').val(data.attachment.extension);
+          attachmentEl.find('input[name="attachment-content_type"]').val(data.attachment.content_type);
+          attachmentEl.find('input[name="attachment-label"]').val(data.attachment.label);
+          attachmentEl.find('.attachment-label-size').text(data.attachment.label);
+          attachmentEl.find('.extension').text('.'+data.attachment.extension);
+          attachmentEl.find('span.attachment-preview-status').html('Upload Complete').addClass('attachment-preview-status-' + status).hide();
+          var labelTxtBox = attachmentEl.find('input[name="attachment-label"]');
+          labelTxtBox.width(attachmentEl.find('.attachment-label-size').width()); // resize the text box of label
           //$.danidemo.updateFileProgress(id, '100%');
-          $('#attachment-preview-' + id).find('div.progress-bar').width('100%');
-	        $('#attachment-preview-' + id).find('span.sr-only').html('100% Complete');
+          attachmentEl.find('div.progress-bar').width('100%').parent().hide();
+	        attachmentEl.find('span.sr-only').html('100% Complete').hide();
+          attachmentEl.addClass('attachment-success list-group-item');
         },
         onUploadError: function(id, message) {
           //$.danidemo.updateFileStatus(id, 'error', message);
@@ -136,6 +154,25 @@
         });
     };
 
+    CommentController.prototype.getAttachments = function () {
+      var fileCounter = $("#attachments-preview").attr('file-counter');
+      var attachments = [], h = 0;
+      if(fileCounter != '' && fileCounter > 0) {
+        for(var i = 0; i < fileCounter; i++) {
+          var attachmentEl = $("#attachment-preview-" + i);
+          var attachment = {
+            filename: attachmentEl.find('input[name="attachment-filename"]').val(),
+            extension: attachmentEl.find('input[name="attachment-extension"]').val(),
+            label: attachmentEl.find('input[name="attachment-label"]').val(),
+            content_type: attachmentEl.find('input[name="attachment-content_type"]').val(),
+          }
+          attachments[h++] = attachment;
+        }
+      }
+
+      return attachments;
+    };
+
     CommentController.prototype._events = function () {
         var self = this;
         self.showComments();
@@ -160,15 +197,18 @@
         $("#save-comment").click(function() {
           var saveBtn = $(this);
           saveBtn.prop('disabled', true);
+
           var commentObj = {
             comment : $("#comment-editor").summernote('code'),
             resourceType : $("#commentable-type").val(),
-            resourceId : $("#commentable-type-id").val()
+            resourceId : $("#commentable-type-id").val(),
+            attachments: self.getAttachments()
           };
 
           commentService.add(commentObj, function (data) {
             self.updateComments(data);
             $("#comment-editor").summernote('code', '');
+            $("#attachments-preview").html('').attr('file-counter', '0');
             saveBtn.prop('disabled', false);
           });
         });
